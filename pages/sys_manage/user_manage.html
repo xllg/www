@@ -1,0 +1,683 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>用户管理</title> 
+	<link href="../../css/pages/base.css" rel="stylesheet">
+	<link href="../../css/pages/pkh.css" rel="stylesheet">
+	<link href="../../js/datepicker/css/bootstrap.css" rel="stylesheet">   
+	<link href="../../js/datepicker/css/bootstrap-datepicker.css" rel="stylesheet"> 
+	<link rel="stylesheet" href="../../css/jquery.pagination.css" />
+</head> 
+<body>
+	<div class="container">
+		<div id="inner-hd">
+			<div class="crumbs">
+				<i class="crumbs-arrow"></i>
+				<a href="javascript:;" class="crumbs-label">用户管理</a>
+			</div>
+		</div>
+
+		<div id="inner-bd">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item-wrap" ">
+						<div class="kv-item" style="margin-top: 7px;">							
+							<div style="float: right;">
+								<div class="button add" style="margin-right: 6px;">
+									<i class="iconfont">&#xe620;</i>
+									<span class="button-label">新增</span>
+								</div>
+								<div class="button search" >
+									<i class="iconfont">&#xe625;</i>
+									<span class="button-label">搜索</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-content"  style="width:auto;">
+							<table class="grid" id="userlist">
+							</table>
+							<div class="box" style="margin-left: 33%; margin-top: 5px;">
+				                <div id="pagination" class="page fl"></div>
+				            </div>
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+
+			
+			
+		</div>
+
+		<div id="inner-ft">
+
+		</div>
+	</div>
+	
+	<script type="text/template" id="head">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>用户名</th>
+				<th>姓名</th>
+				<th>用户类型</th>
+				<th>管理区域</th>
+				<th>单位</th>										
+				<th>移动电话</th>
+				<th>固定电话</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="userlistin">
+		</tbody>
+	</script>
+	<script type="text/template" id="headinfo">
+		<tr>
+			<td></td>
+			<td>{userName}</td>
+			<td>{name}</td>
+			<td>{userType}</td>
+			<td>{managePart}</td>
+			<td>{workUnit}</td>
+			<td>{mobilePhone}</td>
+			<td>{telephone}</td>
+			<td>																					
+				<div class="button modify" userId={userId}>
+					<i class="iconfont">&#xe621;</i>
+					<span class="button-label">修改</span>
+				</div>
+				<div class="button delete" userId={userId} userType={userType}>
+					<i class="iconfont">&#xe626;</i>
+					<span class="button-label">删除</span>
+				</div>
+			</td>
+		</tr>
+	</script>
+	<script type="text/template" id="add">
+		<div class="add-manage">
+			<form name="addform" action="" id="addform" method="post" enctype="multipart/form-data">
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-label">
+							用户名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="userName" id="userName"><font color="red">*</font>
+						</td>
+						<td class="kv-label">
+							用户密码：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="password" name="passWord" id="passWord"><font color="red">*</font>
+						</td>	
+														
+					</tr>
+					<tr>
+						<td class="kv-label">
+							姓名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="name" id="name"><font color="red">*</font>
+						</td>	
+						<td class="kv-label">
+							用户类型：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<select name="userType" id="userType" onchange="setdefault(this.selectedIndex);">
+								<option value="0">请选择</option>
+								<option value="超级管理员">超级管理员</option>
+								<option value="市级管理员">市级管理员</option>
+								<option value="区县管理员">区县管理员</option>
+								<option value="乡镇管理员">乡镇管理员</option> 
+							</select>
+							<font color="red">*</font>
+						</td>																
+					</tr>
+					<tr>
+						<td class="kv-label">
+							移动电话：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="mobilePhone">
+						</td>
+						<td class="kv-label">
+							固定电话：
+						</td>
+						<td class="kv-content" colspan="3" style="padding: 10px;">
+							<input type="text" name="telephone">
+						</td>						
+					</tr>
+					<tr>						
+						<td class="kv-label">
+							单位：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="workUnit">
+						</td>	
+						<td class="kv-label">
+							职位：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="position">
+						</td>						
+					</tr>
+					<tr>						
+						<td class="kv-label">
+							区县：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<select name="districtId" id="districtId" onchange="townlist(this.selectedIndex)">
+                                <option value="0">请选择</option>
+                            </select>
+                            <font color="red" id="fontdistrict" style="display: none;">*</font>
+						</td>	
+						<td class="kv-label">
+							乡镇：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<select name="townId" id="townId">
+                                <option value="0">请选择</option>
+                            </select>
+                            <font color="red" id="fonttown" style="display: none;">*</font>
+						</td>						
+					</tr>
+					<tr>						
+						<td class="kv-label">
+							备注：
+						</td>	
+						<td colspan="3" class="kv-content" style="padding: 10px;">
+							<input type="text" style="width: 96%" name="remark">
+						</td>											
+					</tr>					
+				</tbody>				
+			</table>
+		</form>
+		</div>
+	</script>
+	<script type="text/template" id="search">
+		<div class="add-manage">
+			<form name="addform" action="" id="addform" method="post" enctype="multipart/form-data">
+			<table class="kv-table">
+				<tbody>					
+					<tr>
+						<td class="kv-label">
+							用户类型：
+						</td>
+						<td colspan="3" class="kv-content" style="padding: 10px;">
+							<select name="userType" id="userType" onchange="setdefault(this.selectedIndex);">
+								<option value="">请选择</option>
+								<option value="超级管理员">超级管理员</option>
+								<option value="市级管理员">市级管理员</option>
+								<option value="区县管理员">区县管理员</option>
+								<option value="乡镇管理员">乡镇管理员</option>
+							</select>
+						</td>													
+					</tr>	
+					<tr>
+						<td class="kv-label">
+							用户名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="userName" id="userName">
+						</td>
+						<td class="kv-label">
+							姓名： 
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="name" id="name">
+						</td>									
+					</tr>					
+					<tr>						
+						<td class="kv-label">
+							区县：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<select name="districtId" id="districtId" onchange="townlist(this.selectedIndex)">
+                                <option value="">请选择</option>
+                            </select>
+                            <font color="red" id="fontdistrict" style="display: none;">*</font>
+						</td>	
+						<td class="kv-label">
+							乡镇：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<select name="townId" id="townId">
+                                <option value="">请选择</option>
+                            </select>
+                            <font color="red" id="fonttown" style="display: none;">*</font>
+						</td>						
+					</tr>	
+				</tbody>				
+			</table>
+		</form>
+		</div>
+	</script>
+	<script type="text/template" id="modify">
+		<div class="add-manage">
+			<form name="addform" action="" id="addform" method="post" enctype="multipart/form-data">
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-label">
+							用户名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="userName" id="userName"><font color="red">*</font>
+							<input type="hidden" name="userId" value="" id="userId">
+						</td>
+						<td class="kv-label">
+							姓名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="name" id="name"><font color="red">*</font>
+						</td>															
+					</tr>
+					<tr>						
+						<td class="kv-label">
+							用户类型：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<select name="userType" id="userType" onchange="setdefault(this.selectedIndex);">
+								<option value="0">请选择</option>
+								<option value="超级管理员">超级管理员</option>
+								<option value="市级管理员">市级管理员</option>
+								<option value="区县管理员">区县管理员</option>
+								<option value="乡镇管理员">乡镇管理员</option> 
+							</select>
+							<font color="red">*</font>
+						</td>	
+						<td class="kv-label">
+							移动电话：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="mobilePhone">
+						</td>															
+					</tr>
+					<tr>
+						
+						<td class="kv-label">
+							固定电话：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="telephone">
+						</td>	
+						<td class="kv-label">
+							单位：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="workUnit">
+						</td>					
+					</tr>					
+					<tr>						
+						<td class="kv-label">
+							区县：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<select name="districtId" id="districtId" onchange="townlist(this.selectedIndex)">
+                                <option value="0">请选择</option>
+                            </select>
+                            <font color="red" id="fontdistrict" style="display: none;">*</font>
+						</td>	
+						<td class="kv-label">
+							乡镇：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<select name="townId" id="townId">
+                                <option value="0">请选择</option>
+                            </select>
+                            <font color="red" id="fonttown" style="display: none;">*</font>
+						</td>						
+					</tr>
+					<tr>	
+						<td class="kv-label">
+							职位：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="position">
+						</td>	
+						<td class="kv-label">
+							备注：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" style="width: 96%" name="remark" id="remark">
+						</td>					
+					</tr>				
+				</tbody>				
+			</table>
+		</form>
+		</div>
+	</script>	
+
+	<script type="text/javascript" src="../../js/jquery.js"></script>
+	<script type="text/javascript" src="../../js/jquery.select.js"></script>
+	<script type="text/javascript" src="../../js/layer/layer.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script src="../../js/jquery.pagination.min.js"></script>
+	<script src="../../js/jquery.form.js"></script>
+
+	<script type="text/javascript">
+		var addressdata,town;
+		addressdata = parent.addressall;
+		var alreadname=[];
+		var alreadsuperadmin=false;
+		function setdefault(n){
+			setSelectVal("districtId","请选择");
+			setSelectVal("townId","请选择");
+			if (n==2||n==1||n==0) {
+				document.getElementById("fontdistrict").style.display="none";
+				document.getElementById("fonttown").style.display="none";
+			}
+			if (n==3) {
+				document.getElementById("fontdistrict").style.display="inline";
+				document.getElementById("fonttown").style.display="none";
+			}
+			if (n==4) {
+				document.getElementById("fontdistrict").style.display="inline";
+				document.getElementById("fonttown").style.display="inline";
+			}
+		}
+		function districtlist() {
+		    var e = document.addform.districtId;
+		    for (var i = 0; i < addressdata.length; i++)
+		        e.options.add(new Option(addressdata[i]["districtName"], addressdata[i]["districtId"]));
+		}
+		function townlist(n) {
+		    var e = document.addform.townId;
+		    for (var i = e.options.length; i > 0; i--) e.remove(i);
+		    setSelectVal("townId","请选择");
+		    if (n == 0) return;
+		    town = addressdata[n - 1]["towns"];
+		    for (var i = 0; i < town.length; i++)
+		        e.options.add(new Option(town[i]["townName"], town[i]["townId"]));
+		}
+		function addIdcopy(start){ //动态给表格添加序号
+			var len = $('#userlist tr').length;
+		    for(var i = 1;i<len;i++){
+		        $('#userlist tr:eq('+i+') td:first').text(start++);		        
+		    }
+		}
+		function processdata(dta){
+			var head = $('#head').html();
+			var headinfo = $('#headinfo').html();
+			if (!dta || dta.length <= 0) {
+		        $('#userlist').empty().append(head);
+		        return;
+		    }		    
+		    var pageData = [];
+		    $.each(dta, function(i, o) {
+				alreadname.push(o.userName);
+				if (o.userType=="超级管理员") {
+					alreadsuperadmin=true;
+				}
+	            pageData.push(formatTemplate(o, headinfo));
+   			})
+   			var Count = pageData.length; //记录条数
+		    var PageSize = 10; //每页显示的条数 
+		    var PageCount = Math.ceil(Count / PageSize); //计算总页数  向上取整,有小数就整数部分加1
+		    var currentPage = 1; //当前页，默认为1
+		    $('#userlist').empty().append(head);
+		    for (i = (currentPage - 1) * PageSize; i < PageSize * currentPage; i++) {
+		        $('#userlistin').append(pageData[i]);
+		    }
+		    addIdcopy(1);
+
+		    $("#pagination").pagination({
+		        currentPage: currentPage,
+		        totalPage: PageCount,
+		        isShow: true,
+		        count: 4,
+		        homePageText: "首页",
+		        endPageText: "尾页",
+		        prevPageText: "上一页",
+		        nextPageText: "下一页",
+		        callback: function(current) {
+		            $('#userlist').empty().append(head);
+		            for (i = (current - 1) * PageSize; i < PageSize * current; i++) {
+		                $('#userlistin').append(pageData[i]);
+		            }
+		           	addIdcopy(1);
+		        }
+		    });
+		}
+		function alreaduser(userName){
+			var temp=1;
+			for (var i = alreadname.length - 1; i >= 0; i--) {
+				if (alreadname[i]==userName) {
+					alert("该用户已存在!");
+					temp=0;
+				}
+			}
+			return temp;
+
+		}
+		$.ajax({
+			url : urlhost+"/fupin/searchuser",  
+		    method : 'get',
+		    dataType : 'json',
+		    async: false,
+		    success: function(dta) {
+		    	processdata(dta);
+		    }
+		});
+		$('select').select();
+
+		$('body').on('click', '.add', function(){
+			layer.open({
+				title: '添加用户',
+				area:['760px','460px'],
+				content: $('#add').html(),
+				btn:['保存', '取消'],
+				btn1:function(index,layero){	
+					var districtId=document.getElementById("districtId").value
+					var townId=document.getElementById("townId").value					    
+					var userName=document.getElementById("userName").value
+					var passWord=document.getElementById("passWord").value
+					var name=document.getElementById("name").value
+					var userType=document.getElementById("userType").value
+					if (userName&&passWord&&name&&userType) {
+						if (userType=="区县管理员") {
+							if (districtId!=0 && alreaduser(userName)) {								
+								$("#townId").find("option").eq(0).val("1").prop("selected",true);
+								document.addform.action=urlhost+"/fupin/adduser";
+				    			$(layero).find('#addform').submit();
+							}else{
+								alert("请选择区县管理员所在区！")
+							}
+						}else if (userType=="乡镇管理员") {
+							if (districtId!=0&&townId!=0 && alreaduser(userName)) {
+								document.addform.action=urlhost+"/fupin/adduser";
+				    			$(layero).find('#addform').submit();
+							}else{
+								alert("请选择乡镇管理员所在区县和乡镇！")
+							}
+						}else if(alreadsuperadmin){
+							alert("只能添加一位超级管理员！");
+						}else{
+							 $("#districtId").val(1);
+							 $("#townId").find("option").eq(0).val("1").prop("selected",true);
+							 if (alreaduser(userName)) {
+							 	document.addform.action=urlhost+"/fupin/adduser";
+				    		 	$(layero).find('#addform').submit();
+							 }							
+						}												
+					}else{
+						alert("*项为必填项！")
+					}				    				    
+				}
+			});
+			$('select').select();
+			districtlist();	
+			$("#addform").ajaxForm(function(data) {
+		        location.reload();
+		    });		
+		})
+
+		$('body').on('click', '.search', function(){
+			layer.open({
+				title: '搜索',
+				area:['760px','295px'],
+				content: $('#search').html(),
+				btn:['搜索', '取消'],
+				btn1:function(index,layero){   
+					if ($("#userType").val()=="区县管理员") {
+						if ($("#districtId").val()) {
+							if($("#userName").val()==""){
+								$("#userName").attr("disabled","disabled"); 
+							}
+							if($("#name").val()==""){
+								$("#name").attr("disabled","disabled"); 
+							}
+							if($("#townId").val()==""){
+								$("#townId").attr("disabled","disabled"); 
+							}
+							document.addform.action=urlhost+"/fupin/searchuser";
+			    			$(layero).find('#addform').submit();
+						}else{
+							alert("请选择区县管理员所在区！")
+						}
+					}else if ($("#userType").val()=="乡镇管理员") {
+						if ($("#districtId").val() && $("#townId").val()) {
+							if($("#userName").val()==""){
+								$("#userName").attr("disabled","disabled"); 
+							}
+							if($("#name").val()==""){
+								$("#name").attr("disabled","disabled"); 
+							}
+							document.addform.action=urlhost+"/fupin/searchuser";
+			    			$(layero).find('#addform').submit();
+						}else{
+							alert("请选择乡镇管理员所在区县和乡镇！")
+						}
+					}else{
+						if($("#userType").val()==""){
+							$("#userType").attr("disabled","disabled"); 
+						}
+						if($("#userName").val()==""){
+							$("#userName").attr("disabled","disabled"); 
+						}
+						if($("#name").val()==""){
+							$("#name").attr("disabled","disabled"); 
+						}
+						if($("#districtId").val()==""){
+							$("#districtId").attr("disabled","disabled"); 
+						}
+						if($("#townId").val()==""){
+							$("#townId").attr("disabled","disabled"); 
+						}
+						document.addform.action=urlhost+"/fupin/searchuser";
+					    $(layero).find('#addform').submit(); 
+						}					
+				}
+			});
+			$('select').select();
+			districtlist();
+			$("#addform").ajaxForm(function(data) {
+		        processdata(data);
+		    });
+		})
+
+		$('body').on('click', '.modify', function(){
+			var userId = $(this).attr("userId");
+			$.ajax({
+				url : urlhost+"/fupin/searchuser?userId="+userId,  
+			    method : 'get',
+			    dataType : 'json',
+			    async: false,
+			    success: function(dta) {
+			    	layer.open({
+						title: '修改用户信息',
+						area:['760px','410px'],
+						content: $('#modify').html(),
+						btn:['保存', '取消'],
+						btn1:function(index,layero){	
+							var districtId=document.getElementById("districtId").value
+							var townId=document.getElementById("townId").value					    
+							var userName=document.getElementById("userName").value
+							var name=document.getElementById("name").value
+							var userType=document.getElementById("userType").value
+							if (userName&&name&&userType) {
+								if (userType=="区县管理员") {
+									if (districtId!=0) {
+										$("#townId").find("option").eq(0).val("1").prop("selected",true);
+										document.addform.action=urlhost+"/fupin/updateuser";
+						    			$(layero).find('#addform').submit();
+									}else{
+										alert("请选择区县管理员所在区！")
+									}
+								}else if (userType=="乡镇管理员") {
+									if (districtId!=0&&townId!=0) {
+										document.addform.action=urlhost+"/fupin/updateuser";
+						    			$(layero).find('#addform').submit();
+									}else{
+										alert("请选择乡镇管理员所在区县和乡镇！")
+									}
+								}else{
+									$("#districtId").val(1);
+									$("#townId").find("option").eq(0).val("1").prop("selected",true);									
+									document.addform.action=urlhost+"/fupin/updateuser";
+						    		$(layero).find('#addform').submit();
+									 						
+								}												
+							}else{
+								alert("*项为必填项！")
+							}			    				    
+						}
+					});
+					districtlist();
+					
+			    	$.each(dta[0],function(key,item){			    		
+					    $("#"+key).val(item||"");
+			    	})
+
+			    	if (dta[0].userType=="市级管理员"||dta[0].userType=="超级管理员") {
+			    		 $("#districtId").val(0);
+			    		 $("#townId").val(0);
+		    		}
+		    		if (dta[0].userType=="区县管理员") {
+			    		townlist(dta[0].districtId)			    		
+		    		}
+		    		if (dta[0].userType=="乡镇管理员") {
+			    		townlist(dta[0].districtId)	
+			    		$("#townId").val(dta[0].townId);		    		
+		    		}
+			    }
+			});
+
+			$('select').select();
+			$("#addform").ajaxForm(function(data) {
+		        location.reload();
+		    });	
+		})
+
+		$('body').on('click', '.delete', function(){
+			var userId  = $(this).attr("userId");	
+			var userType  = $(this).attr("userType");	
+			if (userType=="超级管理员") {
+				alert("此类型用户不能删除！")
+			}else{
+				$.ajax({
+					url : urlhost+"/fupin/deleteuser?userId="+userId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false,
+				    success: function(dta) {
+		       			location.reload();
+					}
+				});
+			}		
+		});
+
+	</script>
+
+</body> 
+</html>

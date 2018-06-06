@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>富民产业</title>
+    <link href="../../css/pages/base.css" rel="stylesheet" />
+    <link href="../../css/pages/supmeasures.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/jquery.pagination.css" />
+</head>
+
+<body>
+    <div id="inner-hd">
+        <div class="crumbs">
+            <i class="crumbs-arrow"></i>
+            <a href="javascript:;" class="crumbs-label">富民产业</a>
+        </div>
+    </div>
+    <div id="inner-bd">
+        <div class="kv-group-outer">
+            <div class="kv-group clearfix">
+                <form name="search" action="" id="search" method="post" enctype="multipart/form-data">
+                    <div class="kv-item-wrap">
+                        <div class="kv-item">
+                            <div class="item-lt">区县：</div>
+                            <div class="item-rt">
+                                <select name="districtId" id="district" onchange="townlist(this.selectedIndex)">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kv-item">
+                            <div class="item-lt">
+                                乡镇：
+                            </div>
+                            <div class="item-rt">
+                                <select name="townId" id="town" onchange="villagelist(this.selectedIndex)">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kv-item">
+                            <div class="item-lt">村委：</div>
+                            <div class="item-rt">
+                                <select name="villageId" id="village">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kv -item">
+                            <div class="button rich-search">
+                                <i class="iconfont"></i>
+                                <span class="button-label">查询</span>
+                            </div>
+                        </div>
+                        <span class="hstotal"> 户管理措施——本次已采集 <em id="hstotal"></em> </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel">
+            <ul class="pkh_tongji" id="pkh_tongji">
+            </ul>
+        </div>
+        <div class="table-zone">
+            <table class="no-data" id="rich">
+            </table>
+            <div class="box" style="margin-left: 33%; margin-top: 5px;">
+                <div id="pagination" class="page fl"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/template" id="pkh_tongjinfo">
+    <li>
+        <p>富民产业受益户数：</p>
+        <p class="num"> <em>{prosperousIndustryNum}</em> <span>户</span></p>
+    </li>
+    <li>
+        <p>富民产业总收入：</p>
+        <p class="num"> <em>{totalIndustryTotalIncome}</em> <span>元</span></p>
+    </li>
+    <li>
+        <p>劳务经济务工收入：</p>
+        <p class="num"> <em>{workTotalIncome}</em> <span>元</span></p>
+    </li>
+    <li>
+        <p>农村金融贷款金额：</p>
+        <p class="num"> <em>{loanTotalAmount}</em> <span>元</span></p>
+    </li>
+    <li>
+        <p>农村金融应贴息金额：</p>
+        <p class="num"> <em>{discountTotalAmount}</em> <span>元</span></p>
+    </li>
+</script>
+<script type="text/template" id="richinfohead">
+    <thead>
+        <tr>
+            <td style="width: 6%">序号</td>
+            <td style="width: 9%">户主姓名</td>
+            <td style="width: 12%">贫苦户所在地</td>
+            <td style="width: 12%">上报年和季度</td>
+            <td style="width: 9%">种植业收入(元)</td>
+            <td style="width: 9%">畜牧业收入(元)</td>
+            <td style="width: 9%">林果业收入(元)</td>
+            <td style="width: 9%">务工收入(元)</td>
+            <td style="width: 12%">其他富民产业收入(元)</td>
+            <td style="width: 28%">操作</td>
+        </tr>
+    </thead>
+    <tbody id="richin">
+    </tbody>
+</script>
+<script type="text/template" id="richinfo">
+    <tr>
+        <td></td>
+        <td>{familyOwnerName}</td>
+        <td>{location}</td>
+        <td>{quarter}</td>
+        <td>{plantIncome}</td>
+        <td>{farmingIncome}</td>
+        <td>{fruitForestIncome}</td>
+        <td>{workIncome}</td>
+        <td>{otherIndustryIncome}</td>
+        <td>
+            <div class="button rich-info" prosperousIndustryId={prosperousIndustryId}>
+                <i class="iconfont">&#xe621;</i>
+                <span class="button-label">查看</span>
+            </div>
+        </td>
+    </tr>
+</script>
+<script type="text/template" id="rich-info">
+    <div class="addrich">
+        <div class="add-manage">
+            <table class="kv-table">
+                <tbody>
+                    <tr>
+                        <td colspan="3" rowspan="2" class="kv-label" style="width: 13%;">
+                            农户基本信息
+                        </td>
+                        <td class="kv-label" style="width: 14%;">
+                            户主姓名：
+                        </td>
+                        <td class="kv-label" style="width: 15%;">
+                            <span>{familyOwnerName}</span>
+                        </td>
+                        <td class="kv-label" style="width: 13%;">
+                            家庭人口：
+                        </td>
+                        <td class="kv-label" style="width: 15%;">
+                            <span>{familyPopulation}</span>
+                        </td>
+                        <td class="kv-label" style="width: 15%;">
+                            上报季度：
+                            <font color="red" style="display: none;">*</font>
+                        </td>
+                        <td class="kv-label" style="width: 15%;">
+                            <span>{quarter}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            联系电话：
+                        </td>
+                        <td class="kv-label">
+                            <span>{phoneNumber}</span>
+                        </td>
+                        <td class="kv-label">
+                            证件号码：
+                        </td>
+                        <td id="Td4" colspan="3" class="kv-label">
+                            <span>{familyOwnerIDCard}</span>
+                        </td>
+                    </tr>
+                    <!-- -种植业- -->
+                    <tr>
+                        <td rowspan="23" class="kv-label" style="width: 2%;">
+                            扶贫
+                            <br> 措施
+                        </td>
+                        <td rowspan="23" class="kv-label" style="width: 2%;">
+                            多元
+                            <br> 富民
+                            <br> 产业
+                        </td>
+                        <td rowspan="3" class="kv-label">
+                            种植业
+                        </td>
+                        <td class="kv-label">
+                            水稻面积(亩)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{riceArea}</span>
+                        </td>
+                        <td class="kv-label">
+                            红薯面积(亩)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{sweetPotatoArea}</span>
+                        </td>
+                        <td class="kv-label">
+                            中药材面积(亩)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{chineseMedicinalArea}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            蔬菜、瓜类面积(亩)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{vegetableArea}</span>
+                        </td>
+                        <td class="kv-label">
+                            其中设施蔬菜面积(大棚、日光温室)(亩)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{greenhouseArea}</span>
+                        </td>
+                        <td class="kv-label">
+                            其它种植面积(亩)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{otherArea}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            种植业收入(元)：
+                        </td>
+                        <td colspan="5" class="kv-content">
+                            <span>{plantIncome}</span>
+                        </td>
+                    </tr>
+                    <!---畜牧业 -->
+                    <tr>
+                        <td rowspan="6" class="kv-label">
+                            畜牧业
+                        </td>
+                        <td class="kv-label">
+                            牛饲养(头)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{cow}</span>
+                        </td>
+                        <td class="kv-label">
+                            年内牛出栏(头)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{cowMarket}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            羊饲养(只)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{sheep}</span>
+                        </td>
+                        <td class="kv-label">
+                            年内羊出栏(只)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{sheepMarket}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            猪饲养(头)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{pig}</span>
+                        </td>
+                        <td class="kv-label">
+                            年内猪出栏(头)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{pigMarket}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            家禽饲养(只)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{poultry}</span>
+                        </td>
+                        <td class="kv-label">
+                            年内家禽出栏(只)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{poultryMarket}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            渔养殖(亩)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{fish}</span>
+                        </td>
+                        <td class="kv-label">
+                            年内渔养殖出栏(亩)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{sweetPotatoArea}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            设施圈舍(平方米)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{facility}</span>
+                        </td>
+                        <td class="kv-label">
+                            畜牧业收入(元)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{farmingIncome}</span>
+                        </td>
+                    </tr>
+                    <!-- -林果业 -->
+                    <tr>
+                        <td rowspan="3" class="kv-label">
+                            林果业
+                        </td>
+                        <td class="kv-label">
+                            林果产业类型：
+                        </td>
+                        <td class="kv-content">
+                            <span>{fruitForestIndustryStructure}</span>
+                        </td>
+                        <td class="kv-label">
+                            林果面积(亩)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{fruitForestArea}</span>
+                        </td>
+                        <td rowspan="2" class="kv-label">
+                            其它林果面积(亩)：
+                        </td>
+                        <td rowspan="2" class="kv-content">
+                            <span>{otherForestArea}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            苗木类型：
+                        </td>
+                        <td class="kv-content">
+                            <span>{nurseryForestType}</span>
+                        </td>
+                        <td class="kv-label">
+                            苗木面积(亩)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{nurseryForestArea}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            林果业收入(元)：
+                        </td>
+                        <td colspan="5" class="kv-content">
+                            <span>{fruitForestIncome}</span>
+                        </td>
+                    </tr>
+                    <!--其它富民产业-->
+                    <tr>
+                        <td class="kv-label">
+                            其它富民产业
+                        </td>
+                        <td class="kv-label">
+                            其它富民产业收入(元):
+                        </td>
+                        <td colspan="5" class="kv-content">
+                            <span>{otherIndustryIncome}</span>
+                        </td>
+                    </tr>
+                    <!-- 土地流转面积- -->
+                    <tr>
+                        <td class="kv-label">
+                            土地流转
+                        </td>
+                        <td class="kv-label">
+                            土地流转面积(亩)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{landTransferArea}</span>
+                        </td>
+                        <td class="kv-label">
+                            土地流转收入(元)：
+                        </td>
+                        <td colspan="3" class="kv-content">
+                            <span>{landTransferIncome}</span>
+                        </td>
+                    </tr>
+                    <!-- -龙头企业- -->
+                    <tr>
+                        <td rowspan="2" class="kv-label">
+                            龙头企业、合作社、种养大户等带动农户收入
+                        </td>
+                        <td class="kv-label">
+                            龙头企业带动收入(元):
+                        </td>
+                        <td class="kv-content">
+                            <span>{leadingEnterpriseDriveIncome}</span>
+                        </td>
+                        <td class="kv-label">
+                            合作社带动收入(元):
+                        </td>
+                        <td class="kv-content">
+                            <span>{cooperationDriveIncome}</span>
+                        </td>
+                        <td class="kv-label">
+                            种养大户带动收入(元):
+                        </td>
+                        <td class="kv-content">
+                            <span>{influentialFamilyDriveIncome}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            是否加入合作社：
+                            <font color="red" style="display: none;">*</font>
+                        </td>
+                        <td class="kv-content">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <label>
+                                                <input type="radio" name="joinCooperation" value="true">是</label>
+                                            <label>
+                                                <input type="radio" name="joinCooperation" value="false">否</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="kv-label">
+                            是否加入农业保险：
+                            <font color="red" style="display: none;">*</font>
+                        </td>
+                        <td colspan="3" class="kv-content">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <label>
+                                                <input type="radio" name="joinAgriculturalInsurance" value="true">是</label>
+                                            <label>
+                                                <input type="radio" name="joinAgriculturalInsurance" value="false">否</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- 劳务经济 -->
+                    <tr>
+                        <td class="kv-label">
+                            劳务经济
+                        </td>
+                        <td class="kv-label">
+                            务工人数(人)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{workersNumber}</span>
+                        </td>
+                        <td class="kv-label">
+                            务工收入(元)：
+                        </td>
+                        <td colspan="3" class="kv-content">
+                            <span>{workIncome}</span>
+                        </td>
+                    </tr>
+                    <!---农村金融-->
+                    <tr>
+                        <td rowspan="4" class="kv-label">
+                            农村金融
+                        </td>
+                        <td class="kv-label">
+                            贷款类型：
+                        </td>
+                        <td class="kv-content">
+                            <span>{loanType}</span>
+                        </td>
+                        <td class="kv-label">
+                            承贷金融机构：
+                        </td>
+                        <td class="kv-content">
+                            <span>{loanInstitution}</span>
+                        </td>
+                        <td class="kv-label">
+                            贷款帐号：
+                        </td>
+                        <td class="kv-content">
+                            <span>{loanAccount}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            贷款总额(元)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{loanAmount}</span>
+                        </td>
+                        <td class="kv-label">
+                            贷款发放时间：
+                        </td>
+                        <td class="kv-content">
+                            <span>{lendingTime}</span>
+                        </td>
+                        <td class="kv-label">
+                            贷款期限(月)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{loanPeriod}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            贷款还款时间：
+                        </td>
+                        <td class="kv-content">
+                            <span>{repaymentDate}</span>
+                        </td>
+                        <td class="kv-label">
+                            执行年利率(%)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{annualInterest}</span>
+                        </td>
+                        <td class="kv-label">
+                            贷款利息(占用费)(元)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{loanInterest}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            应贴息金额(元)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{discountAmount}</span>
+                        </td>
+                        <td class="kv-label">
+                            贷款用途：
+                        </td>
+                        <td colspan="4" class="kv-content">
+                            <span>{loanPurpose}</span>
+                        </td>
+                    </tr>
+                    <!-- 扶贫成效-->
+                    <tr>
+                        <td class="kv-label">
+                            扶贫成效
+                        </td>
+                        <td class="kv-label">
+                            富民产业总收入(元)
+                        </td>
+                        <td colspan="5" class="kv-content">
+                            <span>{totalIndustryIncome}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            备 注
+                        </td>
+                        <td colspan="13" class="kv-content">
+                            <span>{remark}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="kv-label" style="text-align: right;">
+                            帮扶责任人：
+                        </td>
+                        <td class="kv-content">
+                            <span>{assessmentObjectname}</span>
+                        </td>
+                        <td class="kv-label">
+                            帮扶责任人电话：
+                        </td>
+                        <td class="kv-content">
+                            <span>{assessmentObjectphoneNumber}</span>
+                        </td>
+                        <td class="kv-label">
+                            填表时间：
+                        </td>
+                        <td class="kv-content">
+                            <span>{fillInTime}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/jquery.select.js"></script>
+<script type="text/javascript" src="../../js/layer/layer.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/district-town-village-select.js"></script>
+<script src="../../js/jquery.pagination.min.js"></script>
+<script src="../../js/jquery.form.js"></script>
+<script type="text/javascript">
+function objKeySort(obj) { //排序的函数       
+    var data = { "第一季度": "1", "第二季度": "2", "第三季度": "3", "第四季度": "4" };
+
+    function rp(n) {
+        var s = '';
+        s += data[n];
+        return s;
+    }
+    var newkey = Object.keys(obj);
+    var pastr = [];
+    for (i = 0; i < newkey.length; i++) {
+        var arr = newkey[i].split('-'); // 拆分字符串
+        temp = arr[0] + "-" + arr[1] + "-" + rp(arr[2]);
+        pastr.push(temp);
+    }
+    pastr = pastr.sort().reverse();
+    var parstr = [];
+    for (i = 0; i < pastr.length; i++) {
+        var arr = pastr[i].split('-'); // 拆分字符串
+        temp = arr[0] + "-" + arr[1] + "-" + findKey(arr[2]);
+        parstr.push(temp);
+    }
+
+    function findKey(value, compare = (a, b) => a === b) {
+        return Object.keys(data).find(k => compare(data[k], value))
+    }
+    //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
+    var newObj = {}; //创建一个新的对象，用于存放排好序的键值对
+    for (var i = 0; i < parstr.length; i++) { //遍历newkey数组
+        newObj[parstr[i]] = obj[parstr[i]]; //向新创建的对象中按照排好的顺序依次增加键值对
+    }
+    return newObj; //返回排好序的新对象
+}
+
+function dataprocess(dta) {
+    if (!dta || dta.length <= 0) {
+        return;
+    }
+    data = dta.content;
+    var htmlpkh_tongji = $('#pkh_tongjinfo').html();
+    var head = $('#richinfohead').html();
+    var html = $('#richinfo').html();
+    var start = '<tbody>';
+    var end = '</tbody>';
+    htmlpkh_tongji = formatTemplate(dta, htmlpkh_tongji);
+    $('#pkh_tongji').empty().append(htmlpkh_tongji);
+    document.getElementById("hstotal").innerHTML = dta.familyNum + "户";
+    var pageData = [];
+    // $.each(dta.content, function(i, o) {
+    //     pageData.push(formatTemplate(o, html));
+    // });
+    var map = {};
+    for (var i = 0; i < dta.content.length; i++) {
+        // console.log(dta[i]["quarter"]);
+        if (typeof(map[dta.content[i]["quarter"]]) == "undefined") {
+            map[dta.content[i]["quarter"]] = 1;
+        } else {
+            map[dta.content[i]["quarter"]] = map[dta.content[i]["quarter"]] + 1;
+        }
+    }
+    map = objKeySort(map);
+    // console.log(map);
+    for (var quarter in map) {
+        $.each(dta.content, function(i, o) {
+            if (quarter == o["quarter"]) {
+                pageData.push(formatTemplate(o, html));
+            }
+        })
+    }
+    var Count = pageData.length; //记录条数
+    var PageSize = 10; //每页显示的条数 
+    var PageCount = Math.ceil(Count / PageSize); //计算总页数  向上取整,有小数就整数部分加1
+    var currentPage = 1; //当前页，默认为1
+    $('#rich').empty().append(head);
+    for (i = (currentPage - 1) * PageSize; i < PageSize * currentPage; i++) {
+        $('#richin').append(pageData[i]);
+    }
+    addId(PageSize * (currentPage - 1) + 1);
+
+    $("#pagination").pagination({
+        currentPage: currentPage,
+        totalPage: PageCount,
+        isShow: true,
+        count: 4,
+        homePageText: "首页",
+        endPageText: "尾页",
+        prevPageText: "上一页",
+        nextPageText: "下一页",
+        callback: function(current) {
+            $('#rich').empty().append(head);
+            for (i = (current - 1) * PageSize; i < PageSize * current; i++) {
+                $('#richin').append(pageData[i]);
+            }
+            addId(PageSize * (current - 1) + 1);
+        }
+    });
+}
+
+var data;
+$.ajax({
+    url: urlhost + "/fupin/prosperousindustry"+getUrl(),
+    method: 'get',
+    dataType: 'json',
+    async: false,
+    success: function(dta) {
+        dataprocess(dta);
+    }
+});
+$('select').select();
+
+$('body').on('click', '.rich-search', function() {
+    $("#district").removeAttr("disabled");
+    $("#town").removeAttr("disabled");
+    document.search.action = urlhost + "/fupin/prosperousindustry";
+    $('form').submit();
+})
+$(function() {
+    $("#search").ajaxForm(function(data) {
+        dataprocess(data);
+    });
+});
+
+$('body').on('click', '.rich-info', function() {
+    var prosperousIndustryId = $(this).attr("prosperousIndustryId");
+    var html = $('#rich-info').html();
+    var temp;
+    $.each(data, function(i, o) {
+        if (o.prosperousIndustryId == prosperousIndustryId) {
+            temp = o;
+            o.familyPopulation = o.family.familyPopulation;
+            o.phoneNumber = o.family.phoneNumber;
+            o.assessmentObjectname = o.assessmentObject.name;
+            o.assessmentObjectphoneNumber = o.assessmentObject.phoneNumber;
+            pageData = formatTemplate(o, html);
+        }
+    })
+    layer.open({
+        title: '查看详情',
+        area:['95%','85%'],
+        content: pageData,
+        closeBtn: 0,
+        btn: ['退出']
+    });
+
+    radio = ["joinCooperation", "joinAgriculturalInsurance"]
+    $.each(radio, function(i, o) {
+
+        switch (temp[o]) {
+            case true:
+                console.log(temp[o])
+                $("input:radio[name='" + o + "']:eq(0)").attr("checked", "checked");
+                break;
+            case false:
+                $("input:radio[name='" + o + "']:eq(1)").attr("checked", "checked");
+                break;
+                // case null:
+                // $("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+        }
+    });
+
+    $('select').select();
+})
+</script>
+
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>帮扶成效</title>
+    <link href="../../css/pages/base.css" rel="stylesheet">
+    <link href="../../css/pages/supeffects.css" rel="stylesheet">
+     <link rel="stylesheet" href="../../css/jquery.pagination.css" /> 
+</head>
+
+<body>
+    <div class="container">
+        <div id="inner-hd">
+            <div class="crumbs">
+                <i class="crumbs-arrow"></i>
+                <a href="javascript:;" class="crumbs-label" id="crumbs-label"></a>
+            </div>
+        </div>
+        <div id="inner-bd">
+            <div class="kv-group-outer">
+                <div class="kv-group clearfix">
+                    <div class="kv-item-wrap" ">
+						<div class="kv-item " style="margin-top: 7px; ">
+							<ul class="list_tabWrap_uls" id="head">								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="retract " class="measures-warning-tips " style="width: 100%; cursor: pointer; ">
+                    <div style="float: left; margin-top: -4px; ">
+                        <img style="float: left; background-color: #FAE0E3; width: 30px; height: 15px; margin-right: 5px; ">
+                        <i style="float: left; font-size: 13px; color: red ">预警线</i>
+                    </div>
+                    <div style="float: left; margin-top: -4px; ">
+                        <img style="float: left; background-color: #FFADAD; width: 30px; height: 15px; margin: 0 5px 0 30px; ">
+                        <i style="float: left; font-size: 13px; color: red ">未达标</i>
+                    </div>
+                    <a class="icon-measures-wraning " style="margin-top: -15px; background: url(../../imgs/main/jzfp_writeIcon.png) 5px center no-repeat;text-indent: 27px; width: 83px; margin-left: 30px; float: left; line-height: 35px;color: #666; height: 35px; ">
+                        指标规则 
+                    </a>
+            </div>
+            <div class="jzfp_index_h1 jzfp_index_h1List jzfp_index_table warning measures-warning jzfp_writeRule vehicle " id="rule_content " style="display: none; clear: both; width: 97%; padding: 20px 1%;"> 
+				   <p> 指标规则： </p> 
+				   <p> <strong>1.贫困户人均可支配收入：</strong>贫困户人均可支配收入=（经营净收入+工资性收入+财产净收入+转移净收入）&divide;贫困家庭常住人口数，依据扶贫对象管理页面下帮扶成效当前季度数据。该项指标值大于3500，得60分，每涨500加5分；否则得0分。 </p> 
+				   <p> <strong>2.有安全稳固住房：</strong>用砖块、木料或钢筋混凝土建造的房屋为安全稳固住房，判断依据为若有危房改造措施，有安全住房，且房屋危险等级为AB级，则为是；否则为否。 </p> 
+				   <p> <strong>3.农村安全饮水标准是：</strong>水质符合《农村实施&lt;生活饮用水卫生标准&gt;准则》要求的24项常规检测指标，水量每人每天不低于20-40升，人力取水往返时间不超过20分钟(方便程度)，供水保证率不低于90%。得分依据为有饮水安全扶贫措施，且现状以稳定解决或成效已稳定解决，则为是，否则为否。 </p> 
+				   <p> <strong>4.无因贫辍学学生：</strong>得分依据为户信息中因贫辍学人数，若为0或空，则为是，大于等于1，则为否。</p> 
+				   <p> <strong>5.参加新型农村合作医疗：</strong>得分依据为家庭成员信息中是否全部参加新型农村合作医疗，全部参加则为是，否则为否。</p> 
+				   <p> <strong>6.参加城乡居民基本养老保险：</strong>得分依据为家庭成员信息中非在校生，且年龄大于18岁成员是否全部参加城乡居民基本养老保险，全部参加则为是，否则为否。 </p> 
+				   <p></p> 
+			</div>
+
+			<table class="kv-table ">
+				<tbody id="list">
+				</tbody> 
+			</table>
+			<div class="box" style="margin-left: 33%; margin-top: 5px;">
+                <div id="pagination" class="page fl"></div>
+            </div>
+		</div>
+	</div>
+</body>
+
+<script type="text/template" id="listinfohead">
+	<tr>
+		<td class="kv-label " style="width: 5%">序号</td>
+		<td class="kv-label " style="width: 8%">户主姓名</td>
+		<td class="kv-label " style="width: 8%">贫困户属性</td>   
+		<td class="kv-label " style="width: 17%">主要致贫原因</td>                
+		<td class="kv-label " style="width: 25%">贫困户所在地</td>                    
+		<td class="kv-label " style="width: 8%">收入得分</td>
+		<td class="kv-label " style="width: 8%">两不愁三保障</td>
+		<td class="kv-label ">操作</td>
+	</tr> 
+</script>
+<script type="text/template" id="listinfo">	
+	<tr style="background-color:{colorOfNotReachStandardFamily}">
+		<td class="kv-content "></td>
+		<td class="kv-content ">{familyOwnerName}</td>
+		<td class="kv-content ">{povertyGrade}</td>   
+		<td class="kv-content ">{mainReason}</td>                
+		<td class="kv-content ">{location}</td>                    
+		<td class="kv-content ">{incomePoint}</td>
+		<td class="kv-content " style="color:{colorOfTotally}; ">{totally}</td>
+		<td class="kv-content ">
+			<a href="../pinkunhuguanli/manage_pkh_info.html?familyId={familyId}&townId={townId}">
+				<div class="button " >
+					<i class="iconfont ">&#xe601;</i>
+					<span class="button-label ">查看详情</span>
+				</div>
+			</a>
+			<div class="button toggleInfo">
+				<i class="iconfont ">&#xe615;</i>
+				<span class="button-label ">指标得分</span>
+			</div>
+		</td>
+	</tr>
+	<tr style="display: none;vertical-align: inherit; border-color: inherit;">
+        <td class="kv-content" colspan="8" style="padding-left: 8%;">
+        	<ul>
+                <li>
+                    <div class="dxdb_numbox " style="width: 140px; ">
+                        <p class="num " style="text-align: left ">
+                            <em class="numcover " style="color: {colorOfIncomePoint}; margin-right: 1px; "><span id="ContentPlaceHolder1_repeater_effection_lbl_core1_0 ">{incomePoint}</span><i></i></em>
+                            <em style="color: #999999; padding-top: 0px; padding-right: 2px; margin-right: 1px; font-size: 20px ">/<i></i></em>
+                            <em class="numcover " style="color: #999999; font-size: 18px ">100<i></i></em>
+                        </p>
+                        <p>
+                            贫困户人均可支配收入
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dxdb_numbox " style="width: 125px; ">
+                        <p class="num " style="text-align: left ">
+                            <em class="numcover " style="color: {colorOfHaveSafeHouse}; margin-right: 1px; "><span id="ContentPlaceHolder1_repeater_effection_lbl_core2_0 ">{haveSafeHouse}</span><i></i></em>
+                        </p>
+                        <p>
+                            是否有安全稳固住房
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dxdb_numbox " style="width: 100px; ">
+                        <p class="num " style="text-align: left ">
+                            <em class="numcover " style="color: {colorOfHaveSafeWater}; margin-right: 1px; "><span id="ContentPlaceHolder1_repeater_effection_lbl_core3_0 ">{haveSafeWater}</span><i></i></em>
+                        </p>
+                        <p>
+                            是否有安全饮水
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dxdb_numbox " style="width: 125px; ">
+                        <p class="num " style="text-align: left ">
+                            <em class="numcover " style="color: {colorOfNoDropoutStudents}; margin-right: 1px; "><span id="ContentPlaceHolder1_repeater_effection_lbl_core4_0">{noDropoutStudents}</span><i></i></em>
+                        </p>
+                        <p>
+                            是否无因贫辍学学生
+                        </p>
+                	</div>
+                </li>
+				<li>
+                    <div class="dxdb_numbox " style="width: 160px; ">
+                        <p class="num " style="text-align: left ">
+                            <em class="numcover " style="color: {colorOfJoinMedicalCooperation}; margin-right: 1px; "><span id="ContentPlaceHolder1_repeater_effection_lbl_core6_0 ">{joinMedicalCooperation}</span><i></i></em>
+                        </p>
+                        <p>
+                            是否参加新型农村合作医疗
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dxdb_numbox " style="width: 185px; ">
+                        <p class="num " style="text-align: left ">
+                            <em class="numcover " style="color: {colorOfJoinEndowmentInsurance}; margin-right: 1px; "> <span id="ContentPlaceHolder1_repeater_effection_lbl_core7_0 ">{joinEndowmentInsurance}</span><i></i></em>
+                        </p>
+                        <p>
+                            是否参加城乡居民基本养老保险
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </td>
+    </tr>
+</script>
+<script type="text/template" id="headinfo">
+	<a href="# ">
+		<li class="blue " style="width:286px; ">
+		   	<h1>全部</h1>
+		   	<span>
+	    		<dl style="border-bottom:1px solid #e4e4e4;clear:right ">
+	        		<dt>人 数</dt>
+	        		<dt style="width:6px; ">/</dt>
+	        		<dt>户 数</dt>
+	    		</dl>
+	    		<dl style="clear:left; ">
+	        		<dt>{totalPeopleNum}</dt>
+	        		<dt style="width:6px; ">/</dt>
+	        		<dt>{totalFamilyNum}</dt>
+	    		</dl>
+				</span>
+		</li>
+	</a>
+	<a href="# ">
+		<li class="green " style="width:411px; ">
+		   	<h1>达标</h1>
+		   	<span>
+	    		<dl style="border-bottom:1px solid #e4e4e4;clear:right ">
+	        		<dt>人 数</dt>
+	        		<dt style="width:6px; ">/</dt>
+	        		<dt>户 数</dt>
+	        		<dt style="width:6px; ">/</dt>
+	        		<dt>户达标率</dt>
+	    		</dl>
+	    		<dl style="clear:left; ">
+	    			<dt>{reachStandardPeople}</dt>
+	        		<dt style="width:6px; ">/</dt>
+	        		<dt>{reachStandardFamily}</dt>
+	        		<dt style="width:6px; ">/</dt>
+	        		<dt>{rateOfReachStandardFamily}</dt>
+	    		</dl>
+				</span>
+		</li>
+	</a>
+	<a href="# ">
+		<li class="red " style="width: 411px; ">
+	    	<h1>未达标</h1>
+	        <span>
+	            <dl style="border-bottom: 1px solid #e4e4e4; clear: right ">
+	                <dt>人 数</dt>
+	                <dt style="width: 6px; ">/</dt>
+	                <dt>户 数</dt>
+	                <dt style="width: 6px; ">/</dt>
+	                <dt>户未达标率</dt>
+	            </dl>
+	            <dl style="clear: left; ">
+	                <dt>{notReachStandardPeople}</dt>
+	                <dt style="width: 6px; ">/</dt>
+	                <dt>{notReachStandardFamily}</dt>
+	                <dt style="width: 6px; ">/</dt>
+	                <dt>{rateOfNotReachStandardFamily}</dt>
+	            </dl>
+	        </span>
+	    </li>
+	</a>
+</script>
+<script type="text/javascript " src="../../js/jquery.js "></script>
+<script type="text/javascript " src="../../js/layer/layer.js "></script>
+<script type="text/javascript " src="../../js/common.js "></script>
+<script src="../../js/jquery.pagination.min.js"></script>
+<script type="text/javascript" src="../../js/getUrlParam.js"></script>
+
+<script>
+var townId=UrlParm.parm("townId");
+var townName=UrlParm.parm("townName");
+if (townId) {
+	urlhost=urlhost + "/fupin/assistanceeffectmanagement?townId="+townId;
+}else{
+	urlhost=urlhost + "/fupin/assistanceeffectmanagement";
+}
+if (townName) {
+	document.getElementById("crumbs-label").innerHTML=townName;
+}else{
+	document.getElementById("crumbs-label").innerHTML="重庆市";
+}
+$.ajax({
+    url: urlhost,
+    method: 'get',
+    dataType: 'json',
+    async: false,
+    success: function(dta) {        
+        if (!dta || dta.length <= 0) {
+	        return;
+	    }	    
+	    var headinfo = $('#headinfo').html();
+	    var listinfo = $('#listinfo').html();
+	    var listinfohead = $('#listinfohead').html();
+	    headinfo=formatTemplate(dta, headinfo);
+	    $('#head').empty().append(headinfo);
+
+	    var pageData = [];
+
+	    for (var i = 0; i < dta.content.length; i++) {
+	    	id=i+1;
+	    	switch (dta.content[i].povertyGrade){
+            	case 1:
+	            	dta.content[i].povertyGrade = "一般贫困户";
+	            	break;
+            	case 2:
+	            	dta.content[i].povertyGrade = "低保贫困户";
+	            	break;
+            	case 3:
+	            	dta.content[i].povertyGrade = "五保贫困户";
+	            	break;
+	            case null:
+	            	dta.content[i].povertyGrade = "";
+	            	break;
+            }
+            for(var item in dta.content[i]){
+            	switch (dta.content[i][item]){
+	            	case true:
+		            	dta.content[i][item] = "是";
+		            	break;
+	            	case false:
+		            	dta.content[i][item] = "否";
+		            	break;
+		            case null:
+		            	dta.content[i][item] = "";
+		            	break;
+	            }
+            } 
+	    	pageData.push(formatTemplate(dta.content[i], listinfo)); 
+	    }
+	    
+	    var Count = pageData.length; //记录条数
+	    var PageSize = 10; //每页显示的条数 
+	    var PageCount = Math.ceil(Count / PageSize); //计算总页数  向上取整,有小数就整数部分加1
+	    var currentPage = 1; //当前页，默认为1
+	    $('#list').empty().append(listinfohead);
+	    for (i = (currentPage - 1) * PageSize; i < PageSize * currentPage; i++) {
+	        $('#list').append(pageData[i]);
+	    }
+	    addIdcopy(1);
+
+	    $("#pagination").pagination({
+		     currentPage: currentPage,
+		     totalPage: PageCount,
+		     isShow: true,
+		     count: 4,
+		     homePageText: "首页",
+		     endPageText: "尾页",
+		     prevPageText: "上一页",
+		     nextPageText: "下一页",
+		     callback: function(current) {
+		        $('#list').empty().append(listinfohead);
+		        for(i=(current-1)*PageSize;i<PageSize*current;i++){    
+		             $('#list').append(pageData[i]);  
+		        } 
+		        addIdcopy(1);
+				$('.toggleInfo').click(function () {
+				    $(this).closest('tr').next().toggle();
+				});
+		     }
+	    }); 
+    }
+});
+
+function addIdcopy(start){ //动态给表格添加序号
+	var len = $('table tr').length;
+    for(var i = 1;i<len;){
+        $('table tr:eq('+i+') td:first').text(start++);
+        i+=2;
+    }
+}
+$('.icon-measures-wraning').click(function () {
+    $('.jzfp_writeRule').toggle();
+});
+
+$('.toggleInfo').click(function () {
+    
+    $(this).closest('tr').next().toggle();
+    // console.log($(this).parent().text())
+});
+
+
+
+</script>
+
+
+</body> 
+</html>

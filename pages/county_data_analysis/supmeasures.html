@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>区县贫困户帮扶措施</title>
+    <!-- 引入 echarts.js -->
+    <script src="../../js/charts/echarts.min.js"></script>
+    <script src="../../js/charts/walden.js"></script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="width: 100%;height:400px;border: 1px solid #dadada;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'), 'walden');
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '区县贫困户帮扶措施'
+            },
+            tooltip: {
+
+            },
+            legend: {
+                data:['贫困户帮扶措施']
+            },
+            toolbox: {
+                show : true,
+                // y:'20',
+                feature : {
+                    mark : {show: false},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            // dataZoom : {
+            //     show : false,
+            //     realtime : true,
+            //     // y: 320,
+            //     height: 20,
+            //     start : 0,
+            //     end : 30
+            // },
+            grid: { 
+            	top:'10%', 
+			    left: '1%',  
+			    right: '2%',  
+			    bottom: '2%',  
+			    containLabel: true  
+			},
+            xAxis: {
+                // data: ["富民产业","专项扶贫","劳动力培训","社会援助","金融扶贫","危房改造","饮水安全"]  
+                data:[]
+            },            
+            yAxis: {},
+            series: [{
+                name: '贫困户帮扶措施',
+                type: 'line',
+                // smooth: true,
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                // data: [15, 25, 46, 20, 20, 30, 20]
+                data:[]
+            }]
+        };
+        var data = parent.citydata.assistanceMeasure; 
+        for(var item in data){
+            option.xAxis.data.push(item)
+            option.series[0].data.push(data[item])         
+        }
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

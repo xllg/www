@@ -1,0 +1,235 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>帮扶成效</title> 
+	<link href="../../css/pages/base.css" rel="stylesheet">
+	<link href="../../css/pages/performance_planning.css" rel="stylesheet">
+	<link href="../../js/datepicker/css/bootstrap.css" rel="stylesheet">   
+	<link href="../../js/datepicker/css/bootstrap-datepicker.css" rel="stylesheet"> 
+	<link rel="stylesheet" href="../../css/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" href="../../css/jquery.pagination.css" />
+</head> 
+<body>
+	<div class="container">
+		<div id="inner-hd">
+			<div class="crumbs">
+				<i class="crumbs-arrow"></i>
+				<a href="javascript:;" class="crumbs-label">考核详情</a>
+			</div>
+		</div>
+
+		<div id="inner-bd">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item-wrap" ">
+						<div class="kv-item" style="margin-top: 7px;height: 40px;">
+							<!-- <div style="float: right;">
+								<div class="button add" style="margin-right: 6px;">
+									<i class="iconfont">&#xe620;</i>
+									<span class="button-label">新增</span>
+								</div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+			</div>			
+
+			<table class="kv-table" >
+				<tbody id="kpi">	
+				</tbody>
+			</table>
+			<div class="box" style="margin-left: 33%; margin-top: 5px;">
+				<div id="pagination" class="page fl"></div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/template" id="kpi-list-head">		
+		<tr>
+			<td rowspan="2" class="kv-label" style="width: 5%">序号</td>
+			<td rowspan="2" class="kv-label" >考核计划</td>
+			<td rowspan="2" class="kv-label" >考核计划总分</td>
+			<td rowspan="2" class="kv-label" >考核人</td>			
+			<td rowspan="2" class="kv-label" >考核时间</td>	
+			<td colspan="5" class="kv-label" style="width: 20%">考核指标 </td>			
+		</tr> 
+		<tr>
+			<td class="kv-label" style="width: 20%">考核指标项</td>  
+			<td class="kv-label" style="width: 5%">分值</td>
+			<td class="kv-label" style="width: 20%">计分办法</td>
+			<td class="kv-label" style="width: 10%">备注</td>
+			<td class="kv-label" style="width: 10%">得分</td>
+		</tr> 		
+	</script>
+
+	<script type="text/template" id="plan-list">
+		<td rowspan="{numOfAssessmentIndex}" class="kv-content"></td>
+		<td rowspan="{numOfAssessmentIndex}" class="kv-content">{title}</td>
+		<td rowspan="{numOfAssessmentIndex}" class="kv-content">{totalPoint}</td>
+		<td rowspan="{numOfAssessmentIndex}" class="kv-content">{assessmenters}</td>
+		<td rowspan="{numOfAssessmentIndex}" class="kv-content">{start}-{end}</td>			
+	</script>
+
+	<script type="text/template" id="kpi-list">		
+		<td class="kv-content">{assessmentIndexItem}</td>   
+		<td class="kv-content">{indexCount}</td>
+		<td class="kv-content">{countStandard}</td>
+		<td class="kv-content">{remark}</td>
+		<td class="kv-content">{point}</td>		
+	</script>
+
+	<script type="text/javascript" src="../../js/jquery.js"></script>
+	<script type="text/javascript" src="../../js/jquery.select.js"></script>
+	<script type="text/javascript" src="../../js/layer/layer.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../js/datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="../../js/datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	<script type="text/javascript" src="../../js/ztree/jquery-ztree-2.5.js"></script>
+	<script src="../../js/getUrlParam.js"></script>
+	<script src="../../js/jquery.form.js"></script>
+	<script src="../../js/jquery.pagination.min.js"></script>
+
+	<script>
+	    var assessmentObjectId=UrlParm.parm("assessmentObjectId");
+	    $.ajax({   
+				    url : urlhost+"/fupin/getplanbyobject?assessmentObjectId="+assessmentObjectId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {				    	
+				        if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        var head = $('#kpi-list-head').html();
+				        var planhtml = $('#plan-list').html();  
+				        var kpihtml = $('#kpi-list').html();
+				        var pageData = []; 
+				        var pageDataId = []; 
+				        var lastlen=0; 
+				        $.each(dta, function(i, o) {  				            
+				            var plandata = formatTemplate(o, planhtml); 			           
+				          	pageData.push(plandata);
+				          	pageDataId.push(o.assessmentPlanId);
+
+				        }); 
+				        var Count = pageData.length;//记录条数
+				        var PageSize = 10; //每页显示的条数 
+				        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+				        var currentPage = 1; //当前页，默认为1
+				      	
+				      	$('#kpi').empty().append(head);
+				      	var k=1;
+				      	var n=0;
+						if (pageData.length<=PageSize) 
+							for(i=0;i<pageData.length;i++,n++){ 
+								var firstr="<tr id=\"kpi-listin"+n+"\"></tr>";
+								$('#kpi').append(firstr);
+						        $("#kpi-listin"+n).append(pageData[i]); 						        
+						        var kpidata=[];
+						        $.ajax({
+				            		url: urlhost+"/fupin/getassessmentindexscorebyplan?assessmentPlanId="+pageDataId[i]+"&assessmentObjectId="+assessmentObjectId,  
+								    method : 'get',
+								    dataType : 'json',
+								    async: false, 
+								    success: function(data) {								    	
+								    	if (!data || data.length <= 0) {  
+								            return;  
+								        } 							        		
+							        	$.each(data, function(i, o) {  					   
+								          	kpidata.push(formatTemplate(o, kpihtml));
+								        }); 
+							        	$("#kpi-listin"+n).append(kpidata[0]);							        	
+							        	for(j=1;j<kpidata.length;j++,k++){	
+							        		var start = "<tr id=\"secin"+k+"\"></tr>" 							        		
+							        		$('#kpi').append(start);
+							        		$("#secin"+k).append(kpidata[j]);					        		
+							        	}
+							        }
+					            });
+
+							}
+						else
+							for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++,n++){  						        
+							   		var firstr="<tr id=\"kpi-listin"+n+"\"></tr>";
+									$('#kpi').append(firstr);
+							        $("#kpi-listin"+n).append(pageData[i]); 						        
+							        var kpidata=[];
+							        $.ajax({
+					            		url: urlhost+"/fupin/getassessmentindexscorebyplan?assessmentPlanId="+pageDataId[i]+"&assessmentObjectId="+assessmentObjectId,  
+									    method : 'get',
+									    dataType : 'json',
+									    async: false, 
+									    success: function(data) {								    	
+									    	if (!data || data.length <= 0) {  
+									            return;  
+									        } 							        		
+								        	$.each(data, function(i, o) {  					   
+									          	kpidata.push(formatTemplate(o, kpihtml));
+									        }); 
+								        	$("#kpi-listin"+n).append(kpidata[0]);							        	
+								        	for(j=1;j<kpidata.length;j++,k++){	
+								        		var start = "<tr id=\"secin"+k+"\"></tr>" 							        		
+								        		$('#kpi').append(start);
+								        		$("#secin"+k).append(kpidata[j]);					        		
+								        	}
+								        }
+						            });
+								}	    	 
+						
+					    addIds(PageSize,currentPage,n);
+
+				        $("#pagination").pagination({
+							currentPage: currentPage,
+							totalPage: PageCount,
+							isShow: true,
+							count: 4,
+							homePageText: "首页",
+							endPageText: "尾页",
+							prevPageText: "上一页",
+							nextPageText: "下一页",
+							callback: function(current) {
+								$('#kpi').empty().append(head);
+								k=1;
+				      			n=0;
+								for(i=(current-1)*PageSize;i<PageSize*current;i++,n++){  
+						            var firstr="<tr id=\"kpi-listin"+n+"\"></tr>";
+									$('#kpi').append(firstr);
+							        $("#kpi-listin"+n).append(pageData[i]); 						        
+							        var kpidata=[];
+							        $.ajax({
+					            		url: urlhost+"/fupin/getassessmentindexscorebyplan?assessmentPlanId="+pageDataId[i]+"&assessmentObjectId="+assessmentObjectId,  
+									    method : 'get',
+									    dataType : 'json',
+									    async: false, 
+									    success: function(data) {								    	
+									    	if (!data || data.length <= 0) {  
+									            return;  
+									        } 							        		
+								        	$.each(data, function(i, o) {  					   
+									          	kpidata.push(formatTemplate(o, kpihtml));
+									        }); 
+								        	$("#kpi-listin"+n).append(kpidata[0]);							        	
+								        	for(j=1;j<kpidata.length;j++,k++){	
+								        		var start = "<tr id=\"secin"+k+"\"></tr>" 							        		
+								        		$('#kpi').append(start);
+								        		$("#secin"+k).append(kpidata[j]);					        		
+								        	}
+								        }
+						            });  
+						        }
+						        addIds(PageSize,current,n);
+							}
+						});				        
+				    }  
+				});
+
+		function addIds(PageSize,currentPage,n){ //动态给表格添加序号
+			start = PageSize*(currentPage-1)+1;	
+	        for(var i = 0;i<n;i++){
+	            $("#kpi-listin"+i+" td:first").text(start++);
+	        }
+		}		 
+	</script>
+</body> 
+</html>

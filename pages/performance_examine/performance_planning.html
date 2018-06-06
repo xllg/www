@@ -1,0 +1,776 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>帮扶成效</title> 
+	<link href="../../css/pages/base.css" rel="stylesheet">
+	<link href="../../css/pages/performance_planning.css" rel="stylesheet">
+	<link href="../../js/datepicker/css/bootstrap.css" rel="stylesheet">   
+	<link href="../../js/datepicker/css/bootstrap-datepicker.css" rel="stylesheet"> 
+	<link rel="stylesheet" href="../../css/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" href="../../css/jquery.pagination.css" />
+	<!-- <link rel="stylesheet" href="../../css/validform_style.css" /> -->
+</head> 
+
+<body>
+	<div class="container">
+		<div id="inner-hd">
+			<div class="crumbs">
+				<i class="crumbs-arrow"></i>
+				<a href="javascript:;" class="crumbs-label">考核计划</a>
+			</div>
+		</div>
+
+		<div id="inner-bd">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item-wrap" ">
+						<div class="kv-item" style="margin-top: 7px;height: 40px;">
+							<div style="float: right;">
+								<div class="button add" style="margin-right: 6px;">
+									<i class="iconfont">&#xe620;</i>
+									<span class="button-label">新增</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+
+			<table class="kv-table" id="plan">
+			</table>
+				<div class="box" style="margin-left: 33%; margin-top: 5px;">
+					<div id="pagination" class="page fl"></div>
+				</div>
+		</div>
+	</div>
+	<script type="text/template" id="plan-list-head">
+		<tbody>
+			<tr>
+				<td class="kv-label" style="width: 4%">序号</td>
+				<td class="kv-label" style="width: 10%">计划名称</td>
+				<td class="kv-label" style="width: 8%">考核开始时间</td>   
+				<td class="kv-label" style="width: 8%">考核结束时间</td>                
+				<td class="kv-label" style="width: 13%">计划内容简介</td>                    
+				<td class="kv-label" style="width: 8%">考核对象类型</td>
+				<td class="kv-label" style="width: 8%">考核计划状态</td>
+				<td class="kv-label">操作</td>
+			</tr> 
+	</script>
+
+	<script type="text/template" id="plan-list">
+	    <tr>
+	        <td class="kv-content"></td>
+	        <td class="kv-content">{title}</td>
+	        <td class="kv-content">{start}</td>
+	        <td class="kv-content">{end}</td>
+	        <td class="kv-content">{content}</td>
+	        <td class="kv-content">科技特派员</td>
+	        <td class="kv-content">{strIsOn}</td>
+	        <td class="kv-content">
+	            <div class="button info" assessmentPlanId="{assessmentPlanId}">
+	                <i class="iconfont">&#xe601;</i>
+	                <span class="button-label">详情</span>
+	            </div>
+	            <div class="button modify" assessmentPlanId="{assessmentPlanId}">
+	                <i class="iconfont">&#xe621;</i>
+	                <span class="button-label">修改</span>
+	            </div>
+	            <a href="kpi_manage.html?assessmentPlanId={assessmentPlanId}">
+	                <div class="button">
+	                    <i class="iconfont">&#xe620;</i>
+	                    <span class="button-label">考核指标</span>
+	                </div>
+	            </a>
+	            <div class="button delete" assessmentPlanId="{assessmentPlanId}">
+	                <i class="iconfont">&#xe609;</i>
+	                <span class="button-label">删除</span>
+	            </div>
+	        </td>
+	    </tr>
+	</script>
+
+	<script type="text/template" id="add">
+			<div class="add-member">
+				<div class="add-manage">
+					<form action="" name="addform" id="formadd" class="add-form" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label">
+									考核标题：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="title">
+									<input type="hidden" name="townId" id="townId">
+								</td>
+								<td class="kv-label">
+									考核总分值：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="totalPoint">
+								</td>									
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核对象类型：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									科技特派员
+								</td>
+								<td class="kv-label">
+									考核计划状态：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="radio" name="on" value="true">开启
+									<input type="radio" name="on" value="false">关闭
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核时间：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<div class="date">
+										<input type="text" name="start" id="start">
+										<i class="iconfont">&#xe784;</i> 	
+										&#151;                       		
+									</div>									
+									<div class="date">
+										<input type="text" name="end" id="end">
+										<i class="iconfont">&#xe784;</i> 	                       		
+									</div>	
+									
+								</td>								
+							</tr>	
+							<tr>
+								<td rowspan="2" class="kv-label">
+									考核对象：
+								</td>
+								<td class="kv-label">
+									可选考核对象
+								</td>
+								<td class="kv-label">
+									操作
+								</td>								
+					    		<td class="kv-label">
+									选定考核对象
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-content" align="left" valign="top" width="40%" id="td_tree1">
+									<ul id="srcTree" class="tree" style="width:100%; overflow:auto;"></ul>
+								</td>
+					    		<td class="kv-content" align="center" valign="middle" width="10%">
+					    			<div class="button addRole">
+										<i class="iconfont">&#xe611;&#xe611;</i>
+										<input type="hidden" name="objects" id="objects">
+									</div>
+									<div class="button delRole">
+										<i class="iconfont">&#xe608;&#xe608;</i>
+									</div>
+					    		</td>
+					    		<td class="kv-content" align="left" valign="top" width="40%" id="td_tree2">
+									<ul id="tarTree" class="tree" style="width:100%; overflow:auto;"></ul>
+								</td>								
+							</tr>
+							<tr> 
+								<td class="kv-label">
+									考核内容：
+								</td>
+								<td colspan="3" class="kv-content" style="height: 100px">
+									<textarea name="content" style="width: 95%;height: 95%"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核人员：
+								</td>
+								<td colspan="3" id="assessmenters" class="kv-content" style="padding: 10px;">
+									<!-- <input type="radio" name="assessmenters">李四
+									<input type="radio" name="assessmenters">李四
+									<input type="radio" name="assessmenters">李四  -->
+								</td>
+							</tr>	
+						</tbody>
+					</table>
+				</form>
+				</div>
+			</div>
+	</script>
+	<script type="text/template" id="next">
+			
+			<div class="add-member">
+				<div class="add-manage">
+					<form action="" name="nextform" id="formnext" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label">
+									考核计划：
+								</td>
+								<td class="kv-content" id="plantitle" style="padding: 10px;">
+									<!-- <select name="assessmentPlanId" id="planid">
+										<option value="">请选择</option>
+										<option value="98">1</option>
+										<option value="1">2</option>
+									</select> -->
+								</td>
+								<td class="kv-label">
+									考核项分值：
+								</td>
+								<td class="kv-content"  style="padding: 10px;">
+									<input name="indexCount" type="text">
+								</td>									
+							</tr>
+							<tr> 
+								<td class="kv-label">
+									考核指标项：
+								</td>
+								<td colspan="3"  class="kv-content" style="height: 100px">
+									<textarea name="assessmentIndexItem" style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									计分标准与方法：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea name="countStandard" style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									备注：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea name="remark" style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>	
+						</tbody>
+					</table>
+				</form>
+				</div>
+			</div>
+	</script>
+	<script type="text/template" id="info">
+			<div class="add-member">
+				<div class="add-manage">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label">
+									考核标题：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									{title}
+								</td>
+								<td class="kv-label">
+									考核总分值：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									{totalPoint}
+								</td>									
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核对象类型：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									科技特派员
+								</td>
+								<td class="kv-label">
+									考核计划状态：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									{strIsOn}
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核时间：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									{start}&nbsp;&#151;&nbsp;{end}  
+								</td>								
+							</tr>	
+							<tr>
+								<td class="kv-label">
+									考核对象：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<!-- <label><input type="checkbox" checked="checked">张三</label> -->
+									{assessmentObjects}
+								</td>								
+							</tr>
+							
+							<tr> 
+								<td class="kv-label">
+									考核内容：
+								</td>
+								<td colspan="3" class="kv-content" style="height: 100px">
+									<textarea style="width: 95%;height: 95%">{content}</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核人员：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									{assessmenters}
+									<!-- <label><input type="checkbox">李四</label>-->
+								</td>
+							</tr>	
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</script>
+	<script type="text/template" id="modify">
+			<div class="add-member">
+				<div class="add-manage">
+					<form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label">
+									考核标题：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="title" value="{title}">
+									<input type="hidden" name="assessmentPlanId" value="{assessmentPlanId}">
+									<input type="hidden" name="townId" id="townId">
+								</td>
+								<td class="kv-label">
+									考核总分值：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="totalPoint" value="{totalPoint}">
+								</td>									
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核对象类型：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									科技特派员
+								</td>
+								<td class="kv-label">
+									考核计划状态：
+								</td>
+								<td class="kv-content" style="padding: 10px;" id="status">
+									<!-- <input type="checkbox">开启
+									<input type="checkbox">关闭 -->
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核时间：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<div class="date">
+										<input type="text" id="start" name="start" value="{start}">
+										<i class="iconfont">&#xe784;</i> 	
+										&#151;                       		
+									</div>									
+									<div class="date">
+										<input type="text" id="end" name="end" value="{end}">
+										<i class="iconfont">&#xe784;</i> 	                       		
+									</div>	
+									
+								</td>								
+							</tr>	
+							<tr>
+								<td rowspan="2" class="kv-label">
+									考核对象：
+								</td>
+								<td class="kv-label">
+									可选考核对象
+								</td>
+								<td class="kv-label">
+									操作
+								</td>								
+					    		<td class="kv-label">
+									选定考核对象
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-content" align="left" valign="top" width="40%" id="td_tree1">
+									<ul id="srcTree" class="tree" style="width:100%; overflow:auto;"></ul>
+								</td>
+					    		<td class="kv-content" align="center" valign="middle" width="10%">
+					    			<div class="button addRole">
+										<i class="iconfont">&#xe611;&#xe611;</i>
+										<input type="hidden" name="objects" id="objects">
+									</div>
+									<div class="button delRole">
+										<i class="iconfont">&#xe608;&#xe608;</i>
+									</div>
+					    		</td>
+					    		<td class="kv-content" align="left" valign="top" width="40%" id="td_tree2">
+									<ul id="tarTree" class="tree" style="width:100%; overflow:auto;"></ul>
+								</td>								
+							</tr>
+							<tr> 
+								<td class="kv-label">
+									考核内容：
+								</td>
+								<td colspan="3" class="kv-content" style="height: 100px">
+									<textarea name="content" style="width: 95%;height: 95%">{content}</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核人员：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;" id="assessmenters">
+									<!-- <label><input type="checkbox">张三</label>
+									<label><input type="checkbox">李四</label>
+									<label><input type="checkbox">李四</label>
+									<label><input type="checkbox">李四</label>
+									<label><input type="checkbox">李四</label> -->
+								</td>
+							</tr>	
+						</tbody>
+					</table>
+				</form>
+				</div>
+			</div>
+	</script>
+
+	<script src="../../js/jquery.js"></script>
+	<script src="../../js/jquery.select.js"></script>
+	<script src="../../js/layer/layer.js"></script>
+	<script src="../../js/common.js"></script>
+	<script src="../../js/datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="../../js/datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	<script src="../../js/ztree/jquery-ztree-2.5.js"></script>
+	<script src="../../js/getUrlParam.js"></script>
+	<script src="../../js/ztree/ztree.js"></script>
+	<script src="../../js/jquery.form.js"></script>
+	<script src="../../js/jquery.pagination.min.js"></script>
+	<!-- <script src="../../js/Validform_v5.3.2.js"></script> -->
+
+	<script>
+		$.ajax({   
+				    url : urlhost+"/fupin/getplanbyaddress?townId="+townId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {  
+				    	data = dta;
+				        if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        var head = $('#plan-list-head').html();
+				        var html = $('#plan-list').html();  
+				        var pageData = [];  
+				        $.each(dta, function(i, o) {  
+				            //格式化模板数据 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法. 
+				           	
+				           	pageData.push(formatTemplate(o, html));  
+				        }); 
+				        var end='</tbody>';
+				        var Count = pageData.length;//记录条数
+				        var PageSize = 14; //每页显示的条数 
+				        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+				        var currentPage = 1; //当前页，默认为1
+				      	
+				      	$('#plan').empty().append(head);
+				        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){    
+					        $('#plan').append(pageData[i]);  
+					    } 
+					    $('#plan').append(end);  
+					    addId(PageSize*(currentPage-1)+1);
+				        $("#pagination").pagination({
+							currentPage: currentPage,
+							totalPage: PageCount,
+							isShow: true,
+							count: 4,
+							homePageText: "首页",
+							endPageText: "尾页",
+							prevPageText: "上一页",
+							nextPageText: "下一页",
+							callback: function(current) {
+								// alert(current);
+								$('#plan').empty().append(head);
+								for(i=(current-1)*PageSize;i<PageSize*current;i++){  
+						            $('#plan').append(pageData[i]);  
+						        }
+						        $('#plan').append(end);
+						        addId(PageSize*(current-1)+1);
+							}
+						});		        
+				    }  
+				}); 
+
+		var townId=UrlParm.parm("townId");
+
+	    $('body').on('click', '.add', function(){
+	    	layer.open({
+				title: '添加考核计划',
+				area:['67%','85%'],
+				closeBtn: 0,
+				content: $('#add').html(),
+				btn:['下一步', '取消'],
+				btn1: function(index,layero){
+
+					$(layero).find('#formadd').submit();
+				    layer.open({
+					title: '添加考核指标',
+					area:['67%','85%'],
+					closeBtn: 0,
+					content: $('#next').html(),
+					btn:['保存', '取消'],
+					btn1:function(index,layero){
+						location.reload();
+						$(layero).find('#formnext').submit();
+					},
+					btn2:function(index,layero){
+						location.reload();
+					},
+					});
+					$('select').select();
+					$("#formnext").attr("action",urlhost+"/fupin/addassessmentindex");
+					$("#formnext").ajaxForm(function(data) {
+		       			// alert(data);
+		    		});					
+				}
+			});
+
+			$("#formadd").attr("action",urlhost+"/fupin/addplan");
+			$("#townId").val(townId);
+			
+	    	$.ajax({
+	        url : urlhost+"/fupin/getassessmenterbytown?townId="+townId,  
+	        method : 'get',
+	        dataType : 'json',
+	        async: false,
+	        success:function(data){
+	            var html = " ";
+	            for (var i = 0; i < data.length; i++) {
+	            	html += "<input type=\"checkbox\" name=\"assessmenters\" value=\"" + data[i].assessmenterId +"\">" + data[i].name;
+	            }
+	            document.getElementById("assessmenters").innerHTML = html;
+	        	}
+    		});
+
+			$("#formadd").ajaxForm(function(data) {
+       			var html = "<select name=\"assessmentPlanId\" id=\"plantitle\"><option selected=\"selected\" value=\"" + data.assessmentPlanId +"\">" + data.title +"</option>";
+	            document.getElementById("plantitle").innerHTML = html;
+    		});
+
+			$('select').select();
+
+			$("#start").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd'
+				}).on('changeDate', function(ev){
+					$('#end').datepicker('setStartDate', ev.date);
+				});
+
+			$("#end").datepicker({
+				"language":"zh-CN",
+				"format": 'yyyy-mm-dd'
+			}).on('changeDate', function(ev){
+				$('#start').datepicker('setEndDate', ev.date);
+			});				
+
+			$(".date .iconfont").click(function(){
+				$(this).prev().trigger("focus");
+			});
+
+			//zTree说明:
+			//这里没有样式之类的东西,需要看到还需要引人几个css 和 imp 之类的东西.
+			//可以去看zTree的demo 和 API 
+			//初始化方法
+			$(document).ready(function() {
+			    //树1 数据 生成
+			    Tree1 = $("#srcTree").zTree(setting, datad);
+			    //树2 数据null
+			    Tree2 = $("#tarTree").zTree(setting, null);
+			}); 
+
+			$(".addRole").click(function(){
+				var nodes = Tree1.getCheckedNodes();
+				moveTreeNode(Tree1, Tree2);
+				var object = "";
+				for (var i = 0; i < nodes.length; i++) { //把选中的数据从根开始一条一条往右添加
+			        object += nodes[i].id+",";
+			    }
+			    $("#objects").val(object);
+			});
+
+			$(".delRole").click(function(){
+				moveTreeNode(Tree2, Tree1);
+			});
+
+		})
+
+		$('body').on('click', '.info', function(){
+		    var assessmentPlanId = $(this).attr("assessmentPlanId");
+			$.ajax({   
+				    url : urlhost+"/fupin/getplanbyid?assessmentPlanId="+assessmentPlanId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        var html = $('#info').html();
+				        var arr = [];
+				        arr.push(formatTemplate(dta, html)); 
+				        layer.open({
+							title: '考核计划详情',
+							area:['67%','85%'],
+							content: arr.join(''),
+							closeBtn: 0,
+							btn:['退出'],
+							});	
+				    }
+				});
+		})
+
+		$('body').on('click', '.modify', function(){
+			var assessmentPlanId = $(this).attr("assessmentPlanId");
+			
+			$.ajax({   
+				    url : urlhost+"/fupin/getplanbyid?assessmentPlanId="+assessmentPlanId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        data = dta;
+				        var html = $('#modify').html();
+				        var arr = [];
+				        arr.push(formatTemplate(dta, html));  
+
+				        layer.open({
+							title: '修改考核计划',
+							area:['67%','85%'],
+							closeBtn: 0,
+							content: arr.join(''),
+							btn:['保存', '取消'],	
+							btn1:function(index,layero){
+								var nodes = Tree2.getNodes();
+								var object = "";
+								for (var i = 0; i < nodes.length; i++) { //把选中的数据从根开始一条一条往右添加
+							        object += nodes[i].id+",";
+							    }
+							    $("#objects").val(object);
+							    // alert(object);
+							    $(layero).find('#formadd').submit();
+							}			
+						});
+
+						$("#townId").val(townId);
+						$("#formadd").attr("action",urlhost+"/fupin/updateplan");
+						$("#formadd").ajaxForm(function(data) {
+							location.reload();
+						});
+						$('select').select();
+				        $("#start").datepicker({
+								"language":"zh-CN",
+								"format": 'yyyy-mm-dd'
+							}).on('changeDate', function(ev){
+								$('#end').datepicker('setStartDate', ev.date);
+							});
+
+						$("#end").datepicker({
+							"language":"zh-CN",
+							"format": 'yyyy-mm-dd'
+						}).on('changeDate', function(ev){
+							$('#start').datepicker('setEndDate', ev.date);
+						});				
+
+						$(".date .iconfont").click(function(){
+							$(this).prev().trigger("focus");
+						});
+
+						if (dta.strIsOn=="开启") {
+							var html = "<input type=\"radio\" name=\"on\" value=\"true\" checked>开启"+"<input type=\"radio\" value=\"false\" name=\"on\">关闭";
+						}else{
+							var html = "<input type=\"radio\" name=\"on\" value=\"true\">开启"+"<input type=\"radio\" value=\"false\" name=\"on\" checked>关闭";
+						}
+						document.getElementById("status").innerHTML = html;
+
+						for(var i = 0 ;i < datad.length; i++){ 
+							for(var j=0 ;j < dta.assessmentObjectsId.length; j++){ 
+								if (dta.assessmentObjectsId[j]==datad[i].id) { 
+									datad.splice(i,1); 
+								} 
+							} 
+						}
+						var data=[];
+						for (i = 0; i < dta.assessmentObjectsId.length; i++) {
+				            var object = {};
+				            object["code"] = "12-" + i + "0";
+				            object["id"] = dta.assessmentObjectsId[i];
+				            object["name"] = dta.assessmentObjects[i];
+				            data.push(object);
+				        }
+
+						$(document).ready(function() {
+						    //树1 数据 生成
+						    Tree1 = $("#srcTree").zTree(setting, datad);
+						    //树2 数据null
+						    Tree2 = $("#tarTree").zTree(setting, data);
+						}); 
+
+						$(".addRole").click(function(){							
+							moveTreeNode(Tree1, Tree2);							
+						});
+
+						$(".delRole").click(function(){
+							moveTreeNode(Tree2, Tree1);
+						});
+
+						$.ajax({
+					        url : urlhost+"/fupin/getassessmenterbytown?townId="+townId,  
+					        method : 'get',
+					        dataType : 'json',
+					        async: false,
+					        success:function(data){
+
+					            var html = " ";
+					            for (var i = 0; i < data.length; i++) {
+					            	for (var j = 0; j < dta.assessmentersId.length; j++) {
+						            	if (dta.assessmentersId[j] == data[i].assessmenterId) {
+						            		html += "<input type=\"checkbox\" name=\"assessmenters\" value=\"" + data[i].assessmenterId +"\" checked >" + data[i].name;
+						            		continue;
+						            	}
+						            	html += "<input type=\"checkbox\" name=\"assessmenters\" value=\"" + data[i].assessmenterId +"\">" + data[i].name;
+						            	
+						            }
+					            }
+					            document.getElementById("assessmenters").innerHTML = html;
+					        }
+					    });
+				    }
+				});
+		})
+ 
+		$('body').on('click', '.delete', function(){
+			var assessmentPlanId = $(this).attr("assessmentPlanId");
+			$.ajax({
+	        url : urlhost+"/fupin/deleteassessmentplan?assessmentPlanId="+assessmentPlanId,  
+	        method : 'get',
+	        dataType : 'json',
+	        async: false,
+	        success:function(data){
+	            // alert("删除成功！");
+	            location.reload();
+	        	}
+    		});
+		})
+
+	</script>
+</body> 
+</html>

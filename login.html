@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>精准扶贫管理平台</title>
+<link href="css/login.css" rel="stylesheet">
+<link href="css/jquery.idcode.css" rel="stylesheet">
+</head>
+<body>
+    <div class="left-bg"></div>
+    <div class="right-bg"></div>
+    <div class="login-logo"></div>
+    <div class="login-center">
+        <div class="login-content">
+            <form name="login" action="" id="login" method="post" enctype="multipart/form-data">
+            <div class="login-input">
+                <div class="username">
+                    <i class="username-lable">用&nbsp;&nbsp;&nbsp;户</i>
+                    <input type="text" name="userName" id="userName">
+                </div>
+                <div class="password">
+                    <i class="password-lable">密&nbsp;&nbsp;&nbsp;码</i>
+                    <input type="password" name="passWord" id="passWord">
+                </div>
+                <div class="validate">
+                    <i class="validate-lable">验证码</i>
+                    <input type="text" id="Txtidcode" class="txtVerification" />
+                    <span id="idcode"></span>
+                </div>
+                <div class="login-btn" id="btns">登录</div>
+                <span id="tag" style="color: red;margin-left: 72%;display: none;">验证码错误!</span>
+            </div>
+            </form>
+        </div>
+        <div style="margin-top: 66%;">
+            <span style="margin-left: 30%;font-size: 20px;">请使用Chrome浏览器访问!</span>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.js"></script>
+<script src="js/layer/layer.js"></script>
+<script src="js/jquery.idcode.js"></script>
+<script src="js/common.js"></script>
+<script src="js/jquery.form.js"></script>
+<script type="text/javascript">
+    $.idcode.setCode();
+    $("#btns").click(function() {
+        var IsBy = $.idcode.validateCode();
+        if(IsBy){
+            if ($("#userName").val()&&$("#passWord").val()) {
+                document.login.action = urlhost + "/fupin/login";
+                $('form').submit();
+            }else{
+                alert("请输入用户名和密码！");
+                location.reload();
+            }
+        }else{
+            document.getElementById("tag").style.display="inline";
+        }
+    });
+    $(function() {
+        $("#login").ajaxForm(function(data) {
+            if (data.errorId) {
+                alert("用户和密码不匹配，请重新输入！");
+                location.reload();
+            }else{
+                setCookie("userdata",JSON.stringify(data),"h12");
+                // setCookie("userName",data.userName,"s1200");
+                $.session.set('userName', data.userName);
+
+                switch(data.userType){
+                    case "超级管理员": location="main.html";setCookie("userName",data.userName,"h12");break;
+                    case "市级管理员": location="city_main.html";setCookie("userName",data.userName,"h12");break;
+                    case "区县管理员": location="district_main.html";setCookie("userName",data.userName,"h12");break;
+                    case "乡镇管理员": location="pinkunhu_main.html";setCookie("userName",data.userName,"h12");break;
+                    case "科技特派员": location="commissioner_main.html";setCookie("userName",data.userName,"h12");break;
+                    case "帮扶队长": location="captain_main.html";setCookie("userName",data.userName,"h12");break;
+                }
+            }
+        });
+    });
+</script>
+</html>

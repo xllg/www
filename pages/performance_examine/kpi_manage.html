@@ -1,0 +1,409 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>帮扶成效</title> 
+	<link href="../../css/pages/base.css" rel="stylesheet">
+	<link href="../../css/pages/performance_planning.css" rel="stylesheet">
+	<link href="../../js/datepicker/css/bootstrap.css" rel="stylesheet">   
+	<link href="../../js/datepicker/css/bootstrap-datepicker.css" rel="stylesheet"> 
+	<link rel="stylesheet" href="../../css/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" href="../../css/jquery.pagination.css" />
+</head> 
+<body>
+	<div class="container">
+		<div id="inner-hd">
+			<div class="crumbs">
+				<i class="crumbs-arrow"></i>
+				<a href="javascript:;" class="crumbs-label">考核指标</a>
+			</div>
+		</div>
+
+		<div id="inner-bd">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item-wrap" ">
+						<div class="kv-item" style="margin-top: 7px;height: 40px;">
+							<div style="float: right;">
+								<div class="button add" style="margin-right: 6px;">
+									<i class="iconfont">&#xe620;</i>
+									<span class="button-label">新增</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+
+			<table class="kv-table" id="kpi">
+			</table>
+			<div class="box" style="margin-left: 33%; margin-top: 5px;">
+				<div id="pagination" class="page fl"></div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/template" id="kpi-list-head">
+		<tbody>
+			<tr>
+				<td class="kv-label" style="width: 4%">序号</td>
+				<td class="kv-label" style="width: 10%">考核计划</td>
+				<td class="kv-label" style="width: 8%">考核指标项</td>   
+				<td class="kv-label" style="width: 8%">分值</td>                
+				<td class="kv-label" style="width: 13%">计分办法</td>                    
+				<td class="kv-label" style="width: 8%">备注</td>
+				<td class="kv-label">操作</td>
+			</tr> 
+	</script>
+
+	<script type="text/template" id="kpi-list">
+	    <tr>
+			<td class="kv-content"></td>
+			<td class="kv-content">{assessmentPlanTitle}</td>
+			<td class="kv-content">{assessmentIndexItem}</td>   
+			<td class="kv-content">{indexCount}</td>                                    
+			<td class="kv-content">{countStandard}</td>
+			<td class="kv-content">{remark}</td>
+			<td class="kv-content">							
+				<div class="button info" assessmentIndexId="{assessmentIndexId}">
+					<i class="iconfont">&#xe601;</i>
+					<span class="button-label">详情</span>
+				</div>
+				<div class="button modify" assessmentIndexId="{assessmentIndexId}">
+					<i class="iconfont">&#xe621;</i>
+					<span class="button-label">修改</span>
+				</div>									
+				<div class="button delete" assessmentIndexId="{assessmentIndexId}">
+					<i class="iconfont">&#xe609;</i>
+					<span class="button-label">删除</span>
+				</div>			
+			</td>
+		</tr>
+	</script>
+	<script type="text/template" id="add">
+			<div class="add-member">
+				<div class="add-manage">
+					<form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label">
+									考核计划：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" hidden="true" name="assessmentPlanId" value="{assessmentPlanId}">
+									<input type="text" value="{title}">
+								</td>
+								<td class="kv-label">
+									考核项分值：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="indexCount">
+								</td>									
+							</tr>
+							<tr> 
+								<td class="kv-label">
+									考核指标项：
+								</td>
+								<td colspan="3" class="kv-content" style="height: 100px">
+									<textarea name="assessmentIndexItem" style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									计分标准与方法：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea name="countStandard" style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									备注：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea name="remark" style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>	
+						</tbody>
+					</table>
+					</form>
+				</div>
+			</div>
+	</script>
+	<script type="text/template" id="info">
+			<div class="add-member">
+				<div class="add-manage">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label">
+									考核计划：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									{assessmentPlanTitle}
+								</td>
+								<td class="kv-label">
+									考核项分值：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									{indexCount}
+								</td>									
+							</tr>
+							<tr> 
+								<td class="kv-label">
+									考核指标项：
+								</td>
+								<td colspan="3" class="kv-content" style="height: 100px">
+									<textarea style="width: 570px;height: 80px">{assessmentIndexItem}</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									计分标准与方法：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea style="width: 570px;height: 80px">{countStandard}</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									备注：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea style="width: 570px;height: 80px">{remark}</textarea>
+								</td>
+							</tr>	
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</script>
+	<script type="text/template" id="modify">
+			<div class="add-member">
+				<div class="add-manage">
+					<form action="" id="formupdate" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label">
+									考核计划：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" value="{assessmentPlanTitle}">
+									<input type="hidden" name="assessmentIndexId" value="{assessmentIndexId}">
+									<input type="hidden" name="assessmentPlanId" value="{assessmentPlanId}">
+								</td>
+								<td class="kv-label">
+									考核项分值：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="indexCount" value="{indexCount}">
+								</td>									
+							</tr>
+							<tr> 
+								<td class="kv-label">
+									考核指标项：
+								</td>
+								<td colspan="3" class="kv-content" style="height: 100px">
+									<textarea style="width: 570px;height: 80px" name="assessmentIndexItem">{assessmentIndexItem}</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									计分标准与方法：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea style="width: 570px;height: 80px" name="countStandard">{countStandard}</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									备注：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea style="width: 570px;height: 80px"  name="remark">{remark}</textarea>
+								</td>
+							</tr>	
+						</tbody>
+					</table>
+				</form>
+				</div>
+			</div>
+	</script>
+
+
+	<script type="text/javascript" src="../../js/jquery.js"></script>
+	<script type="text/javascript" src="../../js/jquery.select.js"></script>
+	<script type="text/javascript" src="../../js/layer/layer.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../js/datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="../../js/datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	<script type="text/javascript" src="../../js/ztree/jquery-ztree-2.5.js"></script>
+	<script src="../../js/getUrlParam.js"></script>
+	<script src="../../js/jquery.form.js"></script>
+	<script src="../../js/jquery.pagination.min.js"></script>
+
+	<script>
+	    var assessmentPlanId=UrlParm.parm("assessmentPlanId");
+	    // alert(assessmentPlanId);
+	    $.ajax({   
+				    url : urlhost+"/fupin/getassessmentindexbyplan?assessmentPlanId="+assessmentPlanId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {				    	
+				        if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        var head = $('#kpi-list-head').html();
+				        var html = $('#kpi-list').html();  
+				        var pageData = [];  
+				        $.each(dta, function(i, o) {  
+				            //格式化模板数据 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法. 
+				            pageData.push(formatTemplate(o, html));  
+				        }); 
+				        var end='</tbody>';
+				        var Count = pageData.length;//记录条数
+				        var PageSize = 14; //每页显示的条数 
+				        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+				        var currentPage = 1; //当前页，默认为1
+				      	
+				      	$('#kpi').empty().append(head);
+				        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){    
+					        $('#kpi').append(pageData[i]);  
+					    } 
+					    $('#kpi').append(end); 
+
+					    addId(PageSize*(currentPage-1)+1);
+
+				        $("#pagination").pagination({
+							currentPage: currentPage,
+							totalPage: PageCount,
+							isShow: true,
+							count: 4,
+							homePageText: "首页",
+							endPageText: "尾页",
+							prevPageText: "上一页",
+							nextPageText: "下一页",
+							callback: function(current) {
+								// alert(current);
+								$('#kpi').empty().append(head);
+								for(i=(current-1)*PageSize;i<PageSize*current;i++){  
+						            $('#kpi').append(pageData[i]);  
+						        }
+						        $('#kpi').append(end);
+						        addId(PageSize*(current-1)+1);
+							}
+						});				        
+				    }  
+				});
+
+		$('body').on('click', '.add', function(){
+			$.ajax({   
+				    url : urlhost+"/fupin/getplanbyid?assessmentPlanId="+assessmentPlanId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        var html = $('#add').html();
+						var arr = [];
+						// alert(data.assessmentPlanTitle);
+						arr.push(formatTemplate(dta, html)); 
+						layer.open({
+							title: '添加考核指标',
+							area:['67%','85%'],
+							content: arr.join(''),
+							closeBtn: 0,
+							btn:['保存', '取消'],
+							btn1:function(index,layero){
+									$(layero).find('#formadd').submit();
+								}
+						});
+
+						$("#formadd").attr("action",urlhost+"/fupin/addassessmentindex");
+						$("#formadd").ajaxForm(function(data) {
+			       			location.reload();
+			    		});
+				    }
+				});
+			
+		}) 
+
+		$('body').on('click', '.info', function(){
+			var assessmentIndexId = $(this).attr("assessmentIndexId");
+			$.ajax({   
+				    url : urlhost+"/fupin/getassessmentindexbyid?assessmentIndexId="+assessmentIndexId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        var html = $('#info').html();
+				        var arr = [];
+				        arr.push(formatTemplate(dta, html));  
+				        layer.open({
+							title: '考核指标详情',
+							area:['67%','85%'],
+							closeBtn:0,
+							content: arr.join(''),
+							btn:['退出'],
+						});
+				    }
+				});
+			
+		})
+
+		$('body').on('click', '.modify', function(){
+			var assessmentIndexId = $(this).attr("assessmentIndexId");			
+			$.ajax({   
+				    url : urlhost+"/fupin/getassessmentindexbyid?assessmentIndexId="+assessmentIndexId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        var html = $('#modify').html();
+				        var arr = [];
+				        arr.push(formatTemplate(dta, html));  
+				        // $('#modify').empty().append(arr.join('')); 
+				        layer.open({
+							title: '修改考核指标',
+							area:['67%','85%'],
+							content: arr.join(''),
+							btn:['保存', '取消'],
+							btn1:function(index,layero){
+								$(layero).find('#formupdate').submit();
+								},
+						});
+						$("#formupdate").attr("action",urlhost+"/fupin/updateassessmentindex");
+						$("#formupdate").ajaxForm(function(data) {
+			       			location.reload();
+			    		});
+				    }
+				});
+		})
+
+		$('body').on('click', '.delete', function(){
+			var assessmentIndexId  = $(this).attr("assessmentIndexId");
+			$.ajax({
+	        url : urlhost+"/fupin/deleteassessmentindex?assessmentIndexId="+assessmentIndexId ,  
+	        method : 'get',
+	        dataType : 'json',
+	        async: false,
+	        success:function(data){
+	            // alert("删除成功！");
+	            location.reload();
+	        	}
+    		});
+		})		 
+	</script>
+</body> 
+</html>

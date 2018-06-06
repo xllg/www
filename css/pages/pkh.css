@@ -1,0 +1,101 @@
+.item-lt
+{
+	text-align: center;
+    border-radius: 0;
+    text-indent: 0;
+    height: 32px;
+}
+
+.kv-group input[type="text"]
+{
+	width: 120px
+}
+
+.kv-group .iselect-wrapper .iselwrap-val
+{
+	width: 120px;
+	background: #fff url('../../imgs/ui/select-icon.png?1459301973') no-repeat 107px center
+}
+
+.kv-group .iselect-wrapper select
+{
+	width: 132px
+}
+
+.add-manage input[type="text"],.add-manage input[type="password"]
+{
+	float: left;
+	width: 180px
+}
+
+.add-manage table.kv-table 
+{
+	border-top: 3px solid #0c9d72;
+	border-left: 1px solid #dadada; 
+}
+
+.add-manage table.kv-table .kv-label
+{
+	width: 252px;
+	text-align: center;
+}
+
+.add-manage .kv-content
+{
+	border: 1px solid #dadada; 
+}
+
+
+.add-manage .iselect-wrapper .iselwrap-val
+{
+	width: 140px;
+	font-size: 13px;
+	margin-right: 15px;
+	text-align: center;
+	background: #fff url('../../imgs/ui/select-icon.png') no-repeat 130px
+}
+
+.add-manage .iselect-wrapper select
+{
+	width: 152px;
+	text-align: center;
+}
+
+.secnd-group
+{
+	margin-top: 15px
+}
+
+.secnd-group .a-upload
+{
+	float: left;
+	margin-right: 5px
+}
+
+.secnd-group .text-tip
+{
+	float: left;
+	margin-right: 20px
+}
+.date{
+	float: left;
+}
+.date span{
+	color: #D4D4D4;
+}
+.date input[type=text] {
+	text-align: center;
+}
+.date i {
+	color: #D4D4D4;
+	font-size:20px;
+	line-height: 35px;
+	margin-left: -25px;
+	cursor:pointer;
+}
+.date i:hover {
+    color: #0c9d72;
+}
+.kv-content a{
+	text-decoration:none;
+}

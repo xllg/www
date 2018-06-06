@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>金融扶贫</title>
+    <link href="../../css/pages/base.css" rel="stylesheet" />
+    <link href="../../css/pages/supmeasures.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/jquery.pagination.css" /> 
+</head>
+
+<body>
+    <div class="crumbs">
+        <i class="crumbs-arrow"></i>
+        <a href="javascript:;" class="crumbs-label">金融扶贫</a>
+    </div>
+    <div id="inner-bd">
+        <div class="kv-group-outer">
+            <div class="kv-group clearfix">
+                <form name="search" action="" id="search" method="post" enctype="multipart/form-data">
+                    <div class="kv-item-wrap">
+                        <div class="kv-item">
+                            <div class="item-lt">区县：</div>
+                            <div class="item-rt">
+                                <select name="districtId" id="district" onchange="townlist(this.selectedIndex)">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kv-item">
+                            <div class="item-lt">
+                                乡镇：
+                            </div>
+                            <div class="item-rt">
+                                <select name="townId" id="town" onchange="villagelist(this.selectedIndex)">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kv-item">
+                            <div class="item-lt">村委：</div>
+                            <div class="item-rt">
+                                <select name="villageId" id="village">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kv -item">
+                            <div class="button accurateloan-search">
+                                <i class="iconfont"></i>
+                                <span class="button-label">查询</span>
+                            </div>
+                        </div>
+                        <span class="hstotal">户管理措施——本次已采集<em id="hstotal"></em></span>
+                    </div>
+                </form>
+            </div>
+            <div class="panel">
+                <ul class="pkh_tongji" id="pkh_tongji">
+                </ul>
+            </div>
+            <div class="table-zone">
+                <table class="no-data" id="accurateloan">
+                </table>
+                <div class="box" style="margin-left: 33%; margin-top: 5px;">
+                    <div id="pagination" class="page fl"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>   
+<script type="text/template" id="pkh_tongjinfo">
+    <li>
+        <p>精准扶贫专项贷款户数：</p>
+        <p class="num">
+            <em>{loadNum}</em>
+            <span>户</span></p>
+    </li>
+    <li>
+        <p>精准扶贫专项贷款金额：</p>
+        <p class="num">
+            <em>{loadAmount}</em>
+            <span>元</span></p>
+    </li>
+    <li>
+        <p>应贴息金额：</p>
+        <p class="num">
+            <em>{discountAmount}</em>
+            <span>元</span></p>
+    </li>
+</script>
+<script type="text/template" id="accurateloaninfohead">
+    <thead>
+        <td style="width:6%;">序号</td>
+        <td style="width:11%;">贷款户主姓名</td>
+        <td style="width:30%;">贫苦户所在地</td>
+        <td style="width:12%;">上报年和季度</td>
+        <td style="width:10%;">贷款起始日</td>
+        <td style="width:10%;">贷款用途</td>
+        <td style="width:10%;">贷款金额</td>                        
+        <td style="width:auto;">操作</td>
+    </thead>
+    <tbody id="accurateloanin">
+    </tbody>            
+</script>
+<script type="text/template" id="accurateloaninfo">
+    <tr>
+        <td></td>
+        <td>{familyOwnerName}</td>
+        <td>{location}</td>
+        <td>{quarter}</td>
+        <td>{lendingTime}</td>
+        <td>{useOfLoad}</td>
+        <td>{loadAmount}</td>
+        <td>
+            <div class="button accurateloan-info" financialAssistanceId={financialAssistanceId}>
+                <i class="iconfont">&#xe601;</i>
+                <span class="button-label">查看</span>
+            </div>
+        </td>
+    </tr>
+</script>
+<script type="text/template" id="accurateloan-info">
+    <div class="infospecsupport">
+        <div class="add-manage">
+            <table class="kv-table">
+                <tbody>
+                    <tr>
+                        <td class="kv-label" style="width: 17%">
+                            贷款户主姓名:
+                        </td>
+                        <td class="kv-content" >
+                            {familyOwnerName}
+                        </td>
+                        <td class="kv-label" style="width: 17%">
+                            身份证号:
+                        </td>
+                        <td class="kv-content" >
+                            {familyOwnerIDCard}
+                        </td>
+                        <td class="kv-label" style="width: 15%">
+                            上报季度:
+                        </td>
+                        <td class="kv-content">
+                            <span>{quarter}</span>
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            手机号:
+                        </td>
+                        <td class="kv-content">
+                            {phoneNumber}
+                        </td>
+                        <td class="kv-label">
+                            使用方式
+                        </td>
+                        <td colspan="3" class="kv-content">
+                             <span>{useMode}</span>
+                        </td>
+                    </tr>                           
+                    <tr>
+                        <td colspan="6" class="kv-label">
+                            贷款情况
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            承贷机构名称:
+                        </td>
+                        <td class="kv-content">
+                            <span>{loadInstitution}</span>
+                        </td>
+                        <td class="kv-label">
+                            银行账号:
+                        </td>
+                        <td class="kv-content">
+                            <span>{bankAccount}</span>
+                        </td>
+                        <td class="kv-label">
+                            贷款用途:
+                        </td>
+                        <td class="kv-content">
+                            <span>{useOfLoad}</span>
+                        </td>                               
+                    </tr>
+                    <tr>                                
+                        <td class="kv-label">
+                            贷款金额(元):
+                        </td>
+                        <td class="kv-content">
+                            <span id="quarters">{loadAmount}</span>
+                        </td>   
+                        <td class="kv-label">
+                            贷款期限(月)：
+                        </td>
+                        <td class="kv-content">
+                            <span id="quarters">{loanPeriod}</span>
+                        </td>
+                        <td class="kv-label">
+                            执行年利率(%)：
+                        </td>
+                        <td class="kv-content">
+                            <span>{annualInterest}</span>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td  class="kv-label">
+                            贷款起始日：
+                        </td>
+                        <td class="kv-content" style="padding: 10px;">
+                            <div class="date">
+                                <span id="lendingTime">{lendingTime}</span>                               
+                            </div>                              
+                        </td>                           
+                        <td class="kv-label">
+                            贷款结束日：
+                        </td>
+                        <td colspan="3" class="kv-content" style="padding: 10px;">
+                            <div class="date">
+                                <span id="repaymentDate">{repaymentDate}</span>
+                            </div>                          
+                        </td>                                   
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="kv-label">
+                            贴息情况
+                        </td>
+                        <td colspan="3" class="kv-label">
+                            收入情况
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td class="kv-label">
+                            应贴息金额(元)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                             <span>{discountAmount}</span>
+                        </td>
+                        <td class="kv-label">
+                            年增加收入(元)：
+                        </td>
+                        <td colspan="2" class="kv-content">
+                            <span>{generateIncome}</span>
+                        </td>
+                    </tr>                       
+                    <tr>
+                        <td colspan="6" class="kv-label">
+                            其他
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td class="kv-label">
+                            备注：
+                        </td>
+                        <td colspan="5" class="kv-content">
+                            <span>{remark}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            帮扶责任人：
+                        </td>
+                        <td class="kv-content">
+                            <span>{assessmentObjectname}</span>
+                        </td>
+                        <td class="kv-label">
+                            帮扶责任人电话:
+                        </td>
+                        <td class="kv-content">
+                            <span>{assessmentObjectphoneNumber}</span>
+                        </td>
+                        <td class="kv-label">
+                            填表时间：
+                        </td>
+                        <td class="kv-content">
+                            <div class="date">
+                                <span id="fillInTime">{fillInTime}</span>
+                            </div>
+                        </td>
+                    </tr>               
+                </tbody>
+            </table>            
+        </div>
+    </div>
+</script>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/jquery.select.js"></script>
+<script type="text/javascript" src="../../js/layer/layer.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/district-town-village-select.js"></script>
+<script src="../../js/jquery.pagination.min.js"></script>
+<script src="../../js/jquery.form.js"></script>
+<script type="text/javascript">
+function objKeySort(obj) {//排序的函数       
+    var data = { "第一季度": "1", "第二季度": "2", "第三季度": "3", "第四季度": "4" };
+    function rp(n) {
+        var s = '';
+        s += data[n];
+        return s;
+    }
+    var newkey = Object.keys(obj);              
+    var pastr = [];
+    for (i = 0; i < newkey.length; i++) {
+        var arr = newkey[i].split('-'); // 拆分字符串
+        temp = arr[0] + "-" + arr[1] + "-" + rp(arr[2]);
+        pastr.push(temp);
+    }
+    pastr = pastr.sort().reverse();
+    var parstr = [];
+    for (i = 0; i < pastr.length; i++) {
+        var arr = pastr[i].split('-'); // 拆分字符串
+        temp = arr[0] + "-" + arr[1] + "-" + findKey(arr[2]);
+        parstr.push(temp);
+    }
+    function findKey(value, compare = (a, b) => a === b) {
+        return Object.keys(data).find(k => compare(data[k], value))
+    }
+    //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
+    var newObj = {};//创建一个新的对象，用于存放排好序的键值对
+    for (var i = 0; i < parstr.length; i++) {//遍历newkey数组
+        newObj[parstr[i]] = obj[parstr[i]];//向新创建的对象中按照排好的顺序依次增加键值对
+    }
+    return newObj;//返回排好序的新对象
+}
+function dataprocess(dta) {
+    if (!dta || dta.length <= 0) {
+        return;
+    }
+    data=dta.content;
+    var htmlpkh_tongji = $('#pkh_tongjinfo').html();
+    var head = $('#accurateloaninfohead').html();
+    var html = $('#accurateloaninfo').html();    
+    htmlpkh_tongji=formatTemplate(dta, htmlpkh_tongji);
+    $('#pkh_tongji').empty().append(htmlpkh_tongji);
+    var pageData = [];
+    var map = {};
+    for (var i = 0; i < dta.content.length; i++) {
+        // console.log(dta[i]["quarter"]);
+        if (typeof(map[dta.content[i]["quarter"]]) == "undefined") {
+            map[dta.content[i]["quarter"]] = 1;
+        } else {
+            map[dta.content[i]["quarter"]] = map[dta.content[i]["quarter"]] + 1;
+        }
+    }
+    map = objKeySort(map);
+    for (var quarter in map) {
+        $.each(dta.content, function(i, o) {
+            if (quarter == o["quarter"]) {  
+                if (o.lendingTime==null) {
+                    o.lendingTime=""
+                }
+                if (o.useOfLoad==null) {
+                    o.useOfLoad=""
+                }
+                if (o.loadAmount==null) {
+                    o.loadAmount=""
+                }   
+                pageData.push(formatTemplate(o, html));               
+            }
+        })
+    }
+    var Count = pageData.length; //记录条数
+    var PageSize = 10; //每页显示的条数 
+    var PageCount = Math.ceil(Count / PageSize); //计算总页数  向上取整,有小数就整数部分加1
+    var currentPage = 1; //当前页，默认为1
+    $('#accurateloan').empty().append(head);
+    for (i = (currentPage - 1) * PageSize; i < PageSize * currentPage; i++) {
+        $('#accurateloanin').append(pageData[i]);
+    }
+    document.getElementById("hstotal").innerHTML=dta.familyNum+"户";
+    addId(PageSize*(currentPage-1)+1);
+
+    $("#pagination").pagination({
+     currentPage: currentPage,
+     totalPage: PageCount,
+     isShow: true,
+     count: 4,
+     homePageText: "首页",
+     endPageText: "尾页",
+     prevPageText: "上一页",
+     nextPageText: "下一页",
+     callback: function(current) {
+        $('#accurateloan').empty().append(head);
+        for(i=(current-1)*PageSize;i<PageSize*current;i++){    
+             $('#accurateloanin').append(pageData[i]);  
+        } 
+        addId(PageSize*(current-1)+1);
+     }
+    });
+}
+var data;
+$.ajax({
+    url:  urlhost + "/fupin/financialassistance"+getUrl(),
+    method: 'get',
+    dataType: 'json',
+    async: false,
+    success: function(dta) {
+        data=dta.content;
+        dataprocess(dta);
+    }
+});
+$('select').select();
+$('body').on('click', '.accurateloan-info', function() {
+    var financialAssistanceId = $(this).attr("financialAssistanceId");
+    var html = $('#accurateloan-info').html();
+    $.each(data, function(i, o) {
+        if (o.financialAssistanceId==financialAssistanceId) {
+            o.assessmentObjectname=o.assessmentObject.name;
+            o.assessmentObjectphoneNumber=o.assessmentObject.phoneNumber;
+            o.phoneNumber=o.family.phoneNumber
+            pageData=formatTemplate(o, html);
+        }
+    });
+    layer.open({
+        title: '查看详情',
+        area:['95%','85%'],
+        content: pageData,
+        closeBtn:0,
+        btn: ['退出']
+    });
+
+    $('select').select();
+})
+
+$('body').on('click', '.accurateloan-search', function() {
+    $("#district").removeAttr("disabled");
+    $("#town").removeAttr("disabled");
+    document.search.action=urlhost+"/fupin/financialassistance"; 
+    $('form').submit();
+})
+$(function(){  
+    /** 验证文件是否导入成功  */  
+    $("#search").ajaxForm(function(data){    
+        dataprocess(data); 
+    });       
+});
+</script>
+
+</html>

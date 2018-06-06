@@ -1,0 +1,4443 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>贫困户管理</title> 
+	<link href="../../css/pages/base.css" rel="stylesheet">
+	<link href="../../css/pages/manage_pkh.css" rel="stylesheet">
+	<link href="../../js/datepicker/css/bootstrap.css" rel="stylesheet">   
+	<link href="../../js/datepicker/css/bootstrap-datepicker.css" rel="stylesheet"> 
+</head> 
+<body>
+	<div class="container">
+		<div id="inner-hd">
+			<div class="crumbs">
+				<i class="crumbs-arrow"></i>
+				<a href="javascript:;" class="crumbs-label">查看该户</a>
+			</div>
+		</div>
+		<div class="add-manage" id="tophead">
+		</div>
+
+		<div class="tab-wraper">
+			<ul class="tab">
+				<li name="family-member" class="current"><a href="javascript:;">家庭成员</a></li>
+				<li name="live-condition"><a href="javascript:;">生产生活条件</a></li>
+				<li name="plant-relocation"><a href="javascript:;">易地搬迁</a></li>
+				<li name="helper"><a href="javascript:;">科技特派员</a></li>
+				<li name="help-measure"><a href="javascript:;">帮扶措施</a></li>
+				<li name="help-score"><a href="javascript:;">帮扶成效</a></li>
+				<li name="visit-record"><a href="javascript:;">走访记录</a></li>
+			</ul>
+		</div>
+
+		<div class="family-member">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item" style="float: right;">
+						<!-- <div class="button add-family" style="margin-right: 6px;">
+							<i class="iconfont">&#xe620;</i>
+							<span class="button-label">新增</span>
+						</div> -->
+					</div>                      
+				</div>
+			</div>
+			<table class="kv-table" id="family">
+			</table>
+		</div>
+
+		<div class="live-condition" id="livecondition">
+		</div>
+
+		<div class="plant-relocation">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item" style="float: right;">
+						<!-- <div class="button add-plant" style="margin-right: 6px;">
+							<i class="iconfont">&#xe620;</i>
+							<span class="button-label">新增</span>
+						</div> -->
+					</div>                      
+				</div>
+			</div>
+			<table class="kv-table" id="plantrelocation">
+				 
+			</table>
+		</div>
+
+		<div class="helper">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item" style="float: right;">
+						<!-- <div class="button add-helper" style="margin-right: 6px;">
+							<i class="iconfont">&#xe620;</i>
+							<span class="button-label">新增</span>
+						</div> -->
+					</div>                      
+				</div>
+			</div>
+			<table class="kv-table" id="helper">
+			</table>
+		</div>
+
+		<div class="help-measure">
+			<table class="kv-table">
+				<tbody>				
+					<tr>
+						<td class="kv-label">富民产业</td>
+						<td class="kv-content multi" colspan="5">
+							<div class="table-zone">
+								<div class="kv-group-outer">									
+								</div>
+								<table id="rich">									
+								</table>
+							</div>							
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">专项扶贫</td>
+						<td class="kv-content multi" colspan="5">
+							<div class="table-zone">
+								<div class="kv-group-outer">									
+								</div>
+								<table style="width: 100%">
+									<tbody id="specsupport">
+										
+									</tbody>
+								</table>
+							</div>							
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">劳动力培训</td>
+						<td class="kv-content multi" colspan="5">
+							<div class="table-zone">
+								<div class="kv-group-outer">									
+								</div>
+								<table id="labortrain"> 
+								</table>
+							</div>							
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">社会援助</td>
+						<td class="kv-content multi" colspan="5">
+							<div class="table-zone">
+								<div class="kv-group-outer">									
+								</div>
+								<table id="social">
+								</table>
+							</div>							
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">金融扶贫</td>
+						<td class="kv-content multi" colspan="5">
+							<div class="table-zone">
+								<div class="kv-group-outer">									
+								</div>
+								<table id="fanance">									
+								</table>
+							</div>							
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">危房改造</td>
+						<td class="kv-content multi" colspan="5">
+							<div class="table-zone">
+								<div class="kv-group-outer">
+								</div>
+								<table id="reformhouse">									
+								</table>
+							</div>							
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">饮水安全</td>
+						<td class="kv-content multi" colspan="5">
+							<div class="table-zone">
+								<div class="kv-group-outer">
+								</div>
+								<table id="watersafe">									
+								</table>
+							</div>							
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+			<br>
+		</div>
+
+		<div class="help-score">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item" style="float: right;">
+						<!-- <div class="button add-helpscore" style="margin-right: 6px;">
+							<i class="iconfont">&#xe620;</i>
+							<span class="button-label">新增</span>
+						</div> -->
+					</div>                      
+				</div>
+			</div>
+			<table class="kv-table" id="helpscore">
+			</table>
+		</div>
+
+		<div class="visit-record">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item" style="float: right;">
+						<!-- <div class="button add-visit" style="margin-right: 6px;">
+							<i class="iconfont">&#xe620;</i>
+							<span class="button-label">新增</span>
+						</div> -->
+					</div>                      
+				</div>
+			</div>
+			<table class="kv-table" id="visit">
+			</table>			
+		</div>
+	</div>
+		
+		<script type="text/template" id="visithead">
+			<tbody>
+				<tr>
+					<td class="kv-label" style="width: 14%">走访时间</td>
+					<td class="kv-label">走访主题</td>
+					<td class="kv-label" style="width: 14%">寻访人</td>   
+					<td class="kv-label">操作</td>
+				</tr>
+		</script>
+		<script type="text/template" id="visitinfo">
+			<tr>
+				<td class="kv-content">{visitTime}</td>
+				<td class="kv-content">{visitTheme}</td>
+				<td class="kv-content">{visitor}</td>   
+				<td class="kv-content">
+					<div class="button modify-visit" visitRecordId={visitRecordId}>
+						<i class="iconfont">&#xe621;</i>
+						<span class="button-label">查看</span>
+					</div>
+				</td>
+			</tr>
+		</script>
+		<script type="text/template" id="helpscorehead">
+			<tbody>
+				<tr>
+					<td class="kv-label">上报年和季度</td>
+					<td class="kv-label">成效小计</td>   
+					<td class="kv-label">工资性收入</td>                
+					<td class="kv-label">经营性收入</td>                    
+					<td class="kv-label">财产性收入</td>
+					<td class="kv-label">转移性收入</td>
+				</tr>
+		</script>
+		<script type="text/template" id="helpscoreinfo">
+			<tr>
+				<td class="kv-content">{quarter}</td>
+				<td class="kv-content">{sumall}</td>   
+				<td class="kv-content">{wageIncome}</td>                
+				<td class="kv-content">{operatingIncome}</td>                    
+				<td class="kv-content">{propertyIncome}</td>
+				<td class="kv-content">{transferIncome}</td>				
+			</tr>
+		</script>
+		<script type="text/template" id="watersafehead">
+			<tbody>
+				<tr>
+					<td class="kv-label" style="width: 14%">上报年和季度</td>
+					<td class="kv-label" style="width: 14%">现状供水方式</td> 
+					<td class="kv-label" style="width: 14%">现状是否自来水入户</td>   
+					<td class="kv-label" style="width: 14%">现状饮水是否安全</td>   
+					<td class="kv-label" style="width: 18%">成效是否稳定解决饮水安全</td> 
+					<td class="kv-label" style="width: 28%">操作</td>
+				</tr> 
+		</script>
+		<script type="text/template" id="watersafeinfo">
+			<tr>
+				<td class="kv-content">{quarter}</td>
+				<td class="kv-content">{waterSupplyModeNow}</td> 
+				<td class="kv-content">{tapWaterUser}</td> 
+				<td class="kv-content">{safeDrinkingWater}</td> 
+				<td class="kv-content">{safeDrinkingWaterNow}</td> 
+				<td class="kv-content">
+					<div class="button modify-watersafe" quarter={quarter}>
+						<i class="iconfont">&#xe621;</i>
+						<span class="button-label">查看</span>
+					</div>
+				</td>
+			</tr>
+		</script>
+		<script type="text/template" id="reformhousehead">
+			<tbody>
+				<tr>
+					<td class="kv-label" style="width: 14%">上报年和季度</td>
+					<td class="kv-label" style="width: 14%">建造年代</td> 
+					<td class="kv-label" style="width: 14%">危险等级</td>   
+					<td class="kv-label" style="width: 32%">计划投资（元）</td>    
+					<td class="kv-label" style="width: 28%">操作</td>
+				</tr> 
+		</script>
+		<script type="text/template" id="reformhouseinfo">
+			<tr>
+				<td class="kv-content">{quarter}</td>
+				<td class="kv-content">{buildTime}</td> 
+				<td class="kv-content">{houseLevel}</td> 
+				<td class="kv-content">{plannedInvestment}</td>    
+				<td class="kv-content">
+					<div class="button modify-reformhouse" quarter={quarter}>
+						<i class="iconfont">&#xe621;</i>
+						<span class="button-label">查看</span>
+					</div>
+				</td>
+			</tr>
+		</script> 
+		<script type="text/template" id="fanancehead">
+			<tbody>
+				<tr>
+					<td class="kv-label" style="width: 14%">上报年和季度</td>
+					<td class="kv-label" style="width: 14%">贷款户主姓名</td> 
+					<td class="kv-label" style="width: 14%">贷款起始日</td>   
+					<td class="kv-label" style="width: 14%">贷款用途</td>   
+					<td class="kv-label" style="width: 18%">贷款金额(元)</td>  
+					<td class="kv-label" style="width: 28%">操作</td>
+				</tr> 
+		</script>
+		<script type="text/template" id="fananceinfo">
+			<tr>
+				<td class="kv-content">{quarter}</td>
+				<td class="kv-content">{name}</td> 
+				<td class="kv-content">{lendingTime}</td> 
+				<td class="kv-content">{useOfLoad}</td> 
+				<td class="kv-content">{loadAmount}</td> 
+				<td class="kv-content">
+					<div class="button modify-fanance" quarter={quarter}>
+						<i class="iconfont">&#xe621;</i>
+						<span class="button-label">查看</span>
+					</div>
+				</td>
+			</tr>
+		</script>
+		<script type="text/template" id="socialhead">
+			<tbody>
+				<tr>
+					<td class="kv-label" style="width: 12%">上报年和季度</td>
+					<td class="kv-label" style="width: 12%">社会救助措施总收入(元)</td> 
+					<td class="kv-label" style="width: 12%">家庭季低保收入(元)	</td>   
+					<td class="kv-label" style="width: 12%">家庭季五保供养金收入(元)</td>  
+					<td class="kv-label" style="width: 12%">家庭季医疗救助金收入（元）</td>   
+					<td class="kv-label" style="width: 14%">家庭季临时救助金收入（元）</td>   
+					<td class="kv-label" style="width: 28%">操作</td>
+				</tr> 
+		</script>
+		<script type="text/template" id="socialinfo">
+			<tr>
+				<td class="kv-content">{quarter}</td>
+				<td class="kv-content">{socialAssistanceIncome}</td> 
+				<td class="kv-content">{minimumLivingStandardIncome}</td> 
+				<td class="kv-content">{fiveGuaranteesIncome}</td> 
+				<td class="kv-content">{medicalAssistanceIncome}</td> 
+				<td class="kv-content">{temporaryAssistanceIncome}</td>   
+				<td class="kv-content">
+					<div class="button modify-social" socialAssistanceId={socialAssistanceId} quarter={quarter}>
+						<i class="iconfont">&#xe621;</i>
+						<span class="button-label">查看</span>
+					</div>
+				</td>
+			</tr>
+		</script>
+		<script type="text/template" id="labortrainhead">
+			<tbody>
+				<tr>
+					<td class="kv-label" style="width: 12%">上报年和季度</td>
+					<td class="kv-label" style="width: 12%">培训人姓名</td> 
+					<td class="kv-label" style="width: 12%">培训需求</td>   
+					<td class="kv-label" style="width: 12%">培训类型</td>   
+					<td class="kv-label" style="width: 12%">培训时间</td>   
+					<td class="kv-label" style="width: 14%">取证情况</td>   
+					<td class="kv-label" style="width: 28%">操作</td>
+				</tr>
+		</script>
+		<script type="text/template" id="labortraininfo">
+			<tr>
+				<td class="kv-content">{quarter}</td>
+				<td class="kv-content">{name}</td> 
+				<td class="kv-content">{traineed}</td> 
+				<td class="kv-content">{traintype}</td> 
+				<td class="kv-content">{trainingLength}</td> 
+				<td class="kv-content">{certificate}</td>   
+				<td class="kv-content">
+					<div class="button modify-labortrain" quarter={quarter} laborTrainingId={laborTrainingId}>
+						<i class="iconfont">&#xe621;</i>
+						<span class="button-label">查看</span>
+					</div>
+				</td>
+			</tr>
+		</script>
+		<script type="text/template" id="specsupportinfohead">
+			
+				<tr>
+					<td class="kv-label" style="width: 36%">上报年和季度</td>
+					<!-- <td class="kv-label" style="width: 12%">类别</td> -->
+					<td class="kv-label" style="width: 38%">到户资金合计</td>   
+					<td class="kv-label" style="width: 28%">操作</td>
+				</tr>
+		</script>
+		<script type="text/template" id="specsupportinfo">
+			<tr>
+				<td class="kv-content">{quarter}</td>
+				<!-- <td class="kv-content">{classify}</td> -->
+				<td class="kv-content">{countFunds}</td>   
+				<td class="kv-content">
+					<div class="button specsupport-info" quarter={quarter} countFunds={countFunds}>
+						<i class="iconfont">&#xe621;</i>
+						<span class="button-label">查看</span>
+					</div>					
+				</td>
+			</tr>
+		</script>
+		<script type="text/template" id="richinfohead">
+			<tbody>
+				<tr>
+					<td class="kv-label" style="width: 12%">上报年和季度</td>
+					<td class="kv-label" style="width: 12%">种植业收入(元)</td>   
+					<td class="kv-label" style="width: 12%">畜牧业收入(元)</td> 
+					<td class="kv-label" style="width: 12%">林果业收入(元)</td>                
+					<td class="kv-label" style="width: 12%">务工收入(元)</td>                    
+					<td class="kv-label" style="width: 14%">其他富民产业收入(元)</td>
+					<td class="kv-label" style="width: 28%">操作</td>
+				</tr> 
+		</script>
+		<script type="text/template" id="richinfo">
+			<tr>				
+				<td class="kv-content">{quarter}</td>
+				<td class="kv-content">{plantIncome}</td>   
+				<td class="kv-content">{farmingIncome}</td>  
+				<td class="kv-content">{fruitForestIncome}</td>                
+				<td class="kv-content">{workIncome}</td>                    
+				<td class="kv-content">{otherIndustryIncome}</td>
+				<td class="kv-content">
+					<div class="button modify-rich" prosperousIndustryId={prosperousIndustryId}>
+						<i class="iconfont">&#xe621;</i>
+						<span class="button-label">查看</span>
+					</div>
+					<!-- <div class="button delete-rich" prosperousIndustryId={prosperousIndustryId}>
+						<i class="iconfont">&#xe609;</i>
+						<span class="button-label">删除</span>
+					</div> -->
+				</td>
+			</tr>
+		</script>
+		<script type="text/template" id="helperinfohead">
+			<tbody>
+				<tr>
+					<td class="kv-label">科技特派员</td>
+					<td class="kv-label">性别</td>
+					<td class="kv-label">政治面貌</td>   
+					<td class="kv-label">科技特派员职务</td>                
+					<td class="kv-label">科技特派员所在单位名称</td>                    
+					<td class="kv-label">帮扶开始时间</td>
+					<td class="kv-label">帮扶结束时间</td>
+					<td class="kv-label">单位隶属关系</td>
+					<td class="kv-label">单位地址</td>
+					<td class="kv-label">联系电话</td>
+				</tr> 
+		</script>
+		<script type="text/template" id="helperinfo">
+			<tr>
+				<td class="kv-content">{name}</td>
+				<td class="kv-content">{sex}</td>
+				<td class="kv-content">{zhegnzhimianmao}</td>   
+				<td class="kv-content">{zhiwu}</td>                
+				<td class="kv-content">{danwei}</td>                    
+				<td class="kv-content">{assistanceStartTime}</td>
+				<td class="kv-content">{assistanceEndTime}</td>
+				<td class="kv-content">{relationofdanwei}</td>
+				<td class="kv-content">{danweiaddress}</td>
+				<td class="kv-content">{phoneNumber}</td>				
+			</tr>
+		</script>
+		<script type="text/template" id="plantrelocationinfo">
+			<tbody>
+				<tr>
+					<td class="kv-content" colspan="2" style="border:none;width: 50PX"></td>
+					<td class="kv-label">是否搬迁户：</td>
+					<td class="kv-content">{relocatedFamily}</td>
+					<td class="kv-label">搬迁方式：</td>   
+					<td class="kv-content">{relocatedWay}</td>  
+					<td class="kv-content" colspan="2" style="border:none;width: 50PX"></td>
+				</tr>
+				<tr>           
+				<td class="kv-content" colspan="2" style="border:none;width: 50PX"></td>
+					<td class="kv-label">迁出区：</td>                    
+					<td class="kv-content">{moveAwayDistrict}</td>
+					<td class="kv-label">安置方式：</td>
+					<td class="kv-content">{arrangeWay}</td>
+					<td class="kv-content" colspan="2" style="border:none;width: 50PX"></td>
+				</tr>
+				<tr>
+				<td class="kv-content" colspan="2" style="border:none;width: 50PX"></td>
+					<td class="kv-label">安置地：</td>
+					<td class="kv-content">{arrangePlace}</td>
+					<td class="kv-label">搬迁可能存在的困难：</td>
+					<td class="kv-content">{problemsInRelocate}</td>
+					<td class="kv-content" colspan="2" style="border:none;width: 50PX"></td>
+				</tr> 					
+			</tbody>
+		</script>
+		<script type="text/template" id="tophead-info">
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-label">
+							户主姓名：
+						</td>
+						<td class="kv-content">
+							{name}
+						</td>
+						<td class="kv-label">
+							户主身份证号：
+						</td>
+						<td class="kv-content">
+							{IDCard}
+						</td>									
+					</tr>
+					<tr>
+						<td class="kv-label">
+							家庭人口：
+						</td>
+						<td class="kv-content">
+							{familyPopulation}
+						</td>
+						<td class="kv-label">
+							联系电话：
+						</td>	
+						<td class="kv-content">
+							{phoneNumber}
+						</td>						
+					</tr>
+					<tr>
+						<td class="kv-label">
+							开户银行：
+						</td>
+						<td class="kv-content">
+							{bank}
+						</td>
+						<td class="kv-label">
+							银行卡号：
+						</td>
+						<td class="kv-content">
+							{bankNumber}
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">
+							家庭住址：
+						</td>
+						<td class="kv-content" colspan="3" style="padding: 2px 0 1px 10px;">
+							{location}
+						</td>
+						
+					</tr>
+					<tr>
+						<td class="kv-label">
+							因贫辍学人数：
+						</td>
+						<td class="kv-content">
+							{dropoutFigures}
+						</td>
+						<td class="kv-label">
+							计划脱贫年份：
+						</td>
+						<td class="kv-content">
+							{overcomeYear}
+						</td>
+					</tr>
+
+					<tr>
+						<td class="kv-label">
+							贫困户属性：
+						</td>
+						<td colspan="3" class="kv-content">
+							<label><input type="radio" name="povertyGrade" value="1" disabled="disabled">一般贫困户</label>
+							<label><input type="radio" name="povertyGrade" value="2" disabled="disabled">低保贫困户</label>
+							<label><input type="radio" name="povertyGrade" value="3" disabled="disabled">五保贫困户</label>
+						</td>					
+					</tr>
+
+					<tr>
+						<td class="kv-label">
+							是否返贫：
+						</td>
+						<td class="kv-content">
+							<label><input type="radio" name="backToPoverty" value="1" disabled="disabled">是</label>
+							<label><input type="radio" name="backToPoverty" value="0" disabled="disabled">否</label>
+						</td>
+						<td class="kv-label">
+							贫困状态：
+						</td>
+						<td class="kv-content">
+							<label><input type="radio" name="povertyState" value="1" disabled="disabled">未脱贫</label>
+							<label><input type="radio" name="povertyState" value="2" disabled="disabled">预脱贫</label>
+							<label><input type="radio" name="povertyState" value="3" disabled="disabled">已脱贫</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">
+							有无帮扶政策：
+						</td>
+						<td class="kv-content">
+							<label><input type="radio" name="hasHelpPolicy" value="1" disabled="disabled">有</label>
+							<label><input type="radio" name="hasHelpPolicy" value="0" disabled="disabled">无</label>
+						</td>
+						<td class="kv-label">
+							是否军烈：
+						</td>
+						<td class="kv-content">
+							<label><input type="radio" name="martyr" value="1" disabled="disabled">是</label>
+							<label><input type="radio" name="martyr" value="0" disabled="disabled">否</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">
+							是否独生子女：
+						</td>
+						<td class="kv-content">
+							<label><input type="radio" name="onlyChild" value="1" disabled="disabled">是</label>
+							<label><input type="radio" name="onlyChild" value="0" disabled="disabled">否</label>
+						</td>
+						<td class="kv-label">
+							是否双女户：
+						</td>
+						<td class="kv-content">
+							<label><input type="radio" name="doubleDaughters" value="1" disabled="disabled">是</label>
+							<label><input type="radio" name="doubleDaughters" value="0" disabled="disabled">否</label>
+						</td>
+
+					</tr>
+					<tr>
+						<td class="kv-label">
+							是否有住房：
+						</td>
+						<td class="kv-content">
+							<label><input type="radio" name="hasHouse" value="1" disabled="disabled">是</label>
+							<label><input type="radio" name="hasHouse" value="0" disabled="disabled">否</label>
+						</td>
+						<td class="kv-label">
+							录入时间：
+						</td>
+						<td class="kv-content">
+							{enterTime}
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">
+							帮扶政策：
+						</td>
+						<td colspan="3" class="kv-content">
+							<label><input type="checkbox" name="industryDevelopment" value="1" disabled="disabled">产业发展</label>
+							<label><input type="checkbox" name="changeJob" value="1" disabled="disabled">转移就业</label>
+							<label><input type="checkbox" name="helpSchool" value="1" disabled="disabled">助学帮智</label>
+							<label><input type="checkbox" name="socialInsurance" value="1" disabled="disabled">社会保障</label>
+							<label><input type="checkbox" name="relocation" value="1" disabled="disabled">易地搬迁</label>
+							<label><input type="checkbox" name="specialHelp" value="1" disabled="disabled">特殊救助</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="kv-label">
+							主要致贫原因：
+						</td>
+						<td colspan="3" class="kv-content">
+							<label><input type="checkbox" name="ofIll" value="1" disabled="disabled">因病</label>
+							<label><input type="checkbox" name="ofSchool" value="1" disabled="disabled">因学</label>
+							<label><input type="checkbox" name="ofDisaster" value="1" disabled="disabled">因灾</label>
+							<label><input type="checkbox" name="ofDisability" value="1" disabled="disabled">因残</label>
+							<label><input type="checkbox" name="lackSoil" value="1" disabled="disabled">缺土</label>
+							<label><input type="checkbox" name="lackWater" value="1" disabled="disabled">缺水</label>
+							<label><input type="checkbox" name="lackTechnology" value="1" disabled="disabled">缺技术</label>
+							<label><input type="checkbox" name="lackLabor" value="1" disabled="disabled">缺劳动力</label>
+							<label><input type="checkbox" name="lackMoney" value="1" disabled="disabled">缺资金</label>
+							<label><input type="checkbox" name="lackTraffic" value="1" disabled="disabled">交通条件落后</label>
+							<label><input type="checkbox" name="lackNatureDevelopment" value="1" disabled="disabled">自然发展动力不足</label>
+							<label><input type="checkbox" name="others" value="1" disabled="disabled">其他</label>
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</script>
+		<script type="text/template" id="family-head">
+			<tbody>
+				<tr>
+					<td class="kv-label">姓名</td>
+					<td class="kv-label">性别</td>
+					<td class="kv-label">年龄</td>   
+					<td class="kv-label">民族</td>                
+					<td class="kv-label">与户主关系</td>                    
+					<td class="kv-label">文化程度</td>
+					<td class="kv-label">政治面貌</td>
+					<td class="kv-label">在校生状况</td>
+					<td class="kv-label">是否现役军人</td>
+					<td class="kv-label">健康状况</td>
+					<td class="kv-label">劳动能力</td>
+					<td class="kv-label">务工状况</td>                  
+					<td class="kv-label">务工时间</td>
+					<td class="kv-label">是否参加新型农村合作医疗</td>
+					<td class="kv-label">是否参加城乡居民养老保险</td>
+					<td class="kv-label">是否参加大病医疗保险</td>
+					<td class="kv-label">扶持方式</td>
+					<td class="kv-label">操作</td>
+				</tr> 
+		</script>
+		<script type="text/template" id="family-list">
+			<tr>
+				<td class="kv-content">{name}</td>
+				<td class="kv-content">{sex}</td>
+				<td class="kv-content">{age}</td>   
+				<td class="kv-content">{ethnicity}</td>                
+				<td class="kv-content">{relationsWithFamilyOwner}</td>                    
+				<td class="kv-content">{educationDegree}</td>
+				<td class="kv-content">{politicsStatus}</td>
+				<td class="kv-content">{atSchoolStatus}</td>
+				<td class="kv-content">{soldierNow}</td>
+				<td class="kv-content">{healthStatus}</td>
+				<td class="kv-content">{workAbility}</td>
+				<td class="kv-content">{workStatus}</td>                  
+				<td class="kv-content">{workTime}</td>
+				<td class="kv-content">{joinMedicalCooperation}</td>
+				<td class="kv-content">{joinEndowmentInsurance}</td>
+				<td class="kv-content">{joinSicknessInsurance}</td>
+				<td class="kv-content">{wayOfHelp}</td>
+				<td class="kv-content">
+					<div class="button modify-family" familyMemberId="{fimilyMenberId}">
+						<i class="iconfont">&#xe601;</i>
+						<span class="button-label">详情</span>
+					</div>
+				</td>
+			</tr>
+		</script>		
+		<script type="text/template" id="livecondition-info">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item" style="float: right;">
+						<!-- <div class="button modify-livings" style="margin-right: 6px;">
+							<i class="iconfont">&#xe621;</i>
+							<span class="button-label">修改</span>
+						</div> -->
+					</div>                      
+				</div>
+			</div>
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-label" colspan="4">生产条件</td>                    
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="4">生活条件</td> 					
+					</tr> 
+					<tr>
+						<td class="kv-label" colspan="2">耕地面积（亩）：</td>
+						<td class="kv-content" colspan="2">{cultivatedArea}</td>
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="2">与主干路距离（千米）：</td>   
+						<td class="kv-content" colspan="2">{distanceWithRoad}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2"> 有效灌溉面积（亩）：</td>
+						<td class="kv-content" colspan="2">{wateringArea}</td>
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="2"> 入户路类型：</td>   
+						<td class="kv-content" colspan="2">{roadKind}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2"> 林地面积（亩）：</td>
+						<td class="kv-content" colspan="2">{forestArea}</td>
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="2"> 住房面积（平方米）：</td>   
+						<td class="kv-content" colspan="2">{houseArea}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2"> 退耕还林面积（亩）：</td>
+						<td class="kv-content" colspan="2">{cultivatedIntoForestArea}</td>
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="2"> 是否通生活用电：</td>   
+						<td class="kv-content" colspan="2">{hasLiveElectricity}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2"> 林果面积（亩）：</td>
+						<td class="kv-content" colspan="2">{fruitForestArea}</td>
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="2"> 饮水是否困难：</td>   
+						<td class="kv-content" colspan="2">{hardToDrink}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2"> 牧草地面积（亩）：</td>
+						<td class="kv-content" colspan="2">{grassArea}</td>
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="2"> 饮水是否安全：</td>   
+						<td class="kv-content" colspan="2">{drinkingWaterSafe}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2"> 水面面积（亩）：</td>
+						<td class="kv-content" colspan="2">{waterSurfaceArea}</td>
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="2"> 危房户：</td>   
+						<td class="kv-content" colspan="2">{dangerousBuilding}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2"> 是否通生产用电：</td>
+						<td class="kv-content" colspan="2">{hasProductElectricity}</td>
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="2"> 主要燃料类型：</td>   
+						<td class="kv-content" colspan="2">{kindOfFuel}</td>                
+					</tr>	
+					<tr>
+						<td class="kv-label" colspan="2" style="border:none;background: #fff;"></td>
+						<td class="kv-content" colspan="2" style="border:none;background: #fff;"></td>
+						<td class="kv-label" style="border:none;background: #fff;width: 30px"></td>
+						<td class="kv-label" colspan="2"> 是否加入农民专业合作社：</td>   
+						<td class="kv-content" colspan="2">{joinCooperation}</td>                
+					</tr>	
+				</tbody> 
+			</table>
+			<br><br>
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-label" colspan="8">收入支出</td>					
+					</tr> 
+					<tr>
+						<td class="kv-label" colspan="2">工资性收入（元/年）：</td>
+						<td class="kv-content" colspan="2">{wageIncome}</td>
+						<td class="kv-label" colspan="2">生产经营性收入（元/年）：</td>   
+						<td class="kv-content" colspan="2">{productionIncome}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2">财产性收入（元/年）：</td>
+						<td class="kv-content" colspan="2">{propertyIncome}</td>
+						<td class="kv-label" colspan="2">转移性收入（元/年）：</td>   
+						<td class="kv-content" colspan="2">{transferIncome}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2"> 计划生育金（元/年）：</td>
+						<td class="kv-content" colspan="2">{familyPlanningMoney}</td>
+						<td class="kv-label" colspan="2">低保金（元/年）：</td>   
+						<td class="kv-content" colspan="2">{lowHouseholdMoney}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2">五保金（元/年）：</td>
+						<td class="kv-content" colspan="2">{fiveGuaranteed}</td>
+						<td class="kv-label" colspan="2">养老保险金（元/年）：</td>   
+						<td class="kv-content" colspan="2">{endowmentInsurance}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2">生态补偿金（元/年）：</td>
+						<td class="kv-content" colspan="2">{ecologicalCompensation}</td>
+						<td class="kv-label" colspan="2">其他转移性收入（元/年）：</td>   
+						<td class="kv-content" colspan="2">{otherTransferIncome}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2">年收入（元/年）：</td>
+						<td class="kv-content" colspan="2">{incomePerYear}</td>
+						<td class="kv-label" colspan="2">生产性支出（元/年）：</td>   
+						<td class="kv-content" colspan="2">{productionOutput}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2">纯收入（元/年）：</td>
+						<td class="kv-content" colspan="2">{netIncomePerYear}</td>
+						<td class="kv-label" colspan="2">人均收入（元/年）：</td>   
+						<td class="kv-content" colspan="2">{perMemberIncome}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2">是否通广播电视：</td>
+						<td class="kv-content" colspan="2">{hasTelevisionSignal}</td>
+						<td class="kv-label" colspan="2">农资综合补贴（元/年）：</td>   
+						<td class="kv-content" colspan="2">{synthesizeSubsidy}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2">医疗救助金（元/年）：</td>
+						<td class="kv-content" colspan="2">{medicalAssistanceMoney}</td>
+						<td class="kv-label" colspan="2">粮食直补（元/年）：</td>   
+						<td class="kv-content" colspan="2">{grainSubsidy}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2">未偿还借（贷）款（元/年）：</td>
+						<td class="kv-content" colspan="2">{loans}</td>
+						<td class="kv-label" colspan="2">新农合医疗保险（元/年）：</td>   
+						<td class="kv-content" colspan="2">{medicalInsurance}</td>                
+					</tr>
+					<tr>
+						<td class="kv-label" colspan="2">有无因病、因学贷款（元/年）：</td>
+						<td class="kv-content" colspan="2">{illOrSchoolLoans}</td>
+						<td class="kv-label" colspan="2">贫困户人均生活消费支出（元/年）：	</td>   
+						<td class="kv-content" colspan="2">{perMemberOutput}</td>                
+					</tr>
+				</tbody> 
+			</table>
+			<br><br>
+		</script>
+		<!-- 以上是列表-->		
+		<script type="text/template" id="modify-family">
+			<div class="add-member">
+				<div class="add-manage">
+					<form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label">
+									成员姓名：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="name" id="name" disabled="disabled">
+								</td>
+								<td class="kv-label">
+									成员性别：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<label><input type="radio" name="sex" value="1" disabled="disabled">男</label>
+									<label><input type="radio" name="sex" value="0" disabled="disabled">女</label>
+								</td>									
+							</tr>
+							<tr>
+								<td class="kv-label">
+									家庭成员证件号码：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="IDCard" id="idcard" disabled="disabled">
+								</td>
+								<td class="kv-label">
+									成员年龄：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="age" id="age" disabled="disabled">
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="kv-label">
+									民族：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<select name="ethnicity" id="ethnicity" disabled="disabled">
+									<option value="">请选择</option>
+	                               	<option value="汉族">汉族</option>
+									<option value="蒙古族">蒙古族</option>
+									<option value="回族">回族</option>
+									<option value="藏族">藏族</option>
+									<option value="维吾尔族">维吾尔族</option>
+									<option value="苗族">苗族</option>
+									<option value="彝族">彝族</option>
+									<option value="壮族">壮族</option>
+									<option value="布依族">布依族</option>
+									<option value="朝鲜族">朝鲜族</option>
+									<option value="满族">满族</option>
+									<option value="侗族">侗族</option>
+									<option value="瑶族">瑶族</option>
+									<option value="白族">白族</option>
+									<option value="土家族">土家族</option>
+									<option value="哈尼族">哈尼族</option>
+									<option value="哈萨克族">哈萨克族</option>
+									<option value="傣族">傣族</option>
+									<option value="黎族">黎族</option>
+									<option value="傈僳族">傈僳族</option>
+									<option value="佤族">佤族</option>
+									<option value="畲族">畲族</option>
+									<option value="高山族">高山族</option>
+									<option value="拉祜族">拉祜族</option>
+									<option value="水族">水族</option>
+									<option value="东乡族">东乡族</option>
+									<option value="纳西族">纳西族</option>
+									<option value="景颇族">景颇族</option>
+									<option value="柯尔克孜族">柯尔克孜族</option>
+									<option value="土族">土族</option>
+									<option value="达斡尔族">达斡尔族</option>
+									<option value="仫佬族">仫佬族</option>
+									<option value="羌族">羌族</option>
+									<option value="布朗族">布朗族</option>
+									<option value="撒拉族">撒拉族</option>
+									<option value="毛南族">毛南族</option>
+									<option value="仡佬族">仡佬族</option>
+									<option value="锡伯族">锡伯族</option>
+									<option value="阿昌族">阿昌族</option>
+									<option value="普米族">普米族</option>
+									<option value="塔吉克族">塔吉克族</option>
+									<option value="怒族">怒族</option>
+									<option value="乌孜别克族">乌孜别克族</option>
+									<option value="俄罗斯族">俄罗斯族</option>
+									<option value="鄂温克族">鄂温克族</option>
+									<option value="德昂族">德昂族</option>
+									<option value="保安族">保安族</option>
+									<option value="裕固族">裕固族</option>
+									<option value="京族">京族</option>
+									<option value="塔塔尔族">塔塔尔族</option>
+									<option value="独龙族">独龙族</option>
+									<option value="鄂伦春族">鄂伦春族</option>
+									<option value="赫哲族">赫哲族</option>
+									<option value="门巴族">门巴族</option>
+									<option value="珞巴族">珞巴族</option>
+									<option value="基诺族">基诺族</option>
+									<option value="其他">其他</option>
+									<option value="外国血统">外国血统</option>
+	                            </select>
+								</td>
+								<td class="kv-label">
+									与户主关系：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<select name="relationsWithFamilyOwner" id="relationsWithFamilyOwner" disabled="disabled">
+										<option value="">请选择</option>
+										<option value="户主">户主</option>
+										<option value="配偶">配偶</option>
+										<option value="之子">之子</option>
+										<option value="之女">之女</option>
+										<option value="之父">之父</option>
+										<option value="之母">之母</option>
+										<option value="之孙">之孙</option>
+										<option value="之孙女">之孙女</option>
+										<option value="其他">其他</option>
+									</select>
+								</td>								
+							</tr>
+							<tr>
+								<td class="kv-label">
+									文化程度：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<select name="educationDegree" id="educationDegree" disabled="disabled">
+										<option value="">请选择</option>
+										<option value="文盲或半文盲">文盲或半文盲</option>
+										<option value="小学">小学</option>
+										<option value="初中">初中</option>
+										<option value="高中">高中</option>
+										<option value="大学">大学</option>
+									</select>
+								</td>
+								<td class="kv-label">
+									政治面貌：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<select name="politicsStatus" id="politicsStatus" disabled="disabled">
+										<option value="">请选择</option>
+										<option value="群众">群众</option>
+										<option value="中共党员">中共党员</option>
+										<option value="中共预备党员">中共预备党员</option>
+										<option value="共青团员">共青团员</option>
+										<option value="民革党员">民革党员</option>
+										<option value="民盟盟员">民盟盟员</option>
+										<option value="民建会员">民建会员</option>
+										<option value="民进会员">民进会员</option>
+										<option value="农工党党员">农工党党员</option>
+										<option value="致公党党员">致公党党员 </option>
+										<option value="九三学社社员"> 九三学社社员</option>
+										<option value="台盟盟员">台盟盟员</option>
+										<option value="无党派民主人士">无党派民主人士</option>
+									</select>									
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									在校生状况：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<select name="atSchoolStatus" id="atSchoolStatus" disabled="disabled">
+										<option value="">请选择</option>
+										<option value="非在校生">非在校生</option>
+										<option value="学前教育">学前教育</option>
+										<option value="小学">小学</option>
+										<option value="七年级">七年级</option>
+										<option value="八年级">八年级</option>
+										<option value="九年级">九年级</option>
+										<option value="高中一年级">高中一年级</option>
+										<option value="高中二年级">高中二年级</option>
+										<option value="高中三年级">高中三年级</option>
+										<option value="中职一年级">中职一年级</option>
+										<option value="中职二年级">中职二年级</option>
+										<option value="中职三年级">中职三年级</option>
+										<option value="高职一年级">高职一年级</option>
+										<option value="高职二年级">高职二年级</option>
+										<option value="高职三年级">高职三年级</option>
+										<option value="大专及以上">大专及以上</option>
+									</select>
+								</td>
+								<td class="kv-label">健康状况：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<select name="healthStatus" id="healthStatus" disabled="disabled">
+										<option value="">请选择</option>
+										<option value="健康">健康</option>
+										<option value="长期慢性病">长期慢性病</option>
+										<option value="患有大病">患有大病</option>
+										<option value="残疾">残疾</option>
+										<option value="死亡">死亡</option>
+									</select>									
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									务工时长：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text" name="workTime" id="workTime" disabled="disabled">
+								</td>
+								<td class="kv-label">
+									劳动能力：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<select name="workAbility" id="workAbility" disabled="disabled">
+										<option value="">请选择</option>
+										<option value="无劳动能力">无劳动能力</option>
+										<option value="普通劳动能力">普通劳动能力</option>
+										<option value="技能劳动能力">技能劳动能力</option>
+										<option value="丧失劳动能力">丧失劳动能力</option>
+									</select>									
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									务工状态：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<select name="workStatus" id="workStatus" disabled="disabled">
+										<option value="">请选择</option>
+										<option value="乡镇内">乡镇内</option>
+										<option value="乡镇外县内">乡镇外县内</option>
+										<option value="县外省内">县外省内</option>
+										<option value="省外境内">省外境内</option>
+										<option value="境外">境外</option>
+										<option value="其他">其他</option>
+									</select>
+								</td>
+								<td class="kv-label">
+									帮扶方式：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<select name="wayOfHelp" id="wayOfHelp" disabled="disabled">
+										<option value="">请选择</option>
+										<option value="发展生产">发展生产</option>
+										<option value="社会保障">社会保障</option>
+										<option value="转移就业">转移就业</option>
+										<option value="助学帮智">助学帮智</option>
+										<option value="特殊救助">特殊救助</option>
+										<option value="其他">其他</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									是否现役军人：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<label><input type="radio" name="SoldierNow" id="soldierNow1" value="1" disabled="disabled">是</label>
+									<label><input type="radio" name="SoldierNow" id="soldierNow0" value="0" disabled="disabled">否</label>
+								</td>
+								<td class="kv-label">
+									是否参加新型医疗合作社：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<label><input type="radio" name="joinMedicalCooperation" value="1" disabled="disabled">是</label>
+									<label><input type="radio" name="joinMedicalCooperation" value="0" disabled="disabled">否</label>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									是否参加城乡居民养老保险：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<label><input type="radio" name="joinEndowmentInsurance" value="1" disabled="disabled">是</label>
+									<label><input type="radio" name="joinEndowmentInsurance" value="0" disabled="disabled">否</label>
+								</td>
+								<td class="kv-label">
+									是否参加大病医疗保险：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<label><input type="radio" name="joinSicknessInsurance" value="1" disabled="disabled">是</label>
+									<label><input type="radio" name="joinSicknessInsurance" value="0" disabled="disabled">否</label>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									是否享受低保：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<label><input type="radio" name="hasMinimumLivingStandard" value="1" disabled="disabled">是</label>
+									<label><input type="radio" name="hasMinimumLivingStandard" value="0" disabled="disabled">否</label>
+								</td>								
+							</tr>
+						</tbody>
+					</table>
+				</form>
+				</div>
+			</div>
+		</script>
+		<script type="text/template" id="modify-rich">
+			<div class="addrich">
+				<div class="add-manage">
+					<form action="" name="updateform" id="formupdate" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td colspan="3" rowspan="2" class="kv-label" style="width: 13%;">
+									农户基本信息
+								</td>
+								<td class="kv-label" style="width: 14%;">
+									户主姓名：
+								</td>
+								<td class="kv-label" style="width: 15%;">
+									<span>{name}</span>
+								</td>
+								<td class="kv-label" style="width: 13%;">
+									家庭人口：
+								</td>
+								<td class="kv-label" style="width: 15%;">
+									<span>{familyPopulation}</span>
+								</td>
+								<td class="kv-label" style="width: 15%;">
+									上报季度：<font color="red" style="display: none;">*</font>
+								</td>
+								<td class="kv-label" style="width: 15%;">
+									<span>{quarter}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									联系电话：
+								</td>
+								<td class="kv-label">
+									<span>{phoneNumber}</span>
+								</td>
+								<td class="kv-label">
+									证件号码：
+								</td>
+								<td id="Td4" colspan="3" class="kv-label">
+									<span>{IDCard}</span>
+								</td>
+							</tr>
+							<!-- -种植业- -->
+							<tr>
+								<td rowspan="23" class="kv-label" style="width: 2%;">
+									扶贫<br>
+									措施
+								</td>
+								<td rowspan="23" class="kv-label" style="width: 2%;">
+									多元<br>
+									富民<br>
+									产业
+								</td>
+								<td rowspan="3" class="kv-label">
+									种植业
+								</td>
+								<td class="kv-label">
+									水稻面积(亩)：
+								</td>
+								<td class="kv-content">
+									<span>{riceArea}</span>
+								</td>
+								<td class="kv-label">
+									红薯面积(亩)：
+								</td>
+								<td class="kv-content">
+									<span>{sweetPotatoArea}</span>
+								</td>
+								<td class="kv-label">
+									中药材面积(亩)：
+								</td>
+								<td class="kv-content">
+									<span>{chineseMedicinalArea}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									蔬菜、瓜类面积(亩)：
+								</td>
+								<td class="kv-content">
+									<span>{vegetableArea}</span>
+								</td>
+								<td class="kv-label">
+									其中设施蔬菜面积(大棚、日光温室)(亩)：
+								</td>
+								<td class="kv-content">
+									<span>{greenhouseArea}</span>
+								</td>
+								<td class="kv-label">
+									其它种植面积(亩)：
+								</td>
+								<td class="kv-content">
+									<span>{otherArea}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									种植业收入(元)：
+								</td>
+								<td colspan="5" class="kv-content">
+									<span>{plantIncome}</span>
+								</td>
+							</tr>
+							<!---畜牧业 -->
+							<tr>
+								<td rowspan="6" class="kv-label">
+									畜牧业
+								</td>
+								<td class="kv-label">
+									牛饲养(头)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{cow}</span>
+								</td>
+								<td class="kv-label">
+									年内牛出栏(头)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{cowMarket}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									羊饲养(只)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{sheep}</span>
+								</td>
+								<td class="kv-label">
+									年内羊出栏(只)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{sheepMarket}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									猪饲养(头)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{pig}</span>
+								</td>
+								<td class="kv-label">
+									年内猪出栏(头)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{pigMarket}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									家禽饲养(只)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{poultry}</span>
+								</td>
+								<td class="kv-label">
+									年内家禽出栏(只)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{poultryMarket}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									渔养殖(亩)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{fish}</span>
+								</td>
+								<td class="kv-label">
+									年内渔养殖出栏(亩)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{sweetPotatoArea}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									设施圈舍(平方米)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{facility}</span>
+								</td>
+								<td class="kv-label">
+									畜牧业收入(元)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{farmingIncome}</span>
+								</td>
+							</tr>							
+							<!-- -林果业 -->
+							<tr>
+								<td rowspan="3" class="kv-label">
+									林果业
+								</td>
+								<td class="kv-label">
+									林果产业类型：
+								</td>
+								<td class="kv-content">
+									<span>{fruitForestIndustryStructure}</span>
+								</td>
+								<td class="kv-label">
+									林果面积(亩)：
+								</td>
+								<td class="kv-content">
+									<span>{fruitForestArea}</span>
+								</td>
+								<td rowspan="2" class="kv-label">
+									其它林果面积(亩)：
+								</td>
+								<td rowspan="2" class="kv-content">
+									<span>{otherForestArea}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									苗木类型：
+								</td>
+								<td class="kv-content">
+									<span>{nurseryForestType}</span>
+								</td>
+								<td class="kv-label">
+									苗木面积(亩)：
+								</td>
+								<td class="kv-content">
+									<span>{nurseryForestArea}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									林果业收入(元)：
+								</td>
+								<td colspan="5" class="kv-content">
+									<span>{fruitForestIncome}</span>
+								</td>
+							</tr>
+							<!--其它富民产业-->
+							<tr>
+								<td class="kv-label">
+									其它富民产业
+								</td>
+
+								<td class="kv-label">
+									其它富民产业收入(元):
+								</td>
+								<td colspan="5" class="kv-content">
+									<span>{otherIndustryIncome}</span>
+								</td>
+							</tr>
+							<!-- 土地流转面积- -->
+							<tr>
+								<td class="kv-label">
+									土地流转
+								</td>
+								<td class="kv-label">
+									土地流转面积(亩)：
+								</td>
+								<td class="kv-content">
+									<span>{landTransferArea}</span>
+								</td>
+								<td class="kv-label">
+									土地流转收入(元)：
+								</td>
+								<td colspan="3" class="kv-content">
+									<span>{landTransferIncome}</span>
+								</td>
+							</tr>
+							<!-- -龙头企业- -->
+							<tr>
+								<td rowspan="2" class="kv-label">
+									龙头企业、合作社、种养大户等带动农户收入
+								</td>
+								<td class="kv-label">
+									龙头企业带动收入(元):
+								</td>
+								<td class="kv-content">
+									<span>{leadingEnterpriseDriveIncome}</span>
+								</td>
+								<td class="kv-label">
+									合作社带动收入(元):
+								</td>
+								<td class="kv-content">
+									<span>{cooperationDriveIncome}</span>
+								</td>
+								<td class="kv-label">
+									种养大户带动收入(元):
+								</td>
+								<td class="kv-content">
+									<span>{influentialFamilyDriveIncome}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									是否加入合作社： <font color="red" style="display: none;">*</font>
+								</td>
+								<td class="kv-content">
+									<table>
+										<tbody>
+											<tr>
+												<td>
+													<label><input type="radio" name="joinCooperation" value="true">是</label>
+													<label><input type="radio" name="joinCooperation" value="false">否</label>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td class="kv-label">
+									是否加入农业保险：<font color="red" style="display: none;">*</font>
+								</td>
+								<td colspan="3" class="kv-content">
+									<table>
+										<tbody>
+											<tr>
+												<td>
+													<label><input type="radio" name="joinAgriculturalInsurance" value="true">是</label>
+													<label><input type="radio" name="joinAgriculturalInsurance" value="false">否</label>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<!-- 劳务经济 -->
+							<tr>
+								<td class="kv-label">
+									劳务经济
+								</td>
+								<td class="kv-label">
+									务工人数(人)：
+								</td>
+								<td class="kv-content">
+									<span>{workersNumber}</span>
+								</td>
+								<td class="kv-label">
+									务工收入(元)：
+								</td>
+								<td colspan="3" class="kv-content">
+									<span>{workIncome}</span>
+								</td>
+							</tr>
+							<!---农村金融-->
+							<tr>
+								<td rowspan="4" class="kv-label">
+									农村金融
+								</td>
+								<td class="kv-label">
+									贷款类型：
+								</td>
+								<td class="kv-content">
+									<span>{loanType}</span>
+								</td>
+								<td class="kv-label">
+									承贷金融机构：
+								</td>
+								<td class="kv-content">
+									<span>{loanInstitution}</span>
+								</td>
+								<td class="kv-label">
+									贷款帐号：
+								</td>
+								<td class="kv-content">
+									<span>{loanAccount}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									贷款总额(元)：
+								</td>
+								<td class="kv-content">
+									<span>{loanAmount}</span>
+								</td>
+								<td class="kv-label">
+									贷款发放时间：
+								</td>
+								<td class="kv-content">
+									<span >{lendingTime}</span>
+								</td>
+								<td class="kv-label">
+									贷款期限(月)：
+								</td>
+								<td class="kv-content">
+									<span>{loanPeriod}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									贷款还款时间：
+								</td>
+								<td class="kv-content">
+									<span>{repaymentDate}</span>
+								</td>
+								<td class="kv-label">
+									执行年利率(%)：
+								</td>
+								<td class="kv-content">
+									<span>{annualInterest}</span>
+								</td>
+								<td class="kv-label">
+									贷款利息(占用费)(元)：
+								</td>
+								<td class="kv-content">
+									<span>{loanInterest}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									应贴息金额(元)：
+								</td>
+								<td class="kv-content">
+									<span>{discountAmount}</span>
+								</td>
+								<td class="kv-label">
+									贷款用途：
+								</td>
+								<td colspan="4" class="kv-content">
+									<span>{loanPurpose}</span>
+								</td>
+							</tr>
+							<!-- 扶贫成效-->
+							<tr>
+								<td class="kv-label">
+									扶贫成效
+								</td>
+								<td class="kv-label">
+									富民产业总收入(元)
+								</td>
+								<td colspan="5" class="kv-content">
+									<span>{totalIndustryIncome}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									备 注
+								</td>
+								<td colspan="13" class="kv-content">
+									<span>{remark}</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" class="kv-label" style="text-align: right;">
+									帮扶责任人：
+								</td>
+								<td class="kv-content">
+									<span>{assessmentObjectname}</span>
+								</td>
+								<td class="kv-label">
+									帮扶责任人电话：
+								</td>
+								<td class="kv-content">
+									<span>{assessmentObjectphoneNumber}</span>
+								</td>
+								<td class="kv-label">
+									填表时间：
+								</td>
+								<td class="kv-content">
+									<span>{fillInTime}</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+				</div>
+			</div>
+		</script>
+		<script type="text/template" id="specsupport-headinfo">
+			<div class="infospecsupport">
+				<div class="add-manage">
+					<table class="kv-table">
+						<tbody>
+							<tr>								
+								<td class="kv-label" >
+									户主姓名：
+								</td>
+								<td class="kv-content">
+									{name}
+								</td>
+								<td class="kv-label">
+									户主证件号码：
+								</td>
+								<td class="kv-content" colspan="2">
+									{IDCard}
+								</td>
+								<td class="kv-label">
+									到户资金合计(元):
+								</td>
+								<td class="kv-content" id="daohuzijinheji">
+									{countFunds}
+								</td>
+								<td class="kv-label">
+									上报季度：
+								</td>
+								<td class="kv-content" colspan="3">
+									{quarter}
+								</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="11" class="kv-label">
+									财政专项扶贫资金到户情况
+								</td>
+							</tr>
+							<tr>
+								<td rowspan="2" class="kv-label">
+									分类
+								</td>
+								<td rowspan="2" class="kv-label">
+									规模
+								</td>
+								<td rowspan="2" class="kv-label">
+									补助标准
+								</td>
+								<td rowspan="2" class="kv-label">
+									补助资金
+								</td>
+								<td colspan="3" class="kv-label">
+									贷款
+								</td>
+								<td colspan="2" class="kv-label">
+									互助资金借款
+								</td>
+								<td rowspan="2" class="kv-label">
+									填写日期
+								</td>
+								<!-- <td rowspan="2" class="kv-label">
+									操作
+								</td> -->
+							</tr>
+							<tr>
+								<td class="kv-label">
+									金额
+								</td>
+								<td class="kv-label">
+									利息
+								</td>
+								<td class="kv-label">
+									应贴利息
+								</td>
+								<td class="kv-label">
+									金额
+								</td>
+								<td class="kv-label">
+									占用费
+								</td>				
+							</tr>
+		</script>
+		<script type="text/template" id="specsupport-info">
+			<tr>
+				<td class="kv-content">
+					{classify}
+				</td>
+				<td class="kv-content">
+					{scale}
+				</td>
+				<td class="kv-content">
+					{standardSubsidies}
+				</td>
+				<td class="kv-content">
+					{subsidyFunds}
+				</td>
+				<td class="kv-content">
+					{loadAmount}
+				</td>
+				<td class="kv-content">
+					{loanInterest}
+				</td>
+				<td class="kv-content">
+					{discountAmount}
+				</td>
+				<td class="kv-content">
+					{mutualFunds}
+				</td>
+				<td class="kv-content">
+					{mutualFundsOccupied}
+				</td>	
+				<td class="kv-content">
+					{fillInTime}
+				</td>	
+				<!-- <td class="kv-content" style="padding-top: 6px;">
+					<div class="button modify-specsupport" specialPovertyAlleviationId={specialPovertyAlleviationId}>
+						<i class="iconfont">&#xe621;</i>
+						<span class="button-label">修改</span>
+					</div>
+					<div class="button delete-specsupport" specialPovertyAlleviationId={specialPovertyAlleviationId}>
+						<i class="iconfont">&#xe609;</i>
+						<span class="button-label">删除</span>
+					</div>					
+				</td> -->			
+			</tr>	
+		</script>
+		<script type="text/template" id="specsupport-endinfo">						
+			<tr>
+						
+							<td colspan="2" class="kv-label">
+									帮扶责任人：
+								</td>
+								<td colspan="3" class="kv-content">
+									{name}
+								</td>
+								<td colspan="3" class="kv-label">
+									帮扶责任人电话：
+								</td>
+								<td colspan="3" class="kv-content">
+									{phoneNumber}
+								</td>																							
+							</tr>						
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</script>		
+		<script type="text/template" id="modify-labortrain">
+			<div class="addlabortrain">
+				<div class="add-manage">
+					<form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+               				<tr>
+                    			<td class="kv-label" rowspan="4" style="width: 6%;">
+                    				农户<br>
+                    				基本<br>
+                    				信息
+                    			</td>
+                    			<td class="kv-label" style="width: 8%;">
+                    				户主姓名：
+                   				</td>
+                   				<td class="kv-content" style="width: 6%;">
+                   					{name}
+                   				<td class="kv-label" style="width: 6%;">
+                   					户主身份证号:
+                   				</td>
+                   				<td class="kv-content" style="width: 10%;">
+                   					{idcard}
+                   				</td>
+                   				<td class="kv-label" style="width: 7%;">
+                   					上报季度：<font color="red">*</font>
+                   				</td>
+                   				<td class="kv-label" style="width: 13%;">
+									<span>{quarter}</span>								
+								</td>
+                   			</tr>
+                   			<tr>
+                   				<td class="kv-label" style="padding: 0;">
+                   					家庭人口数：
+                   				</td>
+                   				<td class="kv-content">
+                   					{familyPopulation}
+                   				</td>
+                   				<td class="kv-label">
+                   					劳动力人口数:
+                   				</td>
+                   				<td class="kv-content">
+                   					{countwork}
+                   				</td>
+                   				<td class="kv-label">
+                   					需培训人数：
+                   				</td>
+                   				<td class="kv-content">
+                   					{countlabortraining}
+                   				</td>
+                   			</tr>
+                   			<tr>
+                   				<td class="kv-label">
+                   					培训人姓名：<font color="red">*</font>
+                   				</td>
+                   				<td class="kv-content">
+                   					{name}
+                   				</td>
+                   				<td class="kv-label">
+                   					培训人证件号码：
+                   				</td>
+                   				<td class="kv-content">
+                   					{idcard}
+                   				</td>
+                   				<td class="kv-label">
+                   					年龄：
+                   				</td>
+                   				<td class="kv-content">
+                   					{age}
+                   				</td>
+                   			</tr>
+                   			<tr>
+                   				<td class="kv-label">
+                   					性别：
+                   				</td>
+                   				<td class="kv-content" >
+                   					{sex}
+                   				</td>
+                   				<td class="kv-label" >
+                   					文化程度：
+                   				</td>
+                   				<td colspan="3" class="kv-content">
+                   					{educationDegree}
+                   				</td>
+                   			</tr>
+               	 			<tr>
+               	 				<td class="kv-label">
+               	 					培训需求
+               	 				</td>
+               	 				<td colspan="6" class="kv-content">
+               	 					<label><input type="radio" name="cultivation">养殖</label>
+               	 					<label><input type="radio" name="plant">种植</label>
+               	 					<label><input type="radio" name="catering">餐饮业</label>
+               	 					<label><input type="radio" name="housekeeping">家政服务</label>
+               	 					<label><input type="radio" name="buildingService">建筑服务</label>
+               	 					<label><input type="radio" name="industry">制造业</label>
+               	 					<label><input type="radio" name="startUp">创业</label>
+									<label><input type="radio" name="operativeTechnology">实用技术</label>
+               	 					<label><input type="radio" name="others">其他</label>
+               	 				</td>
+               	 			</tr>
+               	 			<tr>
+               	 				<td class="kv-label" rowspan="4">
+               	 					培训措施
+               	 				</td>
+               	 				<td class="kv-label">
+               	 					培训类型：
+               	 				</td>
+               	 				<td class="kv-content" colspan="5">
+               	 					<label><input type="radio" name="jobSkillTraining">就业技能培训</label>
+               	 					<label><input type="radio" name="biepigeneticTraining">两后生培训</label>
+               	 					<label><input type="radio" name="serviceBrand">劳务品牌服务</label>
+               	 					<label><input type="radio" name="vocationalTraining">新型职业农民培育工程</label>
+               	 					<label><input type="radio" name="demonstrationTraining">示范培训</label>
+               	 					<label><input type="radio" name="skillUpgradingTraining">岗位技能提升培训</label>
+               	 					<label><input type="radio" name="enterpriseTraining">创业培训</label>
+               	 				</td>
+               	 			</tr>
+               	 			<tr>
+               	 				<td class="kv-label">
+               	 					培训机构：
+               	 				</td>
+               	 				<td class="kv-content">
+               	 					<span>{trainingAgency}</span>
+               	 				</td>
+               	 				<td class="kv-label">
+               	 					培训日期：
+               	 				</td>
+               	 				<td class="kv-content">
+               	 						<span>{trainingDate}</span>
+               	 				</td>
+               	 				<td class="kv-label">
+               	 					培训时间：
+               	 				</td>
+               	 				<td class="kv-content">
+               	 					<label><input type="radio" name="TrainingLength" value="1">7~15天</label>
+               	 					<label><input type="radio" name="TrainingLength" value="2">15天~3个月</label><br>
+               	 					<label><input type="radio" name="TrainingLength" value="3">2年以上</label>
+               	 				</td>
+               	 			</tr>
+               	 			<tr>
+               	 				<td class="kv-label"  rowspan="2">
+               	 					资金来源及金额
+               	 				</td>
+               	 				
+               	 				<td class="kv-label">
+               	 					就业专项资金:
+               	 				</td>
+               	 				<td class="kv-content">
+               	 					<span>{employmentFund}</span>
+               	 				</td>
+               	 				<td class="kv-label">
+               	 					农牧专项资金:
+               	 				</td>
+               	 				<td class="kv-content" colspan="2">
+               	 					<span>{husbandryFund}</span>
+               	 				</td>
+               	 			</tr>
+               	 			<tr>
+               	 				<td class="kv-label">
+               	 					扶贫专项资金:
+               	 				</td>
+               	 				<td class="kv-content">
+               	 					<span>{povertyReliefFund}</span>
+               	 				</td>
+               	 				<td class="kv-label">
+               	 					其他资金：
+               	 				</td>
+               	 				<td class="kv-content" colspan="2">
+               	 					<span>{otherFund}</span>
+               	 				</td>
+               	 			</tr>
+               	 			<tr>
+               	 				<td class="kv-label" rowspan="5">
+               	 					培训成效:
+               	 				</td>
+               	 				<td class="kv-label">
+               	 					取证情况：
+               	 				</td>
+               	 				<td colspan="5" class="kv-content">
+               	 					<label><input type="radio" name="certificate" value="1">职业资格证书</label>
+               	 					<label><input type="radio" name="certificate" value="2">培训证书</label>
+               	 					<label><input type="radio" name="certificate" value="3">其他证书</label>
+               	 				</td>
+               	 			</tr>
+               	 			<tr>
+               	 				<td class="kv-label" rowspan="2">
+               	 					务工：
+               	 				</td>               	 				
+               	 				<td class="kv-label">
+               	 					务工去向：
+               	 				</td>
+               	 				<td class="kv-content" colspan="2">
+               	 					<label><input type="radio" name="workDirection" value="1">省内</label>
+               	 					<label><input type="radio" name="workDirection" value="2">省外</label>
+               	 					<label><input type="radio" name="workDirection" value="3">境外</label>
+               	 				</td>
+               	 				<td class="kv-label">
+               	 					年务工时间：
+               	 				</td>
+               	 				<td class="kv-content" >
+               	 					<label><input type="radio" name="workTimeInYear" value="1">3个月以内</label>
+               	 					<label><input type="radio" name="workTimeInYear" value="2">3-6个月</label><br>
+               	 					<label><input type="radio" name="workTimeInYear" value="3">6个月以上</label>
+               	 				</td>
+               	 			</tr>
+              			  <tr>
+              			  	<td class="kv-label">
+              			  		年收入：
+              			  	</td>
+              			  	<td class="kv-content" colspan="5">
+              			  		<span>{workIncome}</span>
+              			  	</td>
+              			  </tr>
+              			  <tr>
+              			  	<td class="kv-label">
+              			  		务农：              			  	
+              			  	</td>
+              			  	<td class="kv-label">
+              			  		年收入：
+              			  	</td>
+              			  	<td colspan="7" class="kv-content">
+              			  		<span>{farmerIncome}</span>
+              			  	</td>
+              			  </tr>
+              			  <tr>
+              			  	<td class="kv-label">
+              			  		备注：
+              			  	</td>
+              			  	<td colspan="8" class="kv-content">
+              			  		<span>{remark}</span>
+              			  	</td>
+              			  </tr>
+              			  <tr>              			  	
+              			  	<td colspan="2" class="kv-label" style="text-align: right;">
+              			  		帮扶责任人：
+              			  	</td>
+              			  	<td class="kv-content">
+              			  		<span>{assessmentname}</span>
+              			  	</td>
+              			  	<td class="kv-label">
+              			  		帮扶责任人电话：
+              			  	</td>
+              			  	<td class="kv-content">
+              			  		<span>{phoneNumber}</span>
+              			  	</td>
+              			  	<td class="kv-label">
+              			  		填表时间：
+              			  	</td>
+              			  	<td class="kv-content">
+              			  			<span>{fillInTime}</span>
+              			  	</td>
+              			  </tr>
+              			</tbody>
+              		</table>
+              		</form>
+				</div>
+			</div>
+		</script>		
+		<script type="text/template" id="modify-social">
+			<div class="addlabortrain">
+				<div class="add-manage">
+					<form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label" colspan="2" style="width:15%;">
+									社会救助农户基本信息
+								</td>
+								<td class="kv-label" style="width:8%;">
+									户主姓名:
+								</td>
+								<td class="kv-content" style="width:14%;">
+									{name}
+								</td>
+								<td class="kv-label" style="width:13%;">
+									证件号码:
+								</td>
+								<td class="kv-content" style="width:19%;">
+									{idcard}
+								</td>
+								<td class="kv-label">
+									上报季度：
+								</td>
+								<td class="kv-label" style="width: 15%;">
+									<span>{quarter}</span>								
+								</td>
+							</tr>
+							<tr>
+								<td rowspan="15" class="kv-label">
+									社会救助政策落实情况
+								</td>
+								<td rowspan="4" class="kv-label" style="width:9%;">
+									低保政策
+								</td>
+								<td colspan="2" class="kv-label">
+									享受低保人数(人)
+								</td>
+								<td colspan="2" class="kv-label">
+									低保类型
+								</td>
+								<td class="kv-label">
+									月人均补助水平(元/人.月)
+								</td>
+								<td class="kv-label">
+									享受低保月份
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="kv-content">
+									<span>{numberOfLow1}</span>
+								</td>
+								<td colspan="2" class="kv-content">
+									<label><input type="radio" name="kindOfLow1" value="一类">一类</label>
+									<label><input type="radio" name="kindOfLow1" value="二类">二类</label>
+									<label><input type="radio" name="kindOfLow1" value="三类">三类</label>
+									<label><input type="radio" name="kindOfLow1" value="四类">四类</label>
+								</td>
+								<td class="kv-content">
+									<span>{assistancePerMonth1}</span>
+								</td>
+								<td class="kv-content">
+									<span>{monthOfLow1}</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="kv-content">
+									<span>{numberOfLow2}</span>
+s								</td>
+								<td colspan="2" class="kv-content">
+									<label><input type="radio" name="kindOfLow2" value="一类">一类</label>
+									<label><input type="radio" name="kindOfLow2" value="二类">二类</label>
+									<label><input type="radio" name="kindOfLow2" value="三类">三类</label>
+									<label><input type="radio" name="kindOfLow2" value="四类">四类</label>
+								</td>
+								<td class="kv-content">	
+									<span>{assistancePerMonth2}</span>
+								</td>
+								<td class="kv-content">
+									<span>{monthOfLow2}</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="kv-content">
+									<span>{numberOfLow3}</span>
+								</td>
+								<td colspan="2" class="kv-content">
+									<label><input type="radio" name="kindOfLow3" value="一类">一类</label>
+									<label><input type="radio" name="kindOfLow3" value="二类">二类</label>
+									<label><input type="radio" name="kindOfLow3" value="三类">三类</label>
+									<label><input type="radio" name="kindOfLow3" value="四类">四类</label>
+								</td>
+								<td class="kv-content">
+									<span>{assistancePerMonth3}</span>
+								</td>
+								<td class="kv-content">
+									<span>{monthOfLow3}</span>
+								</td>
+							</tr>
+							<tr>
+								<td rowspan="4" class="kv-label">
+									五保供养
+								</td>
+								<td colspan="2" class="kv-label">
+									五保供养人数
+								</td>
+								<td colspan="2" class="kv-label">
+									月人均领取供养金
+								</td>
+								<td colspan="2" class="kv-label">
+									享受五保供养月份
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="kv-content">
+									<span>{numberOfSupport1}</span>
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{supportPerMonth1}</span>
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{monthOfSupport1}</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="kv-content">
+									<span>{numberOfSupport2}</span>
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{supportPerMonth2}</span>
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{monthOfSupport2}</span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="kv-content">
+									<span>{numberOfSupport3}</span>
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{supportPerMonth3}</span>
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{monthOfSupport3}</span>
+								</td>
+							</tr>
+							<tr>
+								<td rowspan="2" class="kv-label">
+									医疗救助政策
+								</td>
+								<td class="kv-label">
+									民政医疗救助人数:
+								</td>
+								<td class="kv-content">
+									<span>{numberOfMedicalAssistance}</span>
+								</td>
+								<td class="kv-label">
+									民政医疗救助金额：
+								</td>
+								<td colspan="3" class="kv-content">
+									<span>{medicalAssistanceMoney}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									资助新型农村合作医疗人数(人)：
+								</td>
+								<td class="kv-content">
+									<span>{numberOfCooperativeMedicalCare}</span>
+								</td>
+								<td class="kv-label">
+									资助标准(元/人.年):
+								</td>
+								<td class="kv-content">
+									<span>{fundingStandard}</span>
+								</td>
+								<td class="kv-label">
+									资助新型农村合作医疗金额(元)：
+								</td>
+								<td class="kv-content">
+									<span>{cooperativeMedicalCareMoney}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									临时救助政策
+								</td>
+								<td class="kv-label">
+									临时救助(人次)：
+								</td>
+								<td class="kv-content">
+									<span>{temporaryAssistance}</span>
+								</td>
+								<td class="kv-label">
+									救助原因：
+								</td>
+								<td class="kv-content">
+									<label><input type="radio" name="assistanceReason" value="疾病">疾病</label>
+									<label><input type="radio" name="assistanceReason" value="上学">上学</label><br>
+									<label><input type="radio" name="assistanceReason" value="火灾">火灾</label>
+									<label><input type="radio" name="assistanceReason" value="其他">其他</label>
+								</td>
+								<td class="kv-label">
+									临时救助金额（元）：
+								</td>
+								<td class="kv-content">
+									<span>{temporaryAssistanceMoney}</span>
+								</td>
+							</tr>
+							<tr>
+								<td rowspan="4" class="kv-label">
+									社会救助成效
+								</td>
+								<td rowspan="4" class="kv-label">
+									社会救助措施总收入(元):
+								</td>
+								<td rowspan="4" class="kv-content">
+									<span id="socialAssistanceIncome">{socialAssistanceIncome}</span>
+								</td>
+								<td rowspan="4" colspan="2" class="kv-label">
+									其中
+								</td>
+								<td class="kv-label">
+									家庭季低保金收入(元)：
+								</td>
+								<td class="kv-content">
+									<span>{minimumLivingStandardIncome}</span>
+								</td>
+							</tr>
+							<tr> 
+								<td class="kv-label">
+									家庭季五保供养金收入(元)：
+								</td>
+								<td class="kv-content">
+									<span>{fiveGuaranteesIncome}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									家庭季医疗救助金收入(元)：
+								</td>
+								<td class="kv-content">
+									<span>{medicalAssistanceIncome}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									家庭季临时救助金收入(元)：
+								</td>
+								<td class="kv-content">
+									<span>{temporaryAssistanceIncome}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label" colspan="2" style="text-align: right;">
+									备注：
+								</td>
+								<td colspan="7" class="kv-content">
+									<span>{remark}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label" colspan="3" style="text-align: right;">
+									帮扶责任人：
+								</td>
+								<td class="kv-content">
+									<span id="assessmentname">{assessmentname}</span>
+									<span>{assessmentObjectId}</span>
+								</td>
+								<td class="kv-label">
+									帮扶责任人电话:
+								</td>
+								<td class="kv-content">
+									<span id="phoneNumber">{phoneNumber}</span>
+								</td>
+								<td class="kv-label">
+									填表时间：
+								</td>
+								<td class="kv-content">
+										<span>{fillInTime}</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</form>
+				</div>
+			</div>
+		</script>
+		<script type="text/template" id="modify-fanance">
+			<div class="addlabortrain">
+				<div class="add-manage">
+					<form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label" style="width: 17%">
+									贷款户主姓名:
+								</td>
+								<td class="kv-content" >
+									{name}
+								</td>
+								<td class="kv-label" style="width: 17%">
+									身份证号:
+								</td>
+								<td class="kv-content" >
+									{IDCard}
+								</td>
+								<td class="kv-label" style="width: 15%">
+									上报季度:
+								</td>
+								<td class="kv-content">
+									<span id="quarters">{quarter}</span>
+								</td>	
+							</tr>
+							<tr>
+								<td class="kv-label">
+									手机号:
+								</td>
+								<td class="kv-content">
+									{phoneNumber}
+								</td>
+								<td class="kv-label">
+									使用方式
+								</td>
+								<td colspan="3" class="kv-content">
+									<span>{useMode}</span>
+								</td>
+							</tr>							
+							<tr>
+								<td colspan="6" class="kv-label">
+									贷款情况
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									承贷机构名称:
+								</td>
+								<td class="kv-content">
+									<span>{loadInstitution}</span>
+								</td>
+								<td class="kv-label">
+									银行账号:
+								</td>
+								<td class="kv-content">
+									<span>{bankAccount}</span>
+								</td>
+								<td class="kv-label">
+									贷款用途:
+								</td>
+								<td class="kv-content">
+									<span>{useOfLoad}</span>									
+								</td>								
+							</tr>
+							<tr>								
+								<td class="kv-label">
+									贷款金额(元):
+								</td>
+								<td class="kv-content">
+									<span>{loadAmount}</span>
+								</td>	
+								<td class="kv-label">
+									贷款期限(月)：
+								</td>
+								<td class="kv-content">
+									<span>{loanPeriod}</span>
+								</td>
+								<td class="kv-label">
+									执行年利率(%)：
+								</td>
+								<td class="kv-content">
+									<span>{annualInterest}</span>
+								</td>
+							</tr>	
+							<tr>
+								<td  class="kv-label">
+									贷款起始日：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+										<span id="lendingTime">{lendingTime}</span>                       						
+								</td>							
+								<td class="kv-label">
+									贷款结束日：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+										<span id="repaymentDate">{repaymentDate}</span>						
+								</td>									
+							</tr>
+							<tr>
+								<td colspan="3" class="kv-label">
+									贴息情况
+								</td>
+								<td colspan="3" class="kv-label">
+									收入情况
+								</td>
+							</tr>	
+							<tr>
+								<td class="kv-label">
+									应贴息金额(元)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{discountAmount}</span>
+								</td>
+								<td class="kv-label">
+									年增加收入(元)：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{generateIncome}</span>
+								</td>
+							</tr>						
+							<tr>
+								<td colspan="6" class="kv-label">
+									其他
+								</td>
+							</tr>	
+							<tr>
+								<td class="kv-label">
+									备注：
+								</td>
+								<td colspan="5" class="kv-content">
+									<span>{remark}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									帮扶责任人：
+								</td>
+								<td class="kv-content">
+									<span>{assessmentname}</span>
+									<span>{assessmentObjectId}</span>
+								</td>
+								<td class="kv-label">
+									帮扶责任人电话:
+								</td>
+								<td class="kv-content">
+									<span>{phoneNumber}</span>
+								</td>
+								<td class="kv-label">
+									填表时间：
+								</td>
+								<td class="kv-content">
+										<span id="fillInTime">{fillInTime}</span>
+								</td>
+							</tr>				
+						</tbody>
+					</table>
+					</form>
+				</div>
+			</div>
+		</script>		
+		<script type="text/template" id="modify-reformhouse">
+	        <div class="addlabortrain">
+	            <div class="add-manage">
+	                <form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+	                <table class="kv-table">
+	                    <tbody>
+	                        <tr>
+	                            <td class="kv-label" style="width: 12%;">
+	                            </td>
+	                            <td class="kv-label" style="width: 20%;">
+	                                户主姓名：
+	                            </td>
+	                            <td colspan="2" class="kv-content" style="width: 14%;">
+	                                {name}
+	                            </td>
+	                            <td class="kv-label" style="width: 11%;">
+	                                户主证件号码：
+	                            </td>
+	                            <td colspan="2" class="kv-content" style="width: 16%;" >
+	                                {IDCard}
+	                            </td>
+	                            <td class="kv-label" style="width: 14%;">
+	                                上报季度：
+	                            </td>
+	                            <td colspan="3" class="kv-content" style="width: 20%;">
+									<span>{quarter}</span>
+								</td>	
+	                        </tr>
+	                        <tr>
+	                            <td rowspan="2" class="kv-label">
+	                                扶贫现状
+	                            </td>
+	                            <td class="kv-label">
+	                                有无住房：
+	                            </td>
+	                            <td colspan="2" class="kv-content">
+	                                <label><input type="radio" name="hasHouse" value="true">有</label>
+	                                <label><input type="radio" name="hasHouse" value="false">无</label>
+	                            </td>
+	                            <td class="kv-label">
+	                                建造年代：
+	                            </td>
+	                            <td colspan="2" class="kv-content"> 
+									<span>{buildTime}</span>	                                
+	                            </td>
+	                            <td class="kv-label">
+	                                住房结构：
+	                            </td>
+	                            <td class="kv-content" colspan="3" style="width: 99%;">
+	                            	<span>{houseStructure}</span>	                                
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td class="kv-label">
+	                                住房建筑面积（㎡）：
+	                            </td>
+	                            <td colspan="2" class="kv-content">
+	                            	<span>{coveredArea}</span>
+	                            </td>
+	                            <td class="kv-label">
+	                                人均住房面积（㎡）：
+	                            </td>
+	                            <td colspan="2" class="kv-content">
+	                            	<span>{coveredAreaPerPeople}</span>
+	                            </td>
+	                            <td class="kv-label">
+	                                住房危险等级：
+	                            </td>
+	                            <td class="kv-content" colspan="3"> 
+	                            	<span>{houseLevel}</span>	                                
+	                            </td>
+	                        </tr>                        
+	                        <tr>
+	                            <td rowspan="4" class="kv-label">
+	                                扶贫措施
+	                            </td>
+	                            <td class="kv-label">
+	                                批准列入危房改造计划年度：
+	                            </td>
+	                            <td colspan="2" class="kv-content">
+	                            	<span>{houseRenovationTime}</span>
+	                            </td>
+	                            <td class="kv-label">
+	                                计划投资：
+	                            </td>
+	                            <td colspan="6" class="kv-content">
+	                            	<span>{plannedInvestment}</span>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td rowspan="3" class="kv-label">
+	                                政府补助资金(元)：
+	                            </td>
+	                            <td colspan="2" class="kv-label">
+	                                中央资金：
+	                            </td> 
+	                            <td  class="kv-content">
+	                            	<span id="centralFunds">{centralFunds}</span>
+	                            </td>
+	                            <td colspan="2" class="kv-label">
+	                                自筹资金(元)：
+	                            </td>
+	                            <td class="kv-label">
+	                                自筹资金：
+	                            </td>
+	                            <td class="kv-content" colspan="3">
+	                            	<span id="selfRaisedFunds">{selfRaisedFunds}</span>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2" class="kv-label">
+	                                省级资金：
+	                            </td>
+	                            <td class="kv-content">
+	                            	<span id="provincialFunds">{provincialFunds}</span>
+	                            </td>
+	                            <td colspan="2" rowspan="2" class="kv-label">
+	                                社会帮扶资金（元）：
+	                            </td>
+	                            <td class="kv-label">
+	                                "双联"单位:
+	                            </td>
+	                            <td colspan="3" class="kv-content">
+	                            	<span id="duplexUnit">{duplexUnit}</span>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2" class="kv-label">
+	                                市县配套资金：
+	                            </td>
+	                            <td class="kv-content">
+	                            	<span id="countyFunds">{countyFunds}</span>
+	                            </td>
+	                            <td class="kv-label">
+	                                企业、社会投资：
+	                            </td>
+	                            <td colspan="4" class="kv-content">
+	                            	<span id="enterpriseFunds">{enterpriseFunds}</span>
+	                            </td>
+	                        </tr>
+	                       <!--  <tr>
+	                            <td rowspan="2" class="kv-label">
+	                                危房改造贷款
+	                            </td>
+	                            <td class="kv-label">
+	                                贷款类型
+	                            </td>
+	                            <td class="kv-label">
+	                                承贷金融机构
+	                            </td>
+	                            <td class="kv-label">
+	                                银行帐号
+	                            </td>
+	                            <td class="kv-label">
+	                                贷款金额
+	                            </td>
+	                            <td class="kv-label">
+	                                贷款发放时间
+	                            </td>
+	                            <td class="kv-label">
+	                                贷款期限（月）
+	                            </td>
+	                            <td class="kv-label">
+	                                还款时间
+	                            </td>
+	                            <td class="kv-label">
+	                                执行年利率（%）
+	                            </td>
+	                            <td class="kv-label">
+	                                贷款利息
+	                            </td>
+	                            <td class="kv-label">
+	                                应贴息金额（元）
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <select name="loanType" id="loanType">
+	                                	<option value="">请选择</option>
+	                                	<option value="精准扶贫小额信贷">精准扶贫小额信贷</option>
+	                                	<option value="其他政策贴息贷款">其他政策贴息贷款</option>
+	                                	<option value="商业贷款">商业贷款</option>
+	                                </select>
+	                            </td>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <input type="text" name="loadInstitution">
+	                            </td>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <input type="text" name="bankAccount">
+	                            </td>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <input type="text" name="useOfLoad">
+	                            </td>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <input type="text" name="lendingTime">
+	                            </td>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <input type="text" name="loanPeriod">
+	                            </td>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <input type="text" name="repaymentDate">
+	                            </td>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <input type="text" name="annualInterest">
+	                            </td>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <input type="text" name="loanInterest">
+	                            </td>
+	                            <td class="kv-label" style="width: 9%;">
+	                                <input type="text" name="discountAmount">
+	                            </td>
+	                        </tr> -->
+	                        <tr>
+	                            <td rowspan="2" class="kv-label">
+	                                扶贫成效
+	                            </td>
+	                            <td class="kv-label">
+	                                改造后住房结构：
+	                            </td>
+	                            <td colspan="3" class="kv-content"> 
+	                            	<span>{afterReformHouseStructure}</span>	                               
+	                            </td>
+	                            <td colspan="2" class="kv-label">
+	                                开工时间：
+	                            </td>
+	                            <td colspan="5" class="kv-content" style="padding: 10px;">
+										<span id="startDate">{startDate}</span>	                       		
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td class="kv-label">
+	                                改造后住房面积（㎡）：
+	                            </td>
+	                            <td colspan="3" class="kv-content">
+	                            	<span>{afterReformCoveredArea}</span>
+	                            </td>
+	                            <td colspan="2" class="kv-label">
+	                                验收时间：
+	                            </td>
+	                            <td colspan="4" class="kv-content" style="padding: 10px;">
+										<span id="endDate">{endDate}</span>						
+								</td>
+	                        </tr>                       
+	                        <tr>
+	                            <td class="kv-label">
+	                                备注：
+	                            </td>
+	                            <td colspan="10" class="kv-content">
+	                            	<span>{remark}</span>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                        	<td class="kv-label"></td>
+								<td class="kv-label">
+									帮扶责任人：
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{assessmentname}</span>
+									<span>{assessmentObjectId}</span>
+								</td>
+								<td class="kv-label">
+									帮扶责任人电话:
+								</td>
+								<td colspan="2" class="kv-content">
+									<span>{phoneNumber}</span>
+								</td>
+								<td class="kv-label">
+									填表时间：
+								</td>
+								<td colspan="3" class="kv-content">
+										<span id="fillInTime">{fillInTime}</span>
+								</td>
+							</tr>		
+	                    </tbody>
+	                </table>
+	            	</form>
+	            </div>
+	        </div>
+    	</script>    		
+		<script type="text/template" id="modify-watersafe">
+	        <div class="addlabortrain">
+	            <div class="add-manage">
+	                <form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+	                <table class="kv-table">
+	                  <tbody>
+	                    <tr>
+	                      <td class="kv-label" style="width: 10%">
+	                          基本信息
+	                      </td>
+	                      <td class="kv-label" style="width: 10%">
+	                          户主姓名：
+	                      </td>
+	                      <td class="kv-content">
+	                          {name}
+	                      </td>
+	                      <td class="kv-label" style="width: 15%">
+	                          身份证号码：
+	                      </td>
+	                      <td class="kv-content" style="width: 18%;">
+	                          {idcard}
+	                      </td>
+	                      <td class="kv-label" style="width: 15%">
+	                          上报季度：
+	                      </td>
+	                      <td class="kv-content">
+		                      <span>{quarter}</span>
+	                      </td>
+	                    </tr>
+	                    <tr>
+	                        <td class="kv-label">
+	                            扶贫现状
+	                        </td>
+	                        <td class="kv-label">
+	                            供水方式：
+	                        </td>
+	                        <td class="kv-content">
+	                        	<span>{waterSupplyMode}</span>	                            
+	                        </td>
+	                        <td class="kv-label">
+	                            是否自来水入户：
+	                        </td>
+	                        <td class="kv-content">
+	                            <label><input type="radio" name="tapWaterUser" value="true">是</label>
+	                            <label><input type="radio" name="tapWaterUser" value="false">否</label>
+	                        </td>                    
+	                        <td class="kv-label">
+	                            饮水是否安全：
+	                        </td>
+	                        <td class="kv-content">
+	                          <label><input type="radio" name="safeDrinkingWater" value="true">是</label>
+	                          <label><input type="radio" name="safeDrinkingWater" value="false">否</label>
+	                        </td>  
+	                    </tr>
+	                    <tr>                 
+	                      <td class="kv-label">
+	                          扶贫措施
+	                      </td>
+	                      <td class="kv-label">
+	                          采取措施：
+	                      </td>
+	                      <td class="kv-content">
+	                      	<span>{assistanceWay}</span>
+	                      </td>
+	                      <td class="kv-label">
+	                          计划解决年份：
+	                      </td>
+	                      <td class="kv-content">
+	                      	<span>{planSolveTime}</span>
+	                      </td>
+	                      <td class="kv-label">
+	                          解决年份：
+	                      </td>
+	                      <td class="kv-content">
+	                      	<span>{solveTime}</span>
+	                      </td>
+	                    </tr>
+	                    <tr>
+	                        <td class="kv-label">
+	                            扶贫成效
+	                        </td>
+	                        <td class="kv-label">
+	                            供水方式：
+	                        </td>
+	                        <td class="kv-content">
+	                        	<span>{waterSupplyModeNow}</span>	                           
+	                        </td>
+	                        <td class="kv-label">
+	                            是否自来水入户：
+	                        </td>
+	                        <td class="kv-content">
+	                            <label><input type="radio" name="tapWaterUserNow" value="true">是</label>
+	                            <label><input type="radio" name="tapWaterUserNow" value="false">否</label>
+	                        </td>                    
+	                        <td class="kv-label">
+	                            是否稳定解决饮水安全：
+	                        </td>
+	                        <td class="kv-content">
+	                            <label><input type="radio" name="safeDrinkingWaterNow" value="true">是</label>
+	                            <label><input type="radio" name="safeDrinkingWaterNow" value="false">否</label>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="2" class="kv-label">
+	                            备注
+	                        </td>
+	                        <td colspan="5" class="kv-content">
+	                        	<span>{remark}</span>
+	                        </td>
+	                    </tr>
+	                    <tr>                        
+	                        <td colspan="2" class="kv-label">
+	                            帮扶责任人：
+	                        </td>
+	                        <td class="kv-content">
+	                            <span>{assessmentname}</span>
+	                            <span>{assessmentObjectId}</span>
+	                        </td>
+	                        <td class="kv-label">
+	                            帮扶责任人联系电话：
+	                        </td>
+	                        <td class="kv-content">
+	                            <span>{phoneNumber}</span>
+	                        </td>
+	                        <td class="kv-label">
+	                            填表时间：
+	                        </td>
+	                        <td class="kv-content">
+								<span  id="fillInTime" >{fillInTime}</span>
+	                        </td>
+	                    </tr>
+	                  </tbody>
+	                </table>
+	            	</form>
+	      		</div>
+	      	</div>
+		</script>						
+		<script type="text/template" id="modify-visit">
+			<div class="addlabortrain">
+				<div class="add-manage">
+					<form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label" style="width: 10%">
+									走访时间
+								</td>
+								<td class="kv-content">
+									<span id="visitTime"></span>
+								</td>
+								
+								<td class="kv-label" style="width: 10%">
+									寻访人
+								</td> 
+								<td class="kv-content">
+									<span id="visitor"></span>
+								</td>
+							</tr>					
+							<tr> 
+								<td class="kv-label" style="width: 10%">
+									走访主题
+								</td>
+								<td class="kv-content">
+									<span id="visitTheme"></span>
+								</td>
+								
+								<td rowspan="2" class="kv-label">
+									走访照片
+								</td>
+								<td rowspan="2" class="kv-content">
+									<img src="..\..\..\fupin\{photoPath}" id="photoPath">
+								</td>
+							</tr> 
+							<tr>					
+								<td class="kv-label">
+									寻访内容
+								</td>
+								<td  class="kv-content" style="height: 100px">
+									<span id="visitContent"></span>
+									<!-- <textarea name="visitContent" id="visitContent" style="width: 95%;height: 95%"></textarea> -->
+								</td>
+								
+							</tr>											
+						</tbody>
+					</table>
+				</form>
+				</div>
+			</div>
+		</script>
+
+		<script type="text/javascript" src="../../js/jquery.js"></script>
+		<script type="text/javascript" src="../../js/jquery.select.js"></script>
+		<script type="text/javascript" src="../../js/layer/layer.js"></script>
+		<script type="text/javascript" src="../../js/common.js"></script>		
+		<script type="text/javascript" src="../../js/datepicker/js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript" src="../../js/datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+		<script type="text/javascript" src="../../js/getUrlParam.js"></script>
+		<script src="../../js/jquery.form.js"></script>
+		<script src="../../js/jquery.pagination.min.js"></script>
+
+		<script type="text/javascript">
+			var familyId=UrlParm.parm("familyId");
+			var townId=UrlParm.parm("townId");
+			var counthelper=0;
+			var richdate=[];
+			var specsupportclass={};
+			var labortraindate=[];
+			var socialdate=[];
+			var financialdate=[];
+			var housedate=[];
+			var drinkingdate=[];
+			var helpscoredate=[];
+			var visitdate=[];
+			function familytopdata(){
+				$.ajax({
+					url : urlhost+"/fupin/searchfamily?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false,
+				    success: function(dta) {
+				    	dta = dta[0];
+				    	var html = $('#tophead-info').html(); 
+				    	$.each(dta,function(key,item){
+				    		if (item==null) {
+				    			dta[key]="";
+				    		}
+				    	});
+				    	var pageData=formatTemplate(dta, html); 
+				    	$('#tophead').empty().append(pageData); 
+				    	$.each(dta,function(key,item){
+				    									
+							if (key=="povertyGrade" || key=="povertyState" ){
+								switch(item){
+									case 1:
+									$("input:radio[name='"+key+"']:eq(0)").attr("checked","checked"); break;
+									case 2:
+									$("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+									case 3:
+									$("input:radio[name='"+key+"']:eq(2)").attr("checked","checked"); break;
+								}
+							}
+							switch(item){
+								case true:
+								$("input:radio[name='"+key+"']:eq(0)").attr("checked","checked"); 
+								$("input:checkbox[name='"+key+"']").attr("checked","checked"); break;
+								case false:
+								$("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+								// case null:
+								// $("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+							}
+						});
+				    }
+				});
+			}
+			function familydata(){
+				$.ajax({
+					url : urlhost+"/fupin/getmemberbyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+			            	return;  
+			        	} 	
+			        	var head = $('#family-head').html();
+			        	var html = $('#family-list').html(); 
+			        	// var host = $('#family-list-delete').html(); 			        	
+			        	var pageData = []; 
+			        	$.each(dta, function(i, o) {			        		
+				            
+				            	switch (o["sex"]){
+					            	case 1: o["sex"] = "男";break;
+					            	case 0:	o["sex"] = "女";break;
+					            }
+					            for (var x in o) {
+					            	switch (o[x]) {
+					            		case null: o[x] = "-";break;
+					            		case true: o[x] = "是";break;
+					            		case false: o[x] = "否";break;
+					            	}
+					            }		
+				            					            
+					        pageData.push(formatTemplate(o, html));  		        		
+			        	})
+			        	var end='</tbody>';
+				        var Count = pageData.length;//记录条数
+				        var PageSize = 14; //每页显示的条数 
+				        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+				        var currentPage = 1; //当前页，默认为1
+				        $('#family').empty().append(head);
+				        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){    
+					        $('#family').append(pageData[i]);  
+					    } 
+					    $('#family').append(end); 
+					    $("#pagination").pagination({
+							currentPage: currentPage,
+							totalPage: PageCount,
+							isShow: true,
+							count: 4,
+							homePageText: "首页",
+							endPageText: "尾页",
+							prevPageText: "上一页",
+							nextPageText: "下一页",
+							callback: function(current) {
+								// alert(current);
+								$('#family').empty().append(head);
+								for(i=(current-1)*PageSize;i<PageSize*current;i++){  
+						            $('#family').append(pageData[i]);  
+						        }
+						        $('#family').append(end);
+						        addId(PageSize*(current-1)+1);
+							}
+						});	 
+				    }
+				});
+			}
+			function livecondition(){
+				$.ajax({
+							url : urlhost+"/fupin/getwalconditionbyfamilyid?familyId="+familyId,  
+						    method : 'get',
+						    dataType : 'json',
+						    async: false, 
+						    success: function(dta) {
+						    	if (!dta || dta.length <= 0) {  
+				            	return;  
+					        	} 						        	
+					        	var html = $('#livecondition-info').html(); 
+					        	for (var x in dta) {
+					            	switch (dta[x]) {
+					            		case null: dta[x] = "-";break;
+					            		case true: dta[x] = "是";break;
+					            		case false: dta[x] = "否";break;
+					            	}
+					            }					        	
+				        		var pageData=formatTemplate(dta, html);  
+				        		$('#livecondition').empty().append(pageData);
+							}
+						});
+			}
+			function addplant(){
+				$.ajax({
+							url : urlhost+"/fupin/getremovalbyfamilyid?familyId="+familyId,  
+						    method : 'get',
+						    dataType : 'json',
+						    async: false, 
+						    success: function(dta) {
+						    	dta = dta[dta.length-1];
+						    	switch(dta["relocatedFamily"]){
+						    		case null: dta["relocatedFamily"] = "-";break;
+				            		case true: dta["relocatedFamily"] = "是";break;
+				            		case false: dta["relocatedFamily"] = "否";break;
+						    	}
+				    			var html = $('#plantrelocationinfo').html(); 
+				    			var pageData=formatTemplate(dta, html); 
+				    			$('#plantrelocation').empty().append(pageData); 
+						    }
+						});
+			}
+			function changedata(index){
+				$.ajax({
+					url : urlhost+"/fupin/getcadrebyid?type=0&id="+index,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+					    	$.each(dta,function(key,item){
+					    		$("#"+key).val(item||"");
+					    		switch(key){
+									case "zhegnzhimianmao":setSelectVal("zhegnzhimianmao",item);break;	
+									case "sex":
+									switch(item){
+										case "男":
+										$("input:radio[name='"+key+"']:eq(0)").attr("checked","checked"); break;
+										case "女":
+										$("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+									}
+								}
+					    	});				    	
+				    }
+				});
+			}
+			function changelabortraindata(index){
+				$.ajax({
+					url : urlhost+"/fupin/getmemberbyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	for (var i = dta.length - 1; i >= 0; i--) {
+				    		if(dta[i]["fimilyMenberId"]==index){
+				    			$.each(dta[i],function(key,item){
+						    		switch(key){
+										case "sex":
+											switch(item){
+												case 0:
+												$("#"+key).val("男"); break;
+												case 1:
+												$("#"+key).val("女"); break;
+											};break;
+										default:
+											$("#"+key).val(item||"");break;
+									}									
+						    	});	
+				    		}				    			
+				    	}
+					    				    	
+				    }
+				});
+			}
+			function helper(){
+				$.ajax({
+							url : urlhost+"/fupin/getassistancebyfamilyid?familyId="+familyId,  
+						    method : 'get',
+						    dataType : 'json',
+						    async: false, 
+						    success: function(dta) {
+						    	if (!dta || dta.length <= 0) {  
+					            	return;  
+					        	} 
+					        	var head = $('#helperinfohead').html();	
+					        	var html = $('#helperinfo').html(); 
+					        	var end='</tbody>';
+					        	var pageData = []; 
+					        	$.each(dta, function(i, o) {					        		
+					        		for (var x in o["assessmentObject"]) {
+						            	o[x]=o["assessmentObject"][x];
+						            }
+					        		pageData.push(formatTemplate(o, html));  
+					        	})
+					        	counthelper = pageData.length;
+					        	var Count = pageData.length;//记录条数
+						        var PageSize = 14; //每页显示的条数 
+						        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+						        var currentPage = 1; //当前页，默认为1
+						        $('#helper').empty().append(head);
+						        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){    
+							        $('#helper').append(pageData[i]);  
+							    } 
+							    $('#helper').append(end);
+						    }
+						});
+			}
+			function helpmeasure(){
+				$.ajax({
+							url : urlhost+"/fupin/getprosperousindustrybyfamilyid?familyId="+familyId,  
+						    method : 'get',
+						    dataType : 'json',
+						    async: false, 
+						    success: function(dta) {
+						    	if (!dta || dta.length <= 0) {  
+					            	return;  
+					        	} 
+					        	var head = $('#richinfohead').html();	
+					        	var html = $('#richinfo').html(); 
+					        	var end='</tbody>';
+					        	var pageData = []; 
+					        	var map = {};
+					        	for (var i=0;i<dta.length;i++) {
+							        // console.log(dta[i]["quarter"]);
+							        if (typeof(map[dta[i]["quarter"]])=="undefined") {
+							            map[dta[i]["quarter"]] = 1;
+							        } else {
+							            map[dta[i]["quarter"]] = map[dta[i]["quarter"]] +1;
+							        }					        
+							    }
+							    map = objKeySort(map);
+								// console.log(map);
+								for (var quarter in map) {
+									$.each(dta, function(i, o) {
+										if (quarter==o["quarter"]) {
+							        		pageData.push(formatTemplate(o, html));  
+							        		richdate.push(o["quarter"]);
+							        	}
+						        	})
+								}  
+					        	var Count = pageData.length;//记录条数
+						        var PageSize = 14; //每页显示的条数 
+						        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+						        var currentPage = 1; //当前页，默认为1
+						        $('#rich').empty().append(head);
+						        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){    
+							        $('#rich').append(pageData[i]);  
+							    } 
+							    $('#rich').append(end);
+						    }
+						});
+				$.ajax({
+							url : urlhost+"/fupin/getspecialpovertyalleviationbyfamilyid?familyId="+familyId,  
+						    method : 'get',
+						    dataType : 'json',
+						    async: false, 
+						    success: function(dta) {
+						    	if (!dta || dta.length <= 0) {  
+					            	return;  
+					        	} 
+					        	var head = $('#specsupportinfohead').html();	
+					        	var html = $('#specsupportinfo').html(); 
+					        	var end='</tbody>';
+					        	var pageData = []; 
+					        	var countfund=0;
+					        	var map = {};					        	
+							    for (var i=0;i<dta.length;i++) {
+							        // console.log(dta[i]["quarter"]);
+							        if (typeof(map[dta[i]["quarter"]])=="undefined") {
+							        	temp =  dta[i]["subsidyFunds"] + dta[i]["discountAmount"];
+							            map[dta[i]["quarter"]] = temp;
+							        } else {
+							        	temp =  dta[i]["subsidyFunds"] + dta[i]["discountAmount"];
+							            map[dta[i]["quarter"]] = map[dta[i]["quarter"]] + temp;
+							        }
+							        if (typeof(specsupportclass[dta[i]["classify"]])=="undefined") {
+							            specsupportclass[dta[i]["classify"]] = dta[i]["quarter"];
+							        }
+							    }
+							    map = objKeySort(map);
+								// console.log(specsupportclass);
+							    var edta={};
+							    for (var quarter in map) {
+							    	edta["quarter"]=quarter;
+							    	edta["countFunds"]=map[quarter];
+							    	pageData.push(formatTemplate(edta, html));
+							    }
+						        $('#specsupport').empty().append(head);
+						        for(i=0;i<pageData.length;i++){    
+							        $('#specsupport').append(pageData[i]);  
+							    } 
+							    // $('#specsupport').append(end);
+						    }
+						});
+				$.ajax({
+					url : urlhost+"/fupin/getlabortrainingbyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+					        return;  
+			        	} 
+			        	var head = $('#labortrainhead').html();	
+			        	var html = $('#labortraininfo').html(); 
+			        	var end='</tbody>';
+			        	var pageData = []; 
+			        	var map = {};					        	
+					    for (var i=0;i<dta.length;i++) {
+					        // console.log(dta[i]["quarter"]);
+					        if (typeof(map[dta[i]["quarter"]])=="undefined") {
+					            map[dta[i]["quarter"]] = 1;
+					        } else {
+					            map[dta[i]["quarter"]] = map[dta[i]["quarter"]] +1;
+					        }					        
+					    }
+					    map = objKeySort(map);
+					    // var edta={};
+					    for (var quarter in map) {					    	
+					    	$.each(dta, function(i, o) {
+			        			if (quarter==o["quarter"]) {
+			        				for (var x in o["familyMember"]) {
+					        			o[x]=o["familyMember"][x];
+					        		}					  
+     								o["traineed"]="";
+     								
+     								if (o["cultivation"]) {
+     									o["traineed"]+="养殖,";
+     								}
+     								if (o["plant"]) {
+     									o["traineed"]+="种植,";
+     								}
+     								if (o["catering"]) {
+     									o["traineed"]+="餐饮业,";
+     								}
+     								if (o["housekeeping"]) {
+     									o["traineed"]+="家政服务,";
+     								}
+     								if (o["buildingService"]) {
+     									o["traineed"]+="建筑服务,";
+     								}
+     								if (o["industry"]) {
+     									o["traineed"]+="制造业,";
+     								}
+     								if (o["startUp"]) {
+     									o["traineed"]+="创业,";
+     								}
+     								if (o["operativeTechnology"]) {
+     									o["traineed"]+="实用技术,";
+     								}
+     								if (o["others"]) {
+     									o["traineed"]+="其他,";
+     								}
+     								o["traintype"]="";
+     								if (o["jobSkillTraining"]) {
+     									o["traintype"]+="就业技能培训,"
+     								}
+     								if (o["biepigeneticTraining"]) {
+     									o["traintype"]+="两后生培训,"
+     								}
+     								if (o["serviceBrand"]) {
+     									o["traintype"]+="劳务品牌服务,"
+     								}
+     								if (o["vocationalTraining"]) {
+     									o["traintype"]+="新型职业农民培育工程,"
+     								}
+     								if (o["demonstrationTraining"]) {
+     									o["traintype"]+="示范培训,"
+     								}
+     								if (o["skillUpgradingTraining"]) {
+     									o["traintype"]+="岗位技能提升培训,"
+     								}
+     								if (o["enterpriseTraining"]) {
+     									o["traintype"]+="创业培训,"
+     								}
+     								switch(o["trainingLength"]){
+     									case "1":o["trainingLength"]="7~15天";break;
+     									case "2":o["trainingLength"]="15天~3个月";break;
+     									case "3":o["trainingLength"]="2年以上";break;
+     									default:o["trainingLength"]=" ";break;
+     								}
+     								switch(o["certificate"]){
+     									case "1":o["certificate"]="职业资格证书";break;
+     									case "2":o["certificate"]="培训证书";break;
+     									case "3":o["certificate"]="其他证书";break;
+     									default:o["certificate"]=" ";break;
+     								} 
+     								labortraindate.push(o["familyMember"]["fimilyMenberId"]);    							
+					        		pageData.push(formatTemplate(o, html)); 
+			        			}				        		
+				        	});
+					    }				    
+				        $('#labortrain').empty().append(head);
+				        for(i=0;i<pageData.length;i++){    
+					        $('#labortrain').append(pageData[i]);  
+					    } 
+					    $('#labortrain').append(end);
+				    }
+						});
+				$.ajax({
+					url : urlhost+"/fupin/getsocialassistancebyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+					        return;  
+			        	} 
+			        	var head = $('#socialhead').html();	
+			        	var html = $('#socialinfo').html(); 
+			        	var end='</tbody>';
+			        	var pageData = []; 
+			        	var map = {};					        	
+					    for (var i=0;i<dta.length;i++) {
+					        // console.log(dta[i]["quarter"]);
+					        if (typeof(map[dta[i]["quarter"]])=="undefined") {
+					            map[dta[i]["quarter"]] = 1;
+					        } else {
+					            map[dta[i]["quarter"]] = map[dta[i]["quarter"]] +1;
+					        }					        
+					    }
+					    map = objKeySort(map);
+					    // var edta={};
+					    for (var quarter in map) {					    	
+					    	$.each(dta, function(i, o) {
+			        			if (quarter==o["quarter"]) {
+     								socialdate.push(quarter);    							
+					        		pageData.push(formatTemplate(o, html)); 
+			        			}				        		
+				        	});
+					    }				    
+				        $('#social').empty().append(head);
+				        for(i=0;i<pageData.length;i++){    
+					        $('#social').append(pageData[i]);  
+					    } 
+					    $('#social').append(end);
+				    }
+						});
+				$.ajax({
+					url : urlhost+"/fupin/getfinancialassistancebyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+					        return;  
+			        	} 
+			        	var head = $('#fanancehead').html();	
+			        	var html = $('#fananceinfo').html(); 
+			        	var end='</tbody>';
+			        	var pageData = []; 
+			        	var map = {};					        	
+					    for (var i=0;i<dta.length;i++) {
+					        // console.log(dta[i]["quarter"]);
+					        if (typeof(map[dta[i]["quarter"]])=="undefined") {
+					            map[dta[i]["quarter"]] = 1;
+					        } else {
+					            map[dta[i]["quarter"]] = map[dta[i]["quarter"]] +1;
+					        }					        
+					    }
+					    map = objKeySort(map);				  
+
+					    for (var quarter in map) {					    	
+					    	$.each(dta, function(i, o) {
+			        			if (quarter==o["quarter"]) {
+			        				  $.ajax({
+											url : urlhost+"/fupin/searchfamily?familyId="+familyId,  
+										    method : 'get',
+										    dataType : 'json',
+										    async: false,
+										    success: function(dta) {
+										    	dta = dta[0];	
+										    	o["name"]=dta["name"];
+										    }
+										});
+     								financialdate.push(quarter);    							
+					        		pageData.push(formatTemplate(o, html)); 
+			        			}				        		
+				        	});
+					    }				    
+				        $('#fanance').empty().append(head);
+				        for(i=0;i<pageData.length;i++){    
+					        $('#fanance').append(pageData[i]);  
+					    } 
+					    $('#fanance').append(end);
+				    }
+						});
+				$.ajax({
+					url : urlhost+"/fupin/gethouserenovationbyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+					        return;  
+			        	} 
+			        	var head = $('#reformhousehead').html();	
+			        	var html = $('#reformhouseinfo').html(); 
+			        	var end='</tbody>';
+			        	var pageData = []; 
+			        	var map = {};					        	
+					    for (var i=0;i<dta.length;i++) {
+					        // console.log(dta[i]["quarter"]);
+					        if (typeof(map[dta[i]["quarter"]])=="undefined") {
+					            map[dta[i]["quarter"]] = 1;
+					        } else {
+					            map[dta[i]["quarter"]] = map[dta[i]["quarter"]] +1;
+					        }					        
+					    }
+					    map = objKeySort(map);				  
+
+					    for (var quarter in map) {					    	
+					    	$.each(dta, function(i, o) {
+			        			if (quarter==o["quarter"]) {			        			
+     								housedate.push(quarter);    							
+					        		pageData.push(formatTemplate(o, html)); 
+			        			}				        		
+				        	});
+					    }				    
+				        $('#reformhouse').empty().append(head);
+				        for(i=0;i<pageData.length;i++){    
+					        $('#reformhouse').append(pageData[i]);  
+					    } 
+					    $('#reformhouse').append(end);
+				    }
+				});
+				$.ajax({
+					url : urlhost+"/fupin/getdrinkingsafetybyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+					        return;  
+			        	} 
+			        	var head = $('#watersafehead').html();	
+			        	var html = $('#watersafeinfo').html(); 
+			        	var end='</tbody>';
+			        	var pageData = []; 
+			        	var map = {};					        	
+					    for (var i=0;i<dta.length;i++) {
+					        // console.log(dta[i]["quarter"]);
+					        if (typeof(map[dta[i]["quarter"]])=="undefined") {
+					            map[dta[i]["quarter"]] = 1;
+					        } else {
+					            map[dta[i]["quarter"]] = map[dta[i]["quarter"]] +1;
+					        }					        
+					    }
+					    map = objKeySort(map);				  
+
+					    for (var quarter in map) {					    	
+					    	$.each(dta, function(i, o) {
+			        			if (quarter==o["quarter"]) {	
+			        				$.each(o,function(key,item){										
+										switch(item){
+											case true:
+												o[key]="是";break;
+											case false:
+												o[key]="否";break;
+										}
+									});		        			
+     								drinkingdate.push(quarter);    							
+					        		pageData.push(formatTemplate(o, html)); 
+			        			}				        		
+				        	});
+					    }				    
+				        $('#watersafe').empty().append(head);
+				        for(i=0;i<pageData.length;i++){    
+					        $('#watersafe').append(pageData[i]);  
+					    } 
+					    $('#watersafe').append(end);
+				    }
+				});
+			}
+			function helpscore(){
+				$.ajax({
+					url : urlhost+"/fupin/getassistanceeffectbyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+					        return;  
+			        	} 
+			        	var head = $('#helpscorehead').html();	
+			        	var html = $('#helpscoreinfo').html(); 
+			        	var end='</tbody>';
+			        	var pageData = []; 
+			        	var map = {};					        	
+					    for (var i=0;i<dta.length;i++) {
+					        // console.log(dta[i]["quarter"]);
+					        if (typeof(map[dta[i]["quarter"]])=="undefined") {
+					            map[dta[i]["quarter"]] = 1;
+					        } else {
+					            map[dta[i]["quarter"]] = map[dta[i]["quarter"]] +1;
+					        }					        
+					    }
+					    map = objKeySort(map);				  
+
+					    for (var quarter in map) {					    	
+					    	$.each(dta, function(i, o) {
+			        			if (quarter==o["quarter"]) {
+			        				o["sumall"]= o["wageIncome"]+o["operatingIncome"]+o["propertyIncome"]+o["transferIncome"]			
+     								helpscoredate.push(quarter);    							
+					        		pageData.push(formatTemplate(o, html)); 
+			        			}				        		
+				        	});
+					    }				    
+				        $('#helpscore').empty().append(head);
+				        for(i=0;i<pageData.length;i++){    
+					        $('#helpscore').append(pageData[i]);  
+					    } 
+					    $('#helpscore').append(end);
+				    }
+				});
+			}
+			function visitrecord(){
+				$.ajax({
+					url : urlhost+"/fupin/getvisitrecordbyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+					        return;  
+			        	} 
+			        	var head = $('#visithead').html();	
+			        	var html = $('#visitinfo').html(); 
+			        	var end='</tbody>';
+			        	var pageData = []; 
+			        	var map = [];					        	
+					    for (var i=0;i<dta.length;i++) {
+					        map.push(dta[i]["visitTime"]);				        
+					    }
+					    map = map.sort().reverse();		
+					    for (var i=0;i<map.length;i++) {
+					    	for (var j=0;j<dta.length;j++) {
+			        			if (map[i]==dta[j]["visitTime"]) {			
+     								visitdate.push(dta[j]["visitTime"]);    							
+					        		pageData.push(formatTemplate(dta[j], html)); 
+			        			}				        		
+				        	}
+					    }				    
+				        $('#visit').empty().append(head);
+				        for(i=0;i<pageData.length;i++){    
+					        $('#visit').append(pageData[i]);  
+					    } 
+					    $('#visit').append(end);
+				    }
+				});
+			}
+
+			var className = ["基础设施建设项目","产业增收项目","劳务技能培训"];
+			//基础设施建设项目
+			var subClass1 = ["新修梯田项目","五改三建项目","危旧房改造项目"]; 
+			//产业增收项目
+			var subClass2 = ["种植业项目","养殖业项目","林果业项目","中药材项目","光伏扶贫项目","旅游扶贫项目"]; 
+			//劳务技能培训
+			var subClass3 = ["雨露计划两后生培训","普通技能培训"]; 
+
+			function objKeySort(obj) {//排序的函数   	
+				var data = { "第一季度": "1", "第二季度": "2", "第三季度": "3", "第四季度": "4" };
+				function rp(n) {
+				    var s = '';
+				    s += data[n];
+				    return s;
+				}
+				var newkey = Object.keys(obj);				
+				var pastr = [];
+				for (i = 0; i < newkey.length; i++) {
+				    var arr = newkey[i].split('-'); // 拆分字符串
+				    temp = arr[0] + "-" + arr[1] + "-" + rp(arr[2]);
+				    pastr.push(temp);
+				}
+				pastr = pastr.sort().reverse();
+				var parstr = [];
+				for (i = 0; i < pastr.length; i++) {
+				    var arr = pastr[i].split('-'); // 拆分字符串
+				    temp = arr[0] + "-" + arr[1] + "-" + findKey(arr[2]);
+				    parstr.push(temp);
+				}
+				function findKey(value, compare = (a, b) => a === b) {
+				    return Object.keys(data).find(k => compare(data[k], value))
+				}
+				//先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
+			    var newObj = {};//创建一个新的对象，用于存放排好序的键值对
+			    for (var i = 0; i < parstr.length; i++) {//遍历newkey数组
+			        newObj[parstr[i]] = obj[parstr[i]];//向新创建的对象中按照排好的顺序依次增加键值对
+			    }
+			    return newObj;//返回排好序的新对象
+			}
+
+			function classlist() 
+			{
+				var e = document.addform.class; 
+				for (var i=0; i<className.length; i++) 
+				e.options.add(new Option(className[i], className[i])); 
+			} 
+
+			function subClasslist(n)
+			{ 
+				var e = document.addform.subClass; 
+				for (var i=e.options.length; i>0; i--) e.remove(i); 
+				setSelectVal("subClass","请选择");
+				if (n == 0) return; 
+				var a = eval("subClass"+ n);
+				for (var i=0; i<a.length; i++) e.options.add(new Option(a[i], a[i])); 
+			} 
+			
+			function classresult(){
+				var class1 = document.getElementById("class").value;
+				var class2 = document.getElementById("subClass").value;
+				$("#classify").val(class1+"-"+class2);
+			}
+
+			function addshehuijiuyuan(){
+				$(function(){
+				    $('input').bind('input propertychange', function() { 				        
+				        var input1 = $("#minimumLivingStandardIncome").val();
+				        var input2 = $("#fiveGuaranteesIncome").val();
+				        var input3 = $("#medicalAssistanceIncome").val();
+				        var input4 = $("#temporaryAssistanceIncome").val();
+
+				        var input = [input1,input2,input3,input4];
+				        var idinput = ["minimumLivingStandardIncome","fiveGuaranteesIncome","medicalAssistanceIncome","temporaryAssistanceIncome"];
+				        var result = 0; 
+				          for (var i = input.length-1; i >= 0; i--) {
+				        	if(input[i]==null||input[i]==""){
+					              input[i] = parseFloat(0);
+					          }else if(isNaN(input[i])){
+					              alert("请填写数字！");
+					              $("#"+idinput[i]+"").val("");
+					              input[i] = parseFloat(0);
+					          }else{
+					              input[i] = parseFloat(input[i]);			             
+					          }
+					          result+=input[i];
+				        }
+				          $("#socialAssistanceIncome").val(result);						          	          
+				    });  				   	
+				});	
+			}
+
+			function addplannedInvestment(){
+				$(function(){
+				    $('input').bind('input propertychange', function() { 				        
+				        var input1 = $("#centralFunds").val();
+				        var input2 = $("#provincialFunds").val();
+				        var input3 = $("#countyFunds").val();
+				        var input4 = $("#selfRaisedFunds").val();
+				        var input5 = $("#duplexUnit").val();
+				        var input6 = $("#enterpriseFunds").val();
+				        var result = 0; 
+
+				        var input = [input1,input2,input3,input4,input5,input6];
+				        var idinput = ["centralFunds","provincialFunds","countyFunds","selfRaisedFunds","duplexUnit","enterpriseFunds"];
+				        for (var i = input.length-1; i >= 0; i--) {
+				        	if(input[i]==null||input[i]==""){
+					              input[i] = parseFloat(0);
+					          }else if(isNaN(input[i])){
+					              alert("请填写数字！");
+					              $("#"+idinput[i]+"").val("");
+					              input[i] = parseFloat(0);
+					          }else{
+					              input[i] = parseFloat(input[i]);			             
+					          }
+					          result+=input[i];
+				        }
+				        $("#plannedInvestment").val(result);						          	          
+				    });  				   	
+				});	
+			}
+
+			familytopdata();
+			familydata();			
+			$(".tab > li").click(function(){
+				$(".tab > li").removeClass("current");
+				$(this).addClass("current");
+				$(".family-member,.live-condition,.plant-relocation,.helper,.help-measure,.help-score,.visit-record").hide();
+				$("." + $(".tab >li.current").attr("name")).show();
+				// $(".grid").Grid("resize");
+				switch($(".tab >li.current").attr("name")){
+					case "family-member":
+						familydata();break;
+					case "live-condition":
+						livecondition();break;
+					case "plant-relocation":
+						addplant();break;
+					case "helper":
+						helper();break;
+					case "help-measure":
+						helpmeasure();break;
+					case "help-score":
+						helpscore();break;
+					case "visit-record":
+						visitrecord();break;
+				}
+			});
+
+			$('body').on('click', '.modify-family', function(){
+				var familyMemberId = $(this).attr("familyMemberId");
+				$.ajax({
+					url : urlhost+"/fupin/getmemberbyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	$.each(dta, function(i, o) {
+				    		// console.log(dta)
+				    		if (o["fimilyMenberId"]==familyMemberId) {
+				    			o["familyId"]=familyId;
+				    			layer.open({
+									title: '查看家庭成员信息',
+									area:['65%','85%'],
+									content: $('#modify-family').html(),
+									closeBtn: 0,
+									btn:['退出'],
+									// btn1:function(index,layero){		
+									// 	document.getElementById("relationsWithFamilyOwner").disabled=false; 		   
+									//     document.addform.action=urlhost+"/fupin/updatefamilymember"; 
+									//     $(layero).find('#formadd').submit();				    
+									// }
+								});
+				    			$.each(o, function(key, item) {
+					    			$("#"+key).val(item||"");
+					    			switch(item){
+										case true:
+										$("input:radio[name='"+key+"']:eq(0)").attr("checked","checked"); break;
+										case false:
+										$("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+										// case null:
+										// $("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+									}
+									switch(item){
+										case 1:
+										$("input:radio[name='"+key+"']:eq(0)").attr("checked","checked"); break;
+										case 0:
+										$("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+									}
+									if (o["soldierNow"]) {
+										$("input:radio[id='soldierNow1']").attr("checked","checked"); 
+									}else if (o["soldierNow"]==0){
+										$("input:radio[id='soldierNow0']").attr("checked","checked");
+									}
+									// if (o["relationsWithFamilyOwner"]=="户主") {
+									// 	document.getElementById("relationsWithFamilyOwner").disabled=true; 
+									// }
+					    			
+					    		});
+				    		}
+				    	});
+				    }
+				});
+				
+				$('select').select();
+			})	
+
+			$('body').on('click', '.modify-rich', function(){
+				var prosperousIndustryId = $(this).attr("prosperousIndustryId");
+				$.ajax({
+					url : urlhost+"/fupin/searchfamily?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false,
+				    success: function(dtaf) {
+				    	dta = dtaf[0];
+				    	$.ajax({
+							url : urlhost+"/fupin/getprosperousindustrybyfamilyid?familyId="+familyId,  
+						    method : 'get',
+						    dataType : 'json',
+						    async: false,
+						    success: function(dtar) {
+						    	for (var i = dtar.length - 1; i >= 0; i--) {
+									if (dtar[i]["prosperousIndustryId"]==prosperousIndustryId) {
+										for (var x in dtar[i]) {
+											dta[x] = dtar[i][x];
+										}
+										dta["assessmentObjectId"] = dtar[i]["assessmentObject"]["assessmentObjectId"];
+										dta["assessmentObjectname"] = dtar[i]["assessmentObject"]["name"];
+										dta["assessmentObjectphoneNumber"] = dtar[i]["assessmentObject"]["phoneNumber"];
+									}
+								}						    	
+						    }
+						});
+						var html = $('#modify-rich').html(); 
+						var pageData=formatTemplate(dta, html);
+						layer.open({
+							title: '查看富民产业',
+							area:['95%','85%'],
+							content: pageData,
+							closeBtn: 0,
+							btn:['退出'],
+							
+						});
+						$('select').select();
+				    	
+						function radioc(key){
+							switch(dta[key]){
+									case true:
+									$("input:radio[name='"+key+"']:eq(0)").attr("checked","checked"); break;
+									case false:
+									$("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+									case null:
+									$("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
+							}
+						}
+						radioc("joinCooperation");
+						radioc("joinAgriculturalInsurance");
+				    }
+				});				
+			})				
+
+			$('body').on('click', '.specsupport-info', function(){
+				var quarter = $(this).attr("quarter");
+				var countFunds = $(this).attr("countFunds");
+				var htmlhead = $('#specsupport-headinfo').html(); 
+				var htmlinfo = $('#specsupport-info').html();
+				var htmlend = $('#specsupport-endinfo').html(); 
+				$.ajax({
+					url : urlhost+"/fupin/searchfamily?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false,
+				    success: function(dtaf) {
+				    	dta = dtaf[0];
+				    	$.ajax({
+							url : urlhost+"/fupin/getspecialpovertyalleviationbyfamilyid?familyId="+familyId,  
+						    method : 'get',
+						    dataType : 'json',
+						    async: false,
+						    success: function(dtar) {
+						    	var pageDatainfoarr = [];
+						    	for (var i = dtar.length - 1; i >= 0; i--) {
+									if (dtar[i]["quarter"]==quarter) {
+										for (var x in dtar[i]) {
+							            	switch (dtar[i][x]) {
+							            		case null: dtar[i][x] = "-";break;
+							            	}
+							            }
+										pageDatainfoarr.push(formatTemplate(dtar[i], htmlinfo));
+									}
+								}
+								dta["quarter"] = quarter;
+								dta["countFunds"] = countFunds;								
+								var pageDatainfo="";
+								var pageDatahead=formatTemplate(dta, htmlhead);
+								for(i=0;i<pageDatainfoarr.length;i++){    
+							        pageDatainfo+=pageDatainfoarr[i];  
+							    } 
+							    dta["name"] = dtar[0]["assessmentObject"]["name"];
+								dta["phoneNumber"] = dtar[0]["assessmentObject"]["phoneNumber"];
+								var pageDataend=formatTemplate(dta, htmlend);	
+								layer.open({
+									title: '查看专项扶贫',
+									area:['95%','70%'],
+									closeBtn: 0,
+									content: pageDatahead+pageDatainfo+pageDataend,
+									btn:['退出']
+								});
+								$('select').select();					    	
+						    }
+						});
+					}
+				});
+			})
+
+			$('body').on('click', '.modify-labortrain', function(){
+				var quarter = $(this).attr("quarter");
+				var laborTrainingId = $(this).attr("laborTrainingId");
+				$.ajax({
+						url : urlhost+"/fupin/getmemberbyfamilyid?familyId="+familyId,  
+					    method : 'get',
+					    dataType : 'json',
+					    async: false,
+					    success: function(dta) {
+					    	countwork=0;
+					    	for (var i = dta.length - 1; i >= 0; i--) {
+					    		if(dta[i]["relationsWithFamilyOwner"]=="户主")
+					    			basedta = dta[0];
+					    		if (dta[i]["workAbility"]=="普通劳动能力"||dta[i]["workAbility"]=="技能劳动能力") 
+					    			countwork+=1;
+					    	}
+					    	basedta["familyPopulation"]=dta.length;
+					    	basedta["countwork"]=countwork;
+					    	$.ajax({
+								url : urlhost+"/fupin/getlabortrainingbyfamilyid?familyId="+familyId,  
+							    method : 'get',
+							    dataType : 'json',
+							    async: false,
+							    success: function(dtal) {
+							    	basedta["countlabortraining"]=dtal.length;
+							    	basedta["quarter"]=quarter;
+							    	for (var i = dtal.length - 1; i >= 0; i--) {
+							    		if(dtal[i]["laborTrainingId"]==laborTrainingId){
+							    			for (var item in dtal[i]) {
+							    				if(dtal[i][item]==null)
+							    					dtal[i][item]=""
+							    				basedta[item]=dtal[i][item];
+							    			}
+							    			basedta["familyId"]=dtal[i]["family"]["familyId"];
+							    			basedta["assessmentObjectId"]=dtal[i]["assessmentObject"]["assessmentObjectId"];
+							    			basedta["assessmentname"]=dtal[i]["assessmentObject"]["name"];
+							    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
+							    			for (var ite in dtal[i]["familyMember"]) {
+							    				basedta[ite]=dtal[i]["familyMember"][ite];
+							    			}
+							    		}
+							    	}
+							    }
+							});
+							switch(basedta["sex"]){
+				                case 0:basedta["sex"]="男";break;
+				                case 1:basedta["sex"]="女";break;
+				            }
+					    	var html = $('#modify-labortrain').html(); 
+					    	var pageData=formatTemplate(basedta, html);
+					    	layer.open({
+								title: '修改劳动力培训',
+								area:['95%','85%'],
+								content: pageData,
+								closeBtn: 0,
+								btn:['退出'],
+								
+							});							
+							if (basedta["cultivation"]) {
+								$("input:radio[name='cultivation']").attr("checked","checked");
+							}
+							if (basedta["plant"]) {
+								$("input:radio[name='plant']").attr("checked","checked");
+							}
+							if (basedta["catering"]) {
+								$("input:radio[name='catering']").attr("checked","checked");
+							}
+							if (basedta["housekeeping"]) {
+								$("input:radio[name='housekeeping']").attr("checked","checked");
+							}
+							if (basedta["buildingService"]) {
+								$("input:radio[name='buildingService']").attr("checked","checked");
+							}
+							if (basedta["industry"]) {
+								$("input:radio[name='industry']").attr("checked","checked");
+							}
+							if (basedta["startUp"]) {
+								$("input:radio[name='startUp']").attr("checked","checked");
+							}
+							if (basedta["operativeTechnology"]) {
+								$("input:radio[name='operativeTechnology']").attr("checked","checked");
+							}
+							if (basedta["others"]) {
+								$("input:radio[name='others']").attr("checked","checked");
+							}
+							if (basedta["jobSkillTraining"]) {
+								$("input:radio[name='jobSkillTraining']").attr("checked","checked");
+							}
+							if (basedta["biepigeneticTraining"]) {
+								$("input:radio[name='biepigeneticTraining']").attr("checked","checked");
+							}
+							if (basedta["serviceBrand"]) {
+								$("input:radio[name='serviceBrand']").attr("checked","checked");
+							}
+							if (basedta["vocationalTraining"]) {
+								$("input:radio[name='vocationalTraining']").attr("checked","checked");
+							}
+							if (basedta["demonstrationTraining"]) {
+								$("input:radio[name='demonstrationTraining']").attr("checked","checked");
+							}
+							if (basedta["skillUpgradingTraining"]) {
+								$("input:radio[name='skillUpgradingTraining']").attr("checked","checked");
+							}
+							if (basedta["enterpriseTraining"]) {
+								$("input:radio[name='enterpriseTraining']").attr("checked","checked");
+							}
+							switch(basedta["trainingLength"]){
+								case "1":$("input:radio[name='TrainingLength']:eq(0)").attr("checked","checked");break;
+								case "2":$("input:radio[name='TrainingLength']:eq(1)").attr("checked","checked");break;
+								case "3":$("input:radio[name='TrainingLength']:eq(2)").attr("checked","checked");break;
+							}
+							switch(basedta["certificate"]){
+								case "1":$("input:radio[name='certificate']:eq(0)").attr("checked","checked");break;
+								case "2":$("input:radio[name='certificate']:eq(1)").attr("checked","checked");break;
+								case "3":$("input:radio[name='certificate']:eq(2)").attr("checked","checked");break;
+							} 
+							switch(basedta["workDirection"]){
+								case "1":$("input:radio[name='workDirection']:eq(0)").attr("checked","checked");break;
+								case "2":$("input:radio[name='workDirection']:eq(1)").attr("checked","checked");break;
+								case "3":$("input:radio[name='workDirection']:eq(2)").attr("checked","checked");break;
+							} 
+							switch(basedta["workTimeInYear"]){
+								case 1:$("input:radio[name='workTimeInYear']:eq(0)").attr("checked","checked");break;
+								case 2:$("input:radio[name='workTimeInYear']:eq(1)").attr("checked","checked");break;
+								case 3:$("input:radio[name='workTimeInYear']:eq(2)").attr("checked","checked");break;
+							} 							 
+					    }
+				    });
+				$("#formadd").ajaxForm(function(data) {					
+	       			location.reload();
+	    		});
+		
+				$("#trainingDate").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd'
+				})
+				$("#fillInTime").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd'
+				})
+				$(".date .iconfont").click(function(){
+					$(this).prev().trigger("focus");
+				});
+				$('select').select();
+			})
+		
+			$('body').on('click', '.modify-social', function(){
+				var quarter = $(this).attr("quarter");
+				$.ajax({
+						url : urlhost+"/fupin/getmemberbyfamilyid?familyId="+familyId,  
+					    method : 'get',
+					    dataType : 'json',
+					    async: false,
+					    success: function(dta) {
+					    	countwork=0;
+					    	for (var i = dta.length - 1; i >= 0; i--) {
+					    		if(dta[i]["relationsWithFamilyOwner"]=="户主")
+					    			basedta = dta[i];
+					    	}
+					    	basedta["familyId"]=familyId;
+					    	$.ajax({
+								url : urlhost+"/fupin/getsocialassistancebyfamilyid?familyId="+familyId,  
+							    method : 'get',
+							    dataType : 'json',
+							    async: false,
+							    success: function(dtal) {
+							    	for (var i = 0; i < dtal.length; i++) {
+							    		if(dtal[i]["quarter"]==quarter){
+							    			for (var item in dtal[i])
+							    				basedta[item]=dtal[i][item];
+							    			basedta["assessmentname"]=dtal[i]["assessmentObject"]["name"];
+							    			basedta["assessmentObjectId"]=dtal[i]["assessmentObject"]["assessmentObjectId"];
+							    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
+							    		}
+							    	}
+							    	var html = $('#modify-social').html(); 
+							    	var pageData=formatTemplate(basedta, html);
+							    	layer.open({
+										title: '查看与修改社会援助',
+										area:['95%','85%'],
+										content: pageData,
+										closeBtn:0,
+										btn:['退出'],										
+									});
+									addshehuijiuyuan();	
+									for (var i = 3; i > 0; i--) {
+										$("input:radio[name='kindOfLow"+i+"'][value='"+basedta["kindOfLow"+i+""]+"']").attr("checked","checked"); 
+									}
+									$("input:radio[name='assistanceReason'][value='"+basedta["assistanceReason"]+"']").attr("checked","checked");
+									
+							    }
+							});	  
+					    }
+				});				
+				$("#formadd").ajaxForm(function(data) {					
+	       			location.reload();
+	    		});			
+				$('select').select();
+			})			
+
+			$('body').on('click', '.modify-fanance', function(){
+				var quarter = $(this).attr("quarter");
+				$.ajax({
+						url : urlhost+"/fupin/searchfamily?familyId="+familyId,  
+					    method : 'get',
+					    dataType : 'json',
+					    async: false,
+					    success: function(dta) {
+					    	basedta = dta[0];
+					    	$.ajax({
+								url : urlhost+"/fupin/getfinancialassistancebyfamilyid?familyId="+familyId,  
+							    method : 'get',
+							    dataType : 'json',
+							    async: false,
+							    success: function(dtal) {
+							    	for (var i = 0; i < dtal.length; i++) {
+							    		if(dtal[i]["quarter"]==quarter){
+							    			for (var item in dtal[i]){
+							    				basedta[item]=dtal[i][item];
+								    			basedta["assessmentname"]=dtal[i]["assessmentObject"]["name"];
+								    			basedta["assessmentObjectId"]=dtal[i]["assessmentObject"]["assessmentObjectId"];
+								    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
+							    			}
+							    		var html = $('#modify-fanance').html(); 
+							    		var pageData=formatTemplate(basedta, html);	
+							    		layer.open({
+											title: '查看金融扶贫',
+											area:['95%','75%'],
+											content: pageData,
+											closeBtn:0,
+											btn:['退出'],
+											
+										});	
+							   //  		$.each(basedta,function(key,item){					
+										// 	if (key=="useMode") {
+										// 		$("#"+key).val(item||"");
+										// 		setSelectVal("useMode",item);
+										// 	}
+										// 	if (key=="useOfLoad") {
+										// 		$("#"+key).val(item||"");
+										// 		setSelectVal("useOfLoad",item);
+										// 	}
+										// });
+							    		}
+							    	}
+							    }
+							});
+					    }
+					});
+				$("#formadd").ajaxForm(function(data) {					
+       				location.reload();
+	    		});			
+				$('select').select();
+			})
+
+			$('body').on('click', '.modify-reformhouse', function(){
+				var quarter = $(this).attr("quarter");
+				$.ajax({
+						url : urlhost+"/fupin/searchfamily?familyId="+familyId,  
+					    method : 'get',
+					    dataType : 'json',
+					    async: false,
+					    success: function(dta) {
+					    	basedta = dta[0];
+					    	$.ajax({
+								url : urlhost+"/fupin/gethouserenovationbyfamilyid?familyId="+familyId,  
+							    method : 'get',
+							    dataType : 'json',
+							    async: false,
+							    success: function(dtal) {
+							    	for (var i = 0; i < dtal.length; i++) {
+							    		if(dtal[i]["quarter"]==quarter){
+							    			for (var item in dtal[i]){
+							    				basedta[item]=dtal[i][item];
+								    			basedta["assessmentname"]=dtal[i]["assessmentObject"]["name"];
+								    			basedta["assessmentObjectId"]=dtal[i]["assessmentObject"]["assessmentObjectId"];
+								    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
+							    			}
+								    		var html = $('#modify-reformhouse').html(); 
+								    		var pageData=formatTemplate(basedta, html);
+											layer.open({
+												title: '查看危房改造',
+												area:['95%','75%'],
+												content: pageData,
+												closeBtn:0,
+												btn:['退出'],												
+											});
+
+											$.each(basedta,function(key,item){					
+												if (key=="hasHouse") {
+													$("input:radio[name='hasHouse'][value='"+item+"']").attr("checked","checked");
+												}
+												if (key=="buildTime") {
+													$("#"+key).val(item||"");
+													setSelectVal("buildTime",item);
+												}
+												if (key=="houseStructure") {
+													$("#"+key).val(item||"");
+													setSelectVal("houseStructure",item);
+												}
+												if (key=="houseLevel") {
+													$("#"+key).val(item||"");
+													setSelectVal("houseLevel",item);
+												}
+												if (key=="afterReformHouseStructure") {
+													$("#"+key).val(item||"");
+													setSelectVal("afterReformHouseStructure",item);
+												}
+											});
+										}
+									}
+								}
+							});
+					    }
+					});
+						
+				$('select').select();
+				
+				$("#formadd").ajaxForm(function(data) {					
+       				location.reload();
+	    		});	
+
+				$("#fillInTime").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd',
+					"autoclose":"true",
+				})	
+
+				$("#startDate").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd',
+					"autoclose":"true",
+				}).on('changeDate', function(ev){
+					$('#endDate').datepicker('setStartDate', ev.date);
+				});
+
+				$("#endDate").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd',
+					"autoclose":"true",
+				}).on('changeDate', function(ev){
+					$('#startDate').datepicker('setEndDate', ev.date);
+				});				
+
+				$(".date .iconfont").click(function(){
+					$(this).prev().trigger("focus");
+				});
+			})
+
+			$('body').on('click', '.modify-watersafe', function(){
+				var quarter = $(this).attr("quarter");
+				$.ajax({
+						url : urlhost+"/fupin/getmemberbyfamilyid?familyId="+familyId,  
+					    method : 'get',
+					    dataType : 'json',
+					    async: false,
+					    success: function(dta) {
+					    	countwork=0;
+					    	for (var i = dta.length - 1; i >= 0; i--) {
+					    		if(dta[i]["relationsWithFamilyOwner"]=="户主")
+					    			basedta = dta[i];
+					    	}
+					    	basedta["familyId"]=familyId;
+					    	$.ajax({
+								url : urlhost+"/fupin/getdrinkingsafetybyfamilyid?familyId="+familyId,  
+							    method : 'get',
+							    dataType : 'json',
+							    async: false,
+							    success: function(dtal) {
+							    	for (var i = 0; i < dtal.length; i++) {
+							    		if(dtal[i]["quarter"]==quarter){
+							    			for (var item in dtal[i])
+							    				basedta[item]=dtal[i][item];
+							    			basedta["assessmentname"]=dtal[i]["assessmentObject"]["name"];
+							    			basedta["assessmentObjectId"]=dtal[i]["assessmentObject"]["assessmentObjectId"];
+							    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
+							    		}
+							    	}
+							    	var html = $('#modify-watersafe').html(); 
+							    	var pageData=formatTemplate(basedta, html);
+									layer.open({
+										title: '查看饮水安全',
+										area:['95%','64%'],
+										content: pageData,
+										closeBtn:0,
+										btn:['退出'],										
+									});
+									$.each(basedta,function(key,item){					
+										if (key=="tapWaterUser") {
+											$("input:radio[name='tapWaterUser'][value='"+item+"']").attr("checked","checked");
+										}
+										if (key=="safeDrinkingWater") {
+											$("input:radio[name='safeDrinkingWater'][value='"+item+"']").attr("checked","checked");
+										}
+										if (key=="tapWaterUserNow") {
+											$("input:radio[name='tapWaterUserNow'][value='"+item+"']").attr("checked","checked");
+										}
+										if (key=="safeDrinkingWaterNow") {
+											$("input:radio[name='safeDrinkingWaterNow'][value='"+item+"']").attr("checked","checked");
+										}
+										if (key=="safeDrinkingWaterNow") {
+											$("#"+key).val(item||"");
+											setSelectVal("safeDrinkingWaterNow",item);
+										}
+										if (key=="waterSupplyMode") {
+											$("#"+key).val(item||"");
+											setSelectVal("waterSupplyMode",item);
+										}
+										if (key=="waterSupplyModeNow") {
+											$("#"+key).val(item||"");
+											setSelectVal("waterSupplyModeNow",item);
+										}
+									});
+
+								}
+							});
+					    }
+					});
+				$("#formadd").ajaxForm(function(data) {					
+       				location.reload();
+	    		});
+						
+				$('select').select();
+				
+				$("#fillInTime").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd',
+					"autoclose":"true"
+				})				
+
+				$(".date .iconfont").click(function(){
+					$(this).prev().trigger("focus");
+				});
+			})			
+			
+			$('body').on('click', '.modify-visit', function(){
+				var visitRecordId = $(this).attr("visitRecordId");
+				$.ajax({
+					url : urlhost+"/fupin/getvisitrecordbyfamilyid?familyId="+familyId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {
+				    	if (!dta || dta.length <= 0) {  
+					        return 0;  
+			        	}				   
+						layer.open({
+							title: '查看走访记录',
+							area:['95%','60%'],
+							content: $('#modify-visit').html(),
+							closeBtn:0,
+							btn:['退出'],							
+						});	
+						for (var i = 0; i < dta.length; i++) {
+				    		if(dta[i]["visitRecordId"]==visitRecordId){				    			
+					    		document.getElementById("visitTime").innerHTML=dta[i].visitTime;
+					    		document.getElementById("visitor").innerHTML=dta[i].visitor;
+					    		document.getElementById("visitTheme").innerHTML=dta[i].visitTheme;
+					    		document.getElementById("visitContent").innerHTML=dta[i].visitContent;
+					    		$("#photoPath").attr("src","..\\..\\..\\fupin\\"+dta[i]["photoPath"]);	
+				    		}
+				    	} 			
+					}
+				});
+			})
+	
+		</script>
+
+		
+	</body> 
+	</html>

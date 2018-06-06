@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>劳动力培训</title>
+    <link href="../../css/pages/base.css" rel="stylesheet" />
+    <link href="../../css/pages/supmeasures.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/jquery.pagination.css" /> 
+</head>
+
+<body>
+    <div class="crumbs">
+        <i class="crumbs-arrow"></i>
+        <a href="javascript:;" class="crumbs-label">劳动力培训</a>
+    </div>
+    <div id="inner-bd">
+        <div class="kv-group-outer">
+            <div class="kv-group clearfix">
+               <form name="search" action="" id="search" method="post" enctype="multipart/form-data">
+                    <div class="kv-item-wrap">
+                        <div class="kv-item">
+                            <div class="item-lt">区县：</div>
+                            <div class="item-rt">
+                                <select name="districtId" id="district" onchange="townlist(this.selectedIndex)">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kv-item">
+                            <div class="item-lt">
+                                乡镇：
+                            </div>
+                            <div class="item-rt">
+                                <select name="townId" id="town" onchange="villagelist(this.selectedIndex)">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kv-item">
+                            <div class="item-lt">村委：</div>
+                            <div class="item-rt">
+                                <select name="villageId" id="village">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="kv -item">
+                            <div class="button rich-search">
+                                <i class="iconfont"></i>
+                                <span class="button-label">查询</span>
+                            </div>
+                        </div>
+                        <span class="hstotal"> 户管理措施——本次已采集 <em id="hstotal"></em> </span>
+                    </div>
+                </form>
+            </div>
+            <div class="panel">
+                <ul class="pkh_tongji" id="pkh_tongji">   
+                </ul>
+            </div>
+            <div class="table-zone">
+                <table class="no-data" id="labortrain">
+                </table>
+                <div class="box" style="margin-left: 33%; margin-top: 5px;">
+                    <div id="pagination" class="page fl"></div>
+                </div>
+            </div>
+        </div>
+    </div>     
+</body>
+
+<script type="text/template" id="pkh_tongjinfo">
+                <li>
+                    <p>培训完成人次：</p>
+                    <p class="num">
+                        <em>{trainingNum}</em>
+                        <span>人</span></p>
+                </li>
+                <li>
+                    <p>有培训总需求劳动力人数：</p>
+                    <p class="num">
+                        <em>{trainingNeededNum}</em>
+                        <span>人</span></p>
+                </li>
+                <li>
+                    <p>资金投入：</p>
+                    <p class="num">
+                        <em>{Fund}</em>
+                        <span>元</span></p>
+                </li>
+</script>
+<script type="text/template" id="labortraininfohead">
+     <thead>
+        <td style="width:6%;">序号</td>
+        <td style="width:10%;">培训人姓名</td>
+        <td style="width:9%;">户主姓名</td>
+        <td style="width:15%;">贫苦户所在地</td>
+        <td style="width:11%;">上报年和季度</td>
+        <td style="width:9%;">培训需求</td>
+        <td style="width:9%;">培训类型</td>
+        <td style="width:9%;">培训时间</td>
+        <td style="width:9%;">取证情况</td>        
+        <td style="width:auto;">操作</td>
+    </thead>
+    <tbody id="labortrainin">
+        
+    </tbody>            
+</script>
+<script type="text/template" id="labortraininfo">
+    <tr>
+        <td></td>
+        <td>{trainame}</td>
+        <td>{familyOwnerName}</td>
+        <td>{location}</td>
+        <td>{quarter}</td>        
+        <td>{traineed}</td>
+        <td>{traintype}</td>
+        <td>{TrainingLength}</td>
+        <td>{certificate}</td>
+        <td>
+            <div class="button labortrain-info" laborTrainingId={laborTrainingId}>
+                <i class="iconfont">&#xe601;</i>
+                <span class="button-label">查看</span>
+            </div>
+        </td>
+    </tr>
+</script>
+<script type="text/template" id="labortrain-info">
+    <div class="addlabortrain">
+        <div class="add-manage">
+            <form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+            <table class="kv-table">
+                <tbody>
+                    <tr>
+                        <td class="kv-label" rowspan="4" style="width: 6%;">
+                            农户<br>
+                            基本<br>
+                            信息
+                        </td>
+                        <td class="kv-label" style="width: 6%;">
+                            户主姓名：
+                        </td>
+                        <td class="kv-content" style="width: 6%;">
+                            {familyOwnerName}
+                        <td class="kv-label" style="width: 6%;">
+                            户主身份证号:
+                        </td>
+                        <td class="kv-content" style="width: 10%;">
+                            {familyOwnerIDCard}
+                        </td>
+                        <td class="kv-label" style="width: 7%;">
+                            上报季度：<font color="red">*</font>
+                        </td>
+                        <td class="kv-label" style="width: 15%;">
+                            <span>{quarter}</span>
+                            <span>{familyId}</span>
+                            <span>{assessmentObjectId}</span>
+                            <span>{laborTrainingId}</span>
+                            <span>{fimilyMenberId}</span>                                   
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label" style="padding: 0;">
+                            家庭人口数：
+                        </td>
+                        <td class="kv-content">
+                            {familyPopulation}
+                        </td>
+                        <td class="kv-label">
+                            劳动力人口数:
+                        </td>
+                        <td class="kv-content">
+                            {countwork}
+                        </td>
+                        <td class="kv-label">
+                            需培训人数：
+                        </td>
+                        <td class="kv-content">
+                            {countlabortraining}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            培训人姓名：<font color="red">*</font>
+                        </td>
+                        <td class="kv-content">
+                            {trainame}
+                        </td>
+                        <td class="kv-label">
+                            培训人证件号码：
+                        </td>
+                        <td class="kv-content">
+                            {idcard}
+                        </td>
+                        <td class="kv-label">
+                            年龄：
+                        </td>
+                        <td class="kv-content">
+                            {age}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            性别：
+                        </td>
+                        <td class="kv-content" >
+                            {sex}
+                        </td>
+                        <td class="kv-label" >
+                            文化程度：
+                        </td>
+                        <td colspan="3" class="kv-content">
+                            {educationDegree}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            培训需求
+                        </td>
+                        <td colspan="6" class="kv-content">
+                            <label><input type="radio" name="cultivation">养殖</label>
+                            <label><input type="radio" name="plant">种植</label>
+                            <label><input type="radio" name="catering">餐饮业</label>
+                            <label><input type="radio" name="housekeeping">家政服务</label>
+                            <label><input type="radio" name="buildingService">建筑服务</label>
+                            <label><input type="radio" name="industry">制造业</label>
+                            <label><input type="radio" name="startUp">创业</label>
+                            <label><input type="radio" name="operativeTechnology">实用技术</label>
+                            <label><input type="radio" name="others">其他</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label" rowspan="4">
+                            培训措施
+                        </td>
+                        <td class="kv-label">
+                            培训类型：
+                        </td>
+                        <td class="kv-content" colspan="5">
+                            <label><input type="radio" name="jobSkillTraining">就业技能培训</label>
+                            <label><input type="radio" name="biepigeneticTraining">两后生培训</label>
+                            <label><input type="radio" name="serviceBrand">劳务品牌服务</label>
+                            <label><input type="radio" name="vocationalTraining">新型职业农民培育工程</label>
+                            <label><input type="radio" name="demonstrationTraining">示范培训</label>
+                            <label><input type="radio" name="skillUpgradingTraining">岗位技能提升培训</label>
+                            <label><input type="radio" name="enterpriseTraining">创业培训</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            培训机构：
+                        </td>
+                        <td class="kv-content">
+                            <span>{trainingAgency}</span>
+                        </td>
+                        <td class="kv-label">
+                            培训日期：
+                        </td>
+                        <td class="kv-content">
+                            <span>{trainingDate}</span>
+                        </td>
+                        <td class="kv-label">
+                            培训时间：
+                        </td>
+                        <td class="kv-content">
+                            <label><input type="radio" name="TrainingLength" value="1">7~15天</label>
+                            <label><input type="radio" name="TrainingLength" value="2">15天~3个月</label><br>
+                            <label><input type="radio" name="TrainingLength" value="3">2年以上</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label"  rowspan="2">
+                            资金来源及金额
+                        </td>
+                        
+                        <td class="kv-label">
+                            就业专项资金:
+                        </td>
+                        <td class="kv-content">
+                             <span>{employmentFund}</span>
+                        </td>
+                        <td class="kv-label">
+                            农牧专项资金:
+                        </td>
+                        <td class="kv-content" colspan="2">
+                            <span>{husbandryFund}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label">
+                            扶贫专项资金:
+                        </td>
+                        <td class="kv-content">
+                            <span>{povertyReliefFund}</span>
+                        </td>
+                        <td class="kv-label">
+                            其他资金：
+                        </td>
+                        <td class="kv-content" colspan="2">
+                             <span>{otherFund}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label" rowspan="5">
+                            培训成效:
+                        </td>
+                        <td class="kv-label">
+                            取证情况：
+                        </td>
+                        <td colspan="5" class="kv-content">
+                            <label><input type="radio" name="certificate" value="1">职业资格证书</label>
+                            <label><input type="radio" name="certificate" value="2">培训证书</label>
+                            <label><input type="radio" name="certificate" value="3">其他证书</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="kv-label" rowspan="2">
+                            务工：
+                        </td>                                   
+                        <td class="kv-label">
+                            务工去向：
+                        </td>
+                        <td class="kv-content" colspan="2">
+                            <label><input type="radio" name="workDirection" value="1">省内</label>
+                            <label><input type="radio" name="workDirection" value="2">省外</label>
+                            <label><input type="radio" name="workDirection" value="3">境外</label>
+                        </td>
+                        <td class="kv-label">
+                            年务工时间：
+                        </td>
+                        <td class="kv-content" >
+                            <label><input type="radio" name="workTimeInYear" value="1">3个月以内</label>
+                            <label><input type="radio" name="workTimeInYear" value="2">3-6个月</label><br>
+                            <label><input type="radio" name="workTimeInYear" value="3">6个月以上</label>
+                        </td>
+                    </tr>
+                  <tr>
+                    <td class="kv-label">
+                        年收入：
+                    </td>
+                    <td class="kv-content" colspan="5">
+                        <span>{workIncome}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="kv-label">
+                        务农：                             
+                    </td>
+                    <td class="kv-label">
+                        年收入：
+                    </td>
+                    <td colspan="7" class="kv-content">
+                        <span>{farmerIncome}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="kv-label">
+                        备注：
+                    </td>
+                    <td colspan="8" class="kv-content">
+                        <span>{remark}</span>
+                    </td>
+                  </tr>
+                  <tr>                              
+                    <td colspan="2" class="kv-label" style="text-align: right;">
+                        帮扶责任人：
+                    </td>
+                    <td class="kv-content">
+                        <span>{assessmentObjectname}</span>
+                    </td>
+                    <td class="kv-label">
+                        帮扶责任人电话：
+                    </td>
+                    <td class="kv-content">
+                        <span>{assessmentObjectphoneNumber}</span>
+                    </td>
+                    <td class="kv-label">
+                        填表时间：
+                    </td>
+                    <td class="kv-content">
+                        <div class="date">
+                            <span>{fillInTime}</span>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+            </form>
+        </div>
+    </div>
+</script>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/jquery.select.js"></script>
+<script type="text/javascript" src="../../js/layer/layer.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/district-town-village-select.js"></script>
+<script src="../../js/jquery.pagination.min.js"></script>
+<script src="../../js/jquery.form.js"></script>
+<script type="text/javascript">
+function objKeySort(obj) {//排序的函数       
+    var data = { "第一季度": "1", "第二季度": "2", "第三季度": "3", "第四季度": "4" };
+    function rp(n) {
+        var s = '';
+        s += data[n];
+        return s;
+    }
+    var newkey = Object.keys(obj);              
+    var pastr = [];
+    for (i = 0; i < newkey.length; i++) {
+        var arr = newkey[i].split('-'); // 拆分字符串
+        temp = arr[0] + "-" + arr[1] + "-" + rp(arr[2]);
+        pastr.push(temp);
+    }
+    pastr = pastr.sort().reverse();
+    var parstr = [];
+    for (i = 0; i < pastr.length; i++) {
+        var arr = pastr[i].split('-'); // 拆分字符串
+        temp = arr[0] + "-" + arr[1] + "-" + findKey(arr[2]);
+        parstr.push(temp);
+    }
+    function findKey(value, compare = (a, b) => a === b) {
+        return Object.keys(data).find(k => compare(data[k], value))
+    }
+    //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
+    var newObj = {};//创建一个新的对象，用于存放排好序的键值对
+    for (var i = 0; i < parstr.length; i++) {//遍历newkey数组
+        newObj[parstr[i]] = obj[parstr[i]];//向新创建的对象中按照排好的顺序依次增加键值对
+    }
+    return newObj;//返回排好序的新对象
+}
+function dataprocess(dta) {
+    if (!dta || dta.length <= 0) {
+        return;
+    }
+    data=dta.content;
+    var htmlpkh_tongji = $('#pkh_tongjinfo').html();
+    var head = $('#labortraininfohead').html();
+    var html = $('#labortraininfo').html();
+    var start = '<tbody>';
+    var end = '</tbody>';
+    htmlpkh_tongji=formatTemplate(dta, htmlpkh_tongji);
+    $('#pkh_tongji').empty().append(htmlpkh_tongji);
+    
+    var pageData = [];
+    // $.each(dta.content, function(i, o) {
+    //     pageData.push(formatTemplate(o, html));
+    // });
+    var map = {};
+    for (var i = 0; i < dta.content.length; i++) {
+        // console.log(dta[i]["quarter"]);
+        if (typeof(map[dta.content[i]["quarter"]]) == "undefined") {
+            map[dta.content[i]["quarter"]] = 1;
+        } else {
+            map[dta.content[i]["quarter"]] = map[dta.content[i]["quarter"]] + 1;
+        }
+    }
+
+    var maphu = {};
+    for (var i = 0; i < dta.content.length; i++) {
+        // console.log(dta[i]["quarter"]);
+        if (typeof(maphu[dta.content[i].family["familyId"]]) == "undefined") {
+            maphu[dta.content[i].family["familyId"]] = 1;
+        } else {
+            maphu[dta.content[i].family["familyId"]] = maphu[dta.content[i].family["familyId"]] + 1;
+        }
+    }
+    var maphulength=0;  
+    for(var ever in maphu) {  
+        maphulength++;  
+    } 
+    document.getElementById("hstotal").innerHTML=maphulength+"户";
+    map = objKeySort(map);
+    for (var quarter in map) {
+        $.each(dta.content, function(i, o) {
+            if (quarter == o["quarter"]) {
+                o.trainame=o.familyMember.name;
+
+                o["traineed"]="";                                    
+                if (o["cultivation"]) {
+                    o["traineed"]+="养殖,";
+                }
+                if (o["plant"]) {
+                    o["traineed"]+="种植,";
+                }
+                if (o["catering"]) {
+                    o["traineed"]+="餐饮业,";
+                }
+                if (o["housekeeping"]) {
+                    o["traineed"]+="家政服务,";
+                }
+                if (o["buildingService"]) {
+                    o["traineed"]+="建筑服务,";
+                }
+                if (o["industry"]) {
+                    o["traineed"]+="制造业,";
+                }
+                if (o["startUp"]) {
+                    o["traineed"]+="创业,";
+                }
+                if (o["operativeTechnology"]) {
+                    o["traineed"]+="实用技术,";
+                }
+                if (o["others"]) {
+                    o["traineed"]+="其他,";
+                }
+                o["traintype"]="";
+                if (o["jobSkillTraining"]) {
+                    o["traintype"]+="就业技能培训,"
+                }
+                if (o["biepigeneticTraining"]) {
+                    o["traintype"]+="两后生培训,"
+                }
+                if (o["serviceBrand"]) {
+                    o["traintype"]+="劳务品牌服务,"
+                }
+                if (o["vocationalTraining"]) {
+                    o["traintype"]+="新型职业农民培育工程,"
+                }
+                if (o["demonstrationTraining"]) {
+                    o["traintype"]+="示范培训,"
+                }
+                if (o["skillUpgradingTraining"]) {
+                    o["traintype"]+="岗位技能提升培训,"
+                }
+                if (o["enterpriseTraining"]) {
+                    o["traintype"]+="创业培训,"
+                }
+                switch(o["trainingLength"]){
+                    case "1":o["TrainingLength"]="7~15天";break;
+                    case "2":o["TrainingLength"]="15天~3个月";break;
+                    case "3":o["TrainingLength"]="2年以上";break;
+                    default:o["TrainingLength"]=" ";break;
+                }
+                switch(o["certificate"]){
+                    case "1":o["certificate"]="职业资格证书";break;
+                    case "2":o["certificate"]="培训证书";break;
+                    case "3":o["certificate"]="其他证书";break;
+                    default:o["certificate"]=" ";break;
+                }
+                pageData.push(formatTemplate(o, html));
+            }
+        })
+    }
+    var Count = pageData.length; //记录条数
+    var PageSize = 10; //每页显示的条数 
+    var PageCount = Math.ceil(Count / PageSize); //计算总页数  向上取整,有小数就整数部分加1
+    var currentPage = 1; //当前页，默认为1
+    $('#labortrain').empty().append(head);
+    for (i = (currentPage - 1) * PageSize; i < PageSize * currentPage; i++) {
+        $('#labortrainin').append(pageData[i]);
+    }
+    addId(PageSize*(currentPage-1)+1);
+
+    $("#pagination").pagination({
+     currentPage: currentPage,
+     totalPage: PageCount,
+     isShow: true,
+     count: 4,
+     homePageText: "首页",
+     endPageText: "尾页",
+     prevPageText: "上一页",
+     nextPageText: "下一页",
+     callback: function(current) {
+        $('#labortrain').empty().append(head);
+        for(i=(current-1)*PageSize;i<PageSize*current;i++){    
+             $('#labortrainin').append(pageData[i]);  
+        } 
+        addId(PageSize*(current-1)+1);
+     }
+    });
+}
+var data;
+$.ajax({
+    url: urlhost + "/fupin/labortraining"+getUrl(),
+    method: 'get',
+    dataType: 'json',
+    async: false,
+    success: function(dta) {
+        data=dta.content;
+        dataprocess(dta);
+    }
+});
+$('select').select();
+
+$('body').on('click', '.labortrain-info', function() {
+    var laborTrainingId = $(this).attr("laborTrainingId");
+    var html = $('#labortrain-info').html();
+    var temp;
+    $.each(data, function(i, o) {
+        if (o.laborTrainingId==laborTrainingId) {
+            basedta = o;
+            o.trainame=o.familyMember.name;
+            o.idcard=o.familyMember.idcard;
+            o.sex=o.familyMember.sex;
+            o.age=o.familyMember.age;
+            switch(o.sex){
+                case 0:o.sex="男";break;
+                case 1:o.sex="女";break;
+            } 
+            o.educationDegree=o.familyMember.educationDegree;
+            o.assessmentObjectname=o.assessmentObject.name;
+            o.assessmentObjectphoneNumber=o.assessmentObject.phoneNumber;
+            familyId=o.family.familyId;
+            $.ajax({
+                url : urlhost+"/fupin/getmemberbyfamilyid?familyId="+familyId,  
+                method : 'get',
+                dataType : 'json',
+                async: false,
+                success: function(dta) {
+                    countwork=0;
+                    for (var i = dta.length - 1; i >= 0; i--) {                        
+                        if (dta[i]["workAbility"]=="普通劳动能力"||dta[i]["workAbility"]=="技能劳动能力") 
+                            countwork+=1;
+                    }
+                    o.familyPopulation=dta.length;
+                    o.countwork=countwork;
+                }
+            });
+            $.ajax({
+                url : urlhost+"/fupin/getlabortrainingbyfamilyid?familyId="+familyId,  
+                method : 'get',
+                dataType : 'json',
+                async: false,
+                success: function(dtal) {
+                    o.countlabortraining=dtal.length;
+                }
+            });            
+            pageData=formatTemplate(o, html);
+        }
+    })
+    layer.open({
+        title: '查看详情',
+        area:['95%','85%'],
+        content: pageData,
+        closeBtn:0,
+        btn: ['退出']
+    });
+
+    if (basedta["cultivation"]) {
+        $("input:radio[name='cultivation']").attr("checked","checked");
+    }
+    if (basedta["plant"]) {
+        $("input:radio[name='plant']").attr("checked","checked");
+    }
+    if (basedta["catering"]) {
+        $("input:radio[name='catering']").attr("checked","checked");
+    }
+    if (basedta["housekeeping"]) {
+        $("input:radio[name='housekeeping']").attr("checked","checked");
+    }
+    if (basedta["buildingService"]) {
+        $("input:radio[name='buildingService']").attr("checked","checked");
+    }
+    if (basedta["industry"]) {
+        $("input:radio[name='industry']").attr("checked","checked");
+    }
+    if (basedta["startUp"]) {
+        $("input:radio[name='startUp']").attr("checked","checked");
+    }
+    if (basedta["operativeTechnology"]) {
+        $("input:radio[name='operativeTechnology']").attr("checked","checked");
+    }
+    if (basedta["others"]) {
+        $("input:radio[name='others']").attr("checked","checked");
+    }
+    if (basedta["jobSkillTraining"]) {
+        $("input:radio[name='jobSkillTraining']").attr("checked","checked");
+    }
+    if (basedta["biepigeneticTraining"]) {
+        $("input:radio[name='biepigeneticTraining']").attr("checked","checked");
+    }
+    if (basedta["serviceBrand"]) {
+        $("input:radio[name='serviceBrand']").attr("checked","checked");
+    }
+    if (basedta["vocationalTraining"]) {
+        $("input:radio[name='vocationalTraining']").attr("checked","checked");
+    }
+    if (basedta["demonstrationTraining"]) {
+        $("input:radio[name='demonstrationTraining']").attr("checked","checked");
+    }
+    if (basedta["skillUpgradingTraining"]) {
+        $("input:radio[name='skillUpgradingTraining']").attr("checked","checked");
+    }
+    if (basedta["enterpriseTraining"]) {
+        $("input:radio[name='enterpriseTraining']").attr("checked","checked");
+    }
+    switch(basedta["trainingLength"]){
+        case "1":$("input:radio[name='TrainingLength']:eq(0)").attr("checked","checked");break;
+        case "2":$("input:radio[name='TrainingLength']:eq(1)").attr("checked","checked");break;
+        case "3":$("input:radio[name='TrainingLength']:eq(2)").attr("checked","checked");break;
+    }
+    switch(basedta["certificate"]){
+        case "职业资格证书":$("input:radio[name='certificate']:eq(0)").attr("checked","checked");break;
+        case "培训证书":$("input:radio[name='certificate']:eq(1)").attr("checked","checked");break;
+        case "其他证书":$("input:radio[name='certificate']:eq(2)").attr("checked","checked");break;
+    } 
+    switch(basedta["workDirection"]){
+        case "1":$("input:radio[name='workDirection']:eq(0)").attr("checked","checked");break;
+        case "2":$("input:radio[name='workDirection']:eq(1)").attr("checked","checked");break;
+        case "3":$("input:radio[name='workDirection']:eq(2)").attr("checked","checked");break;
+    } 
+    switch(basedta["workTimeInYear"]){
+        case 1:$("input:radio[name='workTimeInYear']:eq(0)").attr("checked","checked");break;
+        case 2:$("input:radio[name='workTimeInYear']:eq(1)").attr("checked","checked");break;
+        case 3:$("input:radio[name='workTimeInYear']:eq(2)").attr("checked","checked");break;
+    } 
+    $('select').select();
+})
+
+$('body').on('click', '.specsupport-search', function() {
+    $("#district").removeAttr("disabled");
+    $("#town").removeAttr("disabled");
+    document.search.action=urlhost+"/fupin/labortraining"; 
+    $('form').submit();
+})
+$(function(){  
+    /** 验证文件是否导入成功  */  
+    $("#search").ajaxForm(function(data){    
+        dataprocess(data); 
+    });       
+}); 
+</script>
+
+</html>

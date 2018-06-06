@@ -1,0 +1,183 @@
+﻿html,body,div,i{
+	margin:0;
+	padding:0;
+	border:0;
+	font:inherit;
+	font-size:100%;
+	vertical-align:baseline;
+}
+html {
+	width:100%;
+	height:100%
+}
+body {
+	width:100%;
+	height:100%;
+	font-family:"微软雅黑";
+	position:relative;
+	background:url(../imgs/login/login_bg.png) top
+}
+body .left-bg {
+	position:absolute;
+	left:0;
+	top:50%;
+	width:659px;
+	height:567px;
+	margin-top:-284px;
+	background:url(../imgs/login/login_left.png) no-repeat;
+	opacity:0.6
+}
+body .right-bg {
+	position:absolute;
+	right:0;
+	top:50%;
+	width:661px;
+	height:567px;
+	margin-top:-284px;
+	background:url(../imgs/login/login_right.png) no-repeat;
+	opacity:0.6
+}
+body .login-logo {
+	position:absolute;
+	left:50%;
+	margin-left:-460px;
+	width:889px;
+	height:181px;
+	top:50px;
+	background:url(../imgs/login/login_logo.png) no-repeat
+}
+body .login-center {
+	position:absolute;
+	left:30%;
+	top:67%;
+	/*margin-left:-403px;*/
+	margin-top:-330px;
+	width:640px;
+	height:426px;
+	background:url(../imgs/login/login_box.png) no-repeat
+}
+body .login-center .login-content {
+	position:absolute;
+	left:30px;
+	top:190px;
+	width:350px;
+	height:250px
+}
+
+body .login-center .login-content .login-input {
+	/*float:left;*/
+	left:157px;
+	width:350px;
+	height:200px
+}
+body .login-center .login-content .login-input .username {
+	margin-left:40px;
+	width:364px;
+	height:39px;
+	margin-top:20px;
+	margin-bottom:15px
+}
+body .login-center .login-content .login-input .username .username-lable {
+	float:left;
+	width:70px;
+	height: 37px;
+	line-height: 37px;
+	font-size: 16px;
+}
+body .login-center .login-content .login-input .username input[type=text] {
+	float:left;
+	border:0 transparent;
+	height:39px;
+	padding: 0 0 0 50px;
+	width:200px;
+	background: url(../imgs/login/userinput.png) no-repeat;
+	font-size:16px;
+	outline:none;
+}
+body .login-center .login-content .login-input .username input[type=text]:focus {
+	border:0 transparent
+}
+body .login-center .login-content .login-input .username input[type=text].focus {
+	border:0 transparent
+}
+body .login-center .login-content .login-input .password {
+	margin-left:40px;
+	width:364px;
+	height:39px;
+	margin-top:20px
+}
+body .login-center .login-content .login-input .password .password-lable {
+	float:left;
+	width:70px;
+	height: 37px;
+	line-height: 37px;
+	font-size: 16px;
+}
+body .login-center .login-content .login-input .password input[type=password] {
+	float:left;
+	border:0 transparent;
+	height:39px;
+	padding: 0 0 0 50px;
+	width:200px;
+	background: url(../imgs/login/passwordinput.png) no-repeat;
+	font-size:16px;
+	outline:none;
+}
+
+body .login-center .login-content .login-input .login-btn {
+	margin-top:26px;
+	margin-left:40px;
+	width:264px;
+	height:48px;
+	line-height:48px;
+	color:#fff;
+	font-size:22px;
+	background:url(../imgs/login/login_btnbg.png);
+	text-align:center;
+	cursor:pointer
+}
+body .login-center .login-content .login-input .validate {
+	margin-left:40px;
+	width:364px;
+	height:39px;
+	margin-top:20px
+}
+body .login-center .login-content .login-input .validate .validate-lable {
+	float:left;
+	width:70px;
+	height: 37px;
+	line-height: 37px;
+	font-size: 16px;
+}
+body .login-center .login-content .login-input .validate input[type=text] {
+	float:left;
+	border:0 transparent;
+	height:39px;
+	padding: 0 0 0 14px;
+	width:130px;
+	background: url(../imgs/login/yzminput.png) no-repeat;
+	font-size:16px;
+	outline:none;
+}
+body .login-center .login-content .login-input .validate .value {
+	position: absolute;
+	left: 273px;
+	top: 150px;
+	width:100px;
+	height: 16px;
+	line-height: 16px;
+	color: green;
+	font-size: 20px;
+}
+body .login-center .login-content .login-input .login-btn {
+	position: absolute;
+	background:url(../imgs/login/loginbtn.png) no-repeat;
+	width:133px;
+	height: 39px;
+	left: 337px;
+	top: 113px;
+	line-height: 39px;
+}
+body .login-center .login-content .login-input .login-btn:hover {
+	background:url(../imgs/login/login_btnbg_hover.png) no-repeat;
+}

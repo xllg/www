@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>精准扶贫管理平台</title>
+	<link href="css/main.css" rel="stylesheet">	
+	<link href="css/pages/base.css" rel="stylesheet">
+	<link href="css/pages/pkh.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div id="pf-hd">
+			<div class="pf-logo">
+				<img src="imgs/main/logo.png" alt="logo">
+			</div>
+			<ul class="pf-nav">
+				<li class="pf-nav-item current" data-menu="fupinduixiang-manage">
+					<a href="javascript:;">
+						<span class="pf-nav-title">扶贫对象管理</span>
+					</a>
+				</li>
+				<li class="pf-nav-item" data-menu="bangfucuoshi-manage">
+					<a href="javascript:;">
+						<span class="pf-nav-title">查看帮扶措施</span>
+					</a>
+				</li>
+				<li class="pf-nav-item" data-menu="bangfuchengxiao-manage">
+					<a href="javascript:;">
+						<span class="pf-nav-title">查看帮扶成效</span>
+					</a>
+				</li>
+				<li class="pf-nav-item" data-menu="data-analysis">
+					<a href="javascript:;">
+						<span class="pf-nav-title">查看数据分析</span>
+					</a>
+				</li>
+				<li class="pf-nav-item" data-menu="performance-appraisal">
+					<a href="javascript:;">
+						<span class="pf-nav-title">查看绩效考核</span>
+					</a>
+				</li>				
+			</ul>
+			<div class="pf-user">	
+				<div class="pf-user-photo">
+					<img src="imgs/main/user.png" >
+				</div>
+				<h4 class="pf-user-name ellipsis" id="username"></h4>
+				<i class="iconfont xiala">&#xe618;</i>
+
+				<div class="pf-user-panel">
+					<ul class="pf-user-opt">
+						<li>							
+							<a id="user-info" href="javascript:;">
+								<i class="iconfont">&#xe606;</i>
+								<span class="pf-opt-name">用户信息</span>
+							</a>
+						</li>
+						<li>
+							<a id="modify-pwd" href="javascript:;">
+								<i class="iconfont">&#xe613;</i>
+								<span class="pf-opt-name">修改密码</span>
+							</a>
+						</li>
+						<li class="pf-logout">
+							<a href="javascript:;">
+								<i class="iconfont">&#xe60e;</i>
+								<span class="pf-opt-name">退出</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div><!--div pf-user end -->
+		</div><!--div pf-hd end -->
+		<div id="pf-bd">
+			<div class="tree">				
+			<!-- 	<ul>
+					<li><span>贫困户管理</span>
+						<ul>
+
+							<li>
+				                <span><i class="icon-plus-sign"></i>沙坪坝区</span>
+				                <ul>
+				                    <li>
+				                        <span><i class="icon-plus-sign"></i>虎溪镇</span>
+				                        <ul>
+				                            <li>
+				                                <span><i class="icon-leaf"></i><a href="http://www.baidu.com">莲花湖村</a></span>
+				                            </li>
+				                            <li>
+				                                <span><i class="icon-leaf"></i>白马村</span>
+				                            </li>
+				                         </ul>
+				                    </li> 
+				                </ul>
+           					 </li>
+							<li>
+				                <span><i class="icon-plus-sign"></i>彭水苗族土家族自治县</span>
+				                <ul>
+				                    <li>
+				                        <span><i class="icon-plus-sign"></i>虎溪镇</span>
+				                        <ul>
+				                            <li>
+				                                <span><i class="icon-leaf"></i><a href="http://www.baidu.com">莲花湖村</a></span>
+				                            </li>
+				                            <li>
+				                                <span><i class="icon-leaf"></i>白马村</span>
+				                            </li>
+				                         </ul>
+				                    </li>
+				                </ul>
+           					 </li>
+
+
+						</ul>
+					</li>
+				</ul> -->
+			</div> 
+
+			<div id="pf-page">
+				<iframe src="submain.html" frameborder="0"   border="no" height="97%" width="100%" scrolling="auto"></iframe>
+				<div id="footer"></div>
+				<footer id="footer">Copyright © SWU All Rights Reserved</footer>
+			</div>
+		</div><!--div pf-bd end -->
+
+	</div>
+
+	<script type="text/template" id="userinfo">
+		<div class="add-manage">
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-label">
+							用户名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<span>{userName}</span>
+						</td>
+						<td class="kv-label">
+							姓名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<span>{name}</span>
+						</td>									
+					</tr>
+					<tr>
+						<td class="kv-label">
+							用户类型：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<span>{userType}</span>
+						</td>
+						<td class="kv-label">
+							移动电话：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<span>{mobilePhone}</span>
+						</td>										
+					</tr>
+					<tr>						
+						<td class="kv-label">
+							固定电话：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<span>{telephone}</span>
+						</td>
+						<td class="kv-label">
+							单位：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<span>{workUnit}</span>
+						</td>
+					</tr>
+					<tr>							
+						<td class="kv-label">
+							职位：
+						</td>
+						<td class="kv-content" style="padding: 10px;">							
+							<span>{position}</span>
+						</td>
+						<td class="kv-label">
+							管理区域：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<span>{managePart}</span>
+						</td>
+					</tr>
+					<tr>							
+						<td class="kv-label">
+							备注：
+						</td>	
+						<td colspan="3" class="kv-content" style="padding: 10px;">
+							<span>{remark}</span>
+						</td>
+					</tr>					
+				</tbody>
+				
+			</table>
+		</div>
+	</script>
+	<script type="text/template" id="modifypwd">
+		<div class="add-manage">
+			<form name="modifypasswd" action="" id="modifypasswd" method="post" enctype="multipart/form-data">
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-label">
+							用户名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">							
+							<input type="text" name="userName" id="userName">
+						</td>														
+					</tr>
+					<tr>
+						<td class="kv-label">
+							原密码：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="password" name="oldPassWord" id="oldPassWord">
+						</td>									
+					</tr>
+					<tr>						
+						<td class="kv-label">
+							新密码：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<input type="password" name="newPassWord" id="newPassWord">
+						</td>	
+						
+					</tr>
+					<tr>
+						<td class="kv-label">
+							确认密码：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="password" id="conewPassWord"> 
+						</td>						
+					</tr>
+				</tbody>				
+			</table>
+		</form>
+		</div>
+	</script>
+
+	<script type="text/javascript" src="js/jquery.js"></script>	
+	<script type="text/javascript" src="js/layer/layer.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>	
+	<script type="text/javascript" src="js/menu.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	
+	<script type="text/javascript">
+		userdata = JSON.parse(userdata);
+		document.getElementById("username").innerHTML=userdata.name	
+		var districtId=userdata.districtId;
+		var townId=false;	
+		//扶贫对象管理
+		var temp=menu["fupinduixiang-manage"].title[1].menu[districtId-1]
+		menu["fupinduixiang-manage"].title[1].menu.splice(0,menu["fupinduixiang-manage"].title[1].menu.length)
+		menu["fupinduixiang-manage"].title[1].menu.push(temp)
+		menu["fupinduixiang-manage"].title.splice(0,1);		
+		//查看帮扶措施
+		temp=addressall[districtId-1];
+		addressall.splice(0,addressall.length)
+		addressall.push(temp)
+		//查看帮扶成效
+		temp=menu["bangfuchengxiao-manage"].title[1].menu[districtId-1]
+		menu["bangfuchengxiao-manage"].title[1].menu.splice(0,menu["bangfuchengxiao-manage"].title[1].menu.length)
+		menu["bangfuchengxiao-manage"].title[1].menu.push(temp)
+		menu["bangfuchengxiao-manage"].title.splice(0,1);	
+		//查看数据分析
+		temp=menu["data-analysis"].title[1].menu[districtId-1]
+		menu["data-analysis"].title[1].menu.splice(0,menu["data-analysis"].title[1].menu.length)
+		menu["data-analysis"].title[1].menu.push(temp)
+		menu["data-analysis"].title.splice(0,1);
+		//绩效考核
+		temp=menu["performance-appraisal"].title[0].menu[districtId-1]
+		menu["performance-appraisal"].title[0].menu.splice(0,menu["performance-appraisal"].title[0].menu.length)
+		menu["performance-appraisal"].title[0].menu.push(temp)
+		
+		var districtmanage=true;//用于绩效考核管理中去掉按钮
+		var firstmenu="fupinduixiang-manage"
+		mainPlatform.init();
+	</script>
+</body>
+</html>

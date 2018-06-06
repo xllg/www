@@ -1,0 +1,274 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>帮扶成效</title> 
+	<link href="../../css/pages/base.css" rel="stylesheet">
+	<link href="../../css/pages/supeffects.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../css/jquery.pagination.css"/>
+</head> 
+<body>
+	<div class="container">
+		<div id="inner-hd">
+			<div class="crumbs">
+				<i class="crumbs-arrow"></i>
+				<a href="javascript:;" class="crumbs-label" id="towName"></a>
+			</div>
+		</div>
+
+		<div id="inner-bd">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item-wrap" ">
+						<div class="kv-item" style="margin-top: 7px;height: 40px;">
+							<div id="addbutton" style="float: right;">
+								<div class="button add" style="margin-right: 6px;">
+									<i class="iconfont">&#xe620;</i>
+									<span class="button-label">考核计划</span>
+								</div>
+								<div class="button rate" style="margin-right: 6px;">
+									<i class="iconfont">&#xe615;</i>
+									<span class="button-label">开始考核</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="retract" class="measures-warning-tips" style="width: 100%; cursor: pointer;">
+                    <a class="icon-measures-wraning" style="margin-top: -15px; background: url(../../imgs/main/jzfp_writeIcon.png) 5px center no-repeat;text-indent: 27px; width: 112px;float: left; line-height: 35px;color: #666; height: 35px;">
+                        绩效考核说明 
+                    </a>
+            </div>
+
+             <div class=" jzfp_writeRule vehicle" id="rule_content" style="display: none; clear: both; width: 97%; padding: 20px 1%;margin: 10px 0.5%;">
+                <p id="role1">绩效考核说明：</p>
+                <p><strong>1、达标标准：</strong>最终考核得分大于或等于80分，则为达标，否则为不达标；</p>
+                <p><strong>2、最终考核得分计算：</strong>最终考核得分等于该考核计划下，所有考核指标分数之和；</p>
+                <p><strong>3、分数标准：</strong>每次考评成绩总分为100分。</p>                       
+            </div>
+
+			<table class="kv-table" id="scorelist">
+			</table>
+			<div class="box" style="margin-left: 33%; margin-top: 5px;">
+				<div id="pagination" class="page fl"></div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/template" id="head">
+		<tbody>
+			<tr>
+				<td class="kv-label" style="width: 5%">排名</td>
+				<td class="kv-label" style="width: 15%">考核对象</td>
+				<td class="kv-label" style="width: 25%">对象地址</td>   
+				<td class="kv-label" style="width: 10%">考核计划数</td>                
+				<td class="kv-label" style="width: 10%">最终得分</td>                    
+				<td class="kv-label" style="width: 10%">是否达标</td>
+				<td class="kv-label" style="width: auto">操作</td>
+			</tr> 
+	</script>
+
+	<script type="text/template" id="score">
+		<tr>
+			<td class="kv-content"></td>
+			<td class="kv-content">{name}</td>
+			<td class="kv-content">重庆市-{objectaddress}</td>   
+			<td class="kv-content">{times}</td>                                    
+			<td class="kv-content">{point}</td>
+			<td class="kv-content" style="color:{color}">{Standard}</td>
+			<td class="kv-content">			
+				<div class="button info" assessmentObjectId="{assessmentObjectId}">
+					<i class="iconfont">&#xe601;</i>
+					<span class="button-label">考核详情</span>
+				</div>							
+			</td>
+		</tr>
+	</script>
+
+	<script type="text/template" id="info">
+			<div class="add-member">
+				<div class="add-manage">
+					<table class="kv-table">
+						<tbody>
+							<tr>
+								<td class="kv-label">
+									考核标题：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text">
+								</td>
+								<td class="kv-label">
+									考核总分值：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<input type="text">
+								</td>									
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核对象类型：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									科技特派员
+								</td>
+								<td class="kv-label">
+									考核计划状态：
+								</td>
+								<td class="kv-content" style="padding: 10px;">
+									<label><input type="checkbox">开启</label>
+									<label><input type="checkbox">关闭</label>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核时间：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									2017-08-18&#151;2017-08-18  
+								</td>								
+							</tr>	
+							<tr>
+								<td class="kv-label">
+									考核对象：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<label><input type="checkbox" checked="checked">张三</label>
+									<label><input type="checkbox">李四</label>
+									<label><input type="checkbox">李四</label>
+									<label><input type="checkbox">李四</label>
+									<label><input type="checkbox">李四</label>
+								</td>								
+							</tr>
+							
+							<tr> 
+								<td class="kv-label">
+									考核内容：
+								</td>
+								<td colspan="3" class="kv-content">
+									<textarea style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									考核人员：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<label><input type="checkbox">张三</label>
+									<label><input type="checkbox" checked="checked">李四</label>
+									<label><input type="checkbox">李四</label>
+									<label><input type="checkbox">李四</label>
+									<label><input type="checkbox">李四</label>
+								</td>
+							</tr>
+							<tr> 
+								<td class="kv-label">
+									考核指标项：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									计分标准与方法：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="kv-label">
+									备注：
+								</td>
+								<td colspan="3" class="kv-content" style="padding: 10px;">
+									<textarea style="width: 570px;height: 80px"></textarea>
+								</td>
+							</tr>		
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</script>
+	<script type="text/javascript" src="../../js/jquery.js"></script>
+	<script type="text/javascript" src="../../js/jquery.select.js"></script>
+	<script type="text/javascript" src="../../js/layer/layer.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../js/getUrlParam.js"></script>
+	<script src="../../js/jquery.pagination.min.js"></script>
+ <script>
+ 	if(parent.firstmenu=="bangfucuoshi-manage"||parent.districtmanage||parent.townmanage||parent.commissionermanage){
+ 		document.getElementById("addbutton").style.display="none";
+ 	}
+ 	var townId=UrlParm.parm("townId");
+ 	var townName=UrlParm.parm("townName");
+	document.getElementById("towName").innerHTML = townName;
+    $.ajax({
+        type:"GET",
+        url:urlhost+"/fupin/getassessmentpointlist?townId="+townId, //路径
+        dataType:"json",
+        async: false,
+        success:function(dta){
+        	if (!dta || dta.length <= 0) {
+        		return;  
+			} 
+			var head = $('#head').html();
+			var html = $('#score').html();  
+			var pageData = [];
+			$.each(dta, function(i, o) {
+				pageData.push(formatTemplate(o, html));
+			}); 
+			var end='</tbody>';
+			var Count = pageData.length;//记录条数
+	        var PageSize = 14; //每页显示的条数 
+	        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+	        var currentPage = 1; //当前页，默认为1
+	      	
+	      	$('#scorelist').empty().append(head);
+	        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){    
+		        $('#scorelist').append(pageData[i]);  
+		    } 
+		    $('#scorelist').append(end);  
+		    addId(PageSize*(currentPage-1)+1);
+	        $("#pagination").pagination({
+				currentPage: currentPage,
+				totalPage: PageCount,
+				isShow: true,
+				count: 4,
+				homePageText: "首页",
+				endPageText: "尾页",
+				prevPageText: "上一页",
+				nextPageText: "下一页",
+				callback: function(current) {
+					// alert(current);
+					$('#scorelist').empty().append(head);
+					for(i=(current-1)*PageSize;i<PageSize*current;i++){  
+			            $('#scorelist').append(pageData[i]);  
+			        }
+			        $('#scorelist').append(end);
+			        addId(PageSize*(current-1)+1);
+				}
+			});		        
+        }
+    });
+
+ 	$('body').on('click', '.add', function(){
+ 		location='performance_planning.html?townId='+townId;
+ 	});
+ 	$('body').on('click', '.rate', function(){
+ 		location='kpi_manage_rate.html?townId='+townId;
+ 	});
+ 	$('body').on('click', '.info', function(){
+ 		var assessmentObjectId = $(this).attr("assessmentObjectId");
+ 		location='kpi_manage_info.html?assessmentObjectId='+assessmentObjectId;
+ 	});
+
+    $('.icon-measures-wraning').click(function () {
+        $('.jzfp_writeRule').toggle();
+    });
+ 
+</script>
+
+
+</body> 
+</html>

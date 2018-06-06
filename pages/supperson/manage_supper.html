@@ -1,0 +1,604 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>帮扶人员管理</title> 
+	<link href="../../css/pages/base.css" rel="stylesheet">
+	<link href="../../css/pages/pkh.css" rel="stylesheet">
+	<link href="../../js/datepicker/css/bootstrap.css" rel="stylesheet">   
+	<link href="../../js/datepicker/css/bootstrap-datepicker.css" rel="stylesheet"> 
+	<link rel="stylesheet" href="../../css/jquery.pagination.css" />
+</head> 
+<body>
+	<div class="container">
+		<div id="inner-hd">
+			<div class="crumbs">
+				<i class="crumbs-arrow"></i>
+				<a href="javascript:;" class="crumbs-label" id="towName"></a>
+			</div>
+		</div>
+
+		<div id="inner-bd">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item-wrap" ">
+						<div class="kv-item" style="margin-top: 7px; ">
+							<div style="float: right;">
+								<div class="button add" style="margin-right: 6px;">
+									<i class="iconfont">&#xe620;</i>
+									<span class="button-label">新增</span>
+								</div>
+								<div class="button search" >
+									<i class="iconfont">&#xe625;</i>
+									<span class="button-label">搜索</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<table class="grid" id="cadres-list">
+			</table>
+						
+			<div class="box" style="margin-left: 33%; margin-top: 5px;">
+				<div id="pagination" class="page fl"></div>
+			</div>
+
+		</div>
+	</div>
+	<script type="text/template" id="grid_head">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>政治面貌</th>
+				<th>职务</th>
+				<th>单位</th>
+				<th>单位隶属关系</th>
+				<th>单位地址</th>
+				<th>联系电话</th>
+				<th>干部类型</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>	
+	</script>
+
+	<script type="text/template" id="grid_info">
+		<tr>
+			<td></td>
+			<td>{name}</td>
+			<td>{sex}</td>
+			<td>{zhegnzhimianmao}</td>
+			<td>{zhiwu}</td>
+			<td>{danwei}</td>
+			<td>{relationofdanwei}</td>
+			<td>{danweiaddress}</td>
+			<td>{phoneNumber}</td>
+			<td name="mytd">{type}</td>
+			<td>																					
+				<div class="button modify" type="{type}" cadreId="{cadreId}">
+					<i class="iconfont">&#xe621;</i>
+					<span class="button-label">修改</span>
+				</div>
+				<div class="button delete" type="{type}" cadreId="{cadreId}">
+					<i class="iconfont">&#xe626;</i>
+					<span class="button-label">删除</span>
+				</div>
+			</td>
+		</tr>
+	</script>
+
+	<script type="text/template" id="add">
+		<div class="add-manage">
+			<form action="" name="addform" id="formadd" method="post" enctype="multipart/form-data">
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-label">
+							姓名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="name" type="text">
+							<input name="townId" type="hidden" id="townId">
+						</td>
+						<td class="kv-label">
+							性别：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="sex" type="radio" value="男">男
+							<input name="sex" type="radio" value="女">女
+						</td>									
+					</tr>
+					<tr>
+						<td class="kv-label">
+							政治面貌：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<select name="zhegnzhimianmao">
+								<option value="">请选择</option>
+								<option value="群众">群众</option>
+								<option value="中共党员">中共党员</option>
+								<option value="中共预备党员">中共预备党员</option>
+								<option value="共青团员">共青团员</option>
+								<option value="民革党员">民革党员</option>
+								<option value="民盟盟员">民盟盟员</option>
+								<option value="民建会员">民建会员</option>
+								<option value="民进会员">民进会员</option>
+								<option value="农工党党员">农工党党员</option>
+								<option value="致公党党员">致公党党员 </option>
+								<option value="九三学社社员">九三学社社员</option>
+								<option value="台盟盟员">台盟盟员</option>
+								<option value="无党派民主人士">无党派民主人士</option>
+							</select>
+						</td>
+						<td class="kv-label">
+							电话：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="phoneNumber" type="text">
+						</td>												
+					</tr>
+					<tr>	
+						<td class="kv-label">
+							管理账户：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="account" type="text">
+						</td>											
+						<td class="kv-label">
+							管理密码：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="password" type="password">
+						</td>						
+					</tr>
+					<tr>
+						<td class="kv-label">
+							单位：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="danwei" type="text">
+						</td>
+						<td class="kv-label">
+							单位隶属关系：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="relationofdanwei" type="text">
+						</td>					
+					</tr>
+					<tr>
+						
+						<td class="kv-label">
+							单位地址：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="danweiaddress" type="text">
+						</td>
+						<td class="kv-label">
+							职务：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<input name="zhiwu" type="text">
+						</td>
+						
+					</tr>
+
+					<tr>						
+						<td class="kv-label">
+							帮扶人员类型：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="radio" name="type" value="0">科技特派员
+							<input type="radio" name="type" value="1">帮扶队长
+						</td>						
+					</tr>
+				</tbody>				
+			</table>
+			</form>
+		</div>
+	</script>
+	<script type="text/template" id="search">
+		<div class="add-manage">
+			<form action="" name="searchform" id="formsearch" method="post" enctype="multipart/form-data">
+			<table class="kv-table">
+				<tbody>
+					<tr>
+						<td class="kv-label">
+							帮扶者姓名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="name">
+							<input type="hidden" name="townId" id="townId">
+						</td>
+						<td class="kv-label">
+							联系电话：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="phoneNumber">
+						</td>								
+					</tr>
+					<tr>
+						<td class="kv-label">
+							单位地址：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input type="text" name="danweiaddress">
+						</td>						
+					</tr>
+					<tr>
+						<td class="kv-label">
+							搜索干部类型：
+						</td>
+						<td colspan="3" class="kv-content" style="padding: 10px;">
+							<input type="radio" name="type" id="pertype" checked="checked" value="-1">全部
+							<input type="radio" name="type" value="0">科技特派员
+							<input type="radio" name="type" value="1">帮扶队长
+						</td>						
+					</tr>			
+				</tbody>				
+			</table>
+			</form>
+		</div>
+	</script>
+	<script type="text/template" id="modify">
+		<div class="add-manage">
+			<form action="" name="updateform" id="formupdate" method="post" enctype="multipart/form-data">
+			<table class="kv-table" id="modifytb">
+				<tbody>
+					<tr>
+						<td class="kv-label">
+							姓名：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="name" type="text" value="{name}">
+							<input name="townId" type="hidden" value="{townId}">
+							<input name="assessmenterId" type="hidden" value="{cadreId}">
+							<input name="assessmentObjectId" type="hidden" value="{cadreId}">
+						</td>
+						<td class="kv-label">
+							性别：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="sex" type="radio" value="男">男
+							<input name="sex" type="radio" value="女">女
+						</td>									
+					</tr>
+					<tr>
+						<td class="kv-label">
+							政治面貌：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<select name="zhegnzhimianmao" id="zhegnzhimianmao">
+								<option value="">请选择</option>
+								<option value="群众">群众</option>
+								<option value="中共党员">中共党员</option>
+								<option value="中共预备党员">中共预备党员</option>
+								<option value="共青团员">共青团员</option>
+								<option value="民革党员">民革党员</option>
+								<option value="民盟盟员">民盟盟员</option>
+								<option value="民建会员">民建会员</option>
+								<option value="民进会员">民进会员</option>
+								<option value="农工党党员">农工党党员</option>
+								<option value="致公党党员">致公党党员 </option>
+								<option value="九三学社社员">九三学社社员</option>
+								<option value="台盟盟员">台盟盟员</option>
+								<option value="无党派民主人士">无党派民主人士</option>
+							</select>
+						</td>
+						<td class="kv-label">
+							电话：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="phoneNumber" type="text" value="{phoneNumber}">
+						</td>												
+					</tr>
+					<tr>	
+						<td class="kv-label">
+							管理账户：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="account" type="text" value="{account}">
+						</td>											
+						<td class="kv-label">
+							管理密码：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="password" type="password" value="{password}">
+						</td>						
+					</tr>
+					<tr>
+						<td class="kv-label">
+							单位：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="danwei" type="text" value="{danwei}">
+						</td>
+						<td class="kv-label">
+							单位隶属关系：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="relationofdanwei" type="text" value="{relationofdanwei}">
+						</td>					
+					</tr>
+					<tr>
+						
+						<td class="kv-label">
+							单位地址：
+						</td>
+						<td class="kv-content" style="padding: 10px;">
+							<input name="danweiaddress" type="text" value="{danweiaddress}">
+						</td>
+						<td class="kv-label">
+							职务：
+						</td>	
+						<td class="kv-content" style="padding: 10px;">
+							<input name="zhiwu" type="text" value="{zhiwu}">
+						</td>
+						
+					</tr>
+
+					<tr>						
+						<td class="kv-label">
+							帮扶人员类型：
+						</td>
+						<td colspan="3" class="kv-content" style="padding: 10px;">
+							<input type="radio" name="type" value="0" disabled="disabled">科技特派员
+							<input type="radio" name="type" value="1" disabled="disabled">帮扶队长
+							<span style="color: blue">（此项不可更改）</span>
+						</td>						
+					</tr>
+				</tbody>				
+			</table>
+			</form>
+		</div>
+	</script>
+
+	<script type="text/javascript" src="../../js/jquery.js"></script>
+	<script type="text/javascript" src="../../js/jquery.select.js"></script>
+	<script type="text/javascript" src="../../js/layer/layer.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../js/datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="../../js/datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	<script type="text/javascript" src="../../js/getUrlParam.js"></script>
+	<script src="../../js/jquery.form.js"></script>
+	<script src="../../js/jquery.pagination.min.js"></script>
+
+	<script type="text/javascript">
+		var townId=UrlParm.parm("townId");
+		var townName=UrlParm.parm("townName");
+		document.getElementById("towName").innerHTML = townName;
+
+		$.ajax({   
+				    url : urlhost+"/fupin/searchcadres?townId="+townId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {  
+				        if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        
+				        var head = $('#grid_head').html();
+				        var html = $('#grid_info').html();  
+				        var pageData = [];  
+				        $.each(dta, function(i, o) {  
+				            //格式化模板数据 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法. 
+				           	pageData.push(formatTemplate(o, html));  
+				        }); 
+				        var end='</tbody>';
+				        var Count = pageData.length;//记录条数
+				        var PageSize = 14; //每页显示的条数 
+				        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+				        var currentPage = 1; //当前页，默认为1
+				      	
+				      	var htmlcont;
+				      	htmlcont+= head;
+				        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){    
+					        htmlcont+=pageData[i];  
+					    } 
+					    htmlcont+=end; 
+					    $('#cadres-list').empty().append(htmlcont);
+						replaceType()
+
+					    addId(PageSize*(currentPage-1)+1);
+				        $("#pagination").pagination({
+							currentPage: currentPage,
+							totalPage: PageCount,
+							isShow: true,
+							count: 4,
+							homePageText: "首页",
+							endPageText: "尾页",
+							prevPageText: "上一页",
+							nextPageText: "下一页",
+							callback: function(current) {
+								// alert(current);
+								htmlcont='';
+								htmlcont+= head;
+								for(i=(current-1)*PageSize;i<PageSize*current;i++){  
+						            htmlcont+=pageData[i]; 
+						        }
+						        htmlcont+=end; 
+						        $('#cadres-list').empty().append(htmlcont);
+						        replaceType();			        
+
+						        addId(PageSize*(current-1)+1);
+							}
+						});		        
+				    }  
+				});
+
+		function replaceType(){
+			var rows = document.getElementById("cadres-list").rows;  					    
+		    for(var i = 0; i < rows.length; i++) {		    	
+		    	if (rows[i].cells[9].innerHTML==0) {
+		    		rows[i].cells[9].innerText="科技特派员";
+		    	}
+		    	if (rows[i].cells[9].innerHTML==1) {
+		    		rows[i].cells[9].innerText="帮扶队长";
+		    	}
+			} 
+		}
+
+		$('body').on('click', '.add', function(){
+			var type;
+			layer.open({
+				title: '添加帮扶人员',
+				area:['760px','465px'],
+				closeBtn: 0,
+				content: $('#add').html(),
+				btn:['保存', '取消'],
+				btn1:function(index,layero){				   
+				    document.addform.action=urlhost+"/fupin/addcadre"; 
+				    $(layero).find('#formadd').submit();				    
+				}
+			});
+			$('select').select();
+			$("#townId").val(townId);
+			$("#formadd").ajaxForm(function(data) {
+       			location.reload();
+    		});
+		})
+
+		$('body').on('click', '.search', function(){
+			layer.open({
+				title: '搜索帮扶人员',
+				area:['720px','300px'],
+				closeBtn: 0,
+				content: $('#search').html(),
+				btn:['搜索', '取消'],
+				btn1:function(index,layero){
+					if ($("input:radio[name='type']").val()==-1) {
+						document.getElementById("pertype").disabled="disabled";
+					}				   
+				    document.searchform.action=urlhost+"/fupin/searchcadres"; 
+				    $(layero).find('#formsearch').submit();				    
+				}
+			});
+			$("#townId").val(townId);
+			$("#formsearch").ajaxForm(function(dta) {
+       			var head = $('#grid_head').html();
+		        var html = $('#grid_info').html();  
+		        var pageData = [];  
+		        $.each(dta, function(i, o) {  
+		            //格式化模板数据 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法. 
+		           	
+		           	pageData.push(formatTemplate(o, html));  
+		        }); 
+		        var end='</tbody>';
+		        var Count = pageData.length;//记录条数
+		        var PageSize = 14; //每页显示的条数 
+		        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+		        var currentPage = 1; //当前页，默认为1
+		      	
+		      	var htmlcont;
+		      	htmlcont+= head;
+		        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){    
+			        htmlcont+=pageData[i];  
+			    } 
+			    htmlcont+=end; 
+			    $('#cadres-list').empty().append(htmlcont);
+				replaceType();
+			    addId(PageSize*(currentPage-1)+1);
+		        $("#pagination").pagination({
+					currentPage: currentPage,
+					totalPage: PageCount,
+					isShow: true,
+					count: 4,
+					homePageText: "首页",
+					endPageText: "尾页",
+					prevPageText: "上一页",
+					nextPageText: "下一页",
+					callback: function(current) {
+						// alert(current);
+						htmlcont='';
+						htmlcont+= head;
+						for(i=(current-1)*PageSize;i<PageSize*current;i++){  
+				            htmlcont+=pageData[i]; 
+				        }
+				        htmlcont+=end; 
+				        $('#cadres-list').empty().append(htmlcont);
+				        replaceType();	
+				        addId(PageSize*(current-1)+1);
+					}
+				});		        
+    		});
+
+		})
+		$('body').on('click', '.modify', function(){
+			var type = $(this).attr("type");
+			var cadreId = $(this).attr("cadreId");
+			$.ajax({
+				url : urlhost+"/fupin/getcadrebyid?type="+type+"&id="+cadreId,  
+			    method : 'get',
+			    dataType : 'json',
+			    async: false, 
+			    success: function(dta) {
+			    	var html = $('#modify').html();  
+			    	var pageData = [];
+			    	pageData.push(formatTemplate(dta, html));  
+			    	layer.open({
+						title: '修改帮扶人员',
+						area:['760px','465px'],
+						closeBtn: 0,
+						content: pageData.join(''),
+						btn:['保存', '取消'],
+						btn1:function(index,layero){				   
+						    $(layero).find('#formupdate').submit();				    
+						}
+					});
+		    			$("#zhegnzhimianmao").val(dta["zhegnzhimianmao"]);
+						setSelectVal("zhegnzhimianmao",dta["zhegnzhimianmao"]);		
+			  
+			    	if (dta.sex=="男") {
+			    		$("input[name='sex']").eq(0).attr("checked","checked");
+			            $("input[name='sex']").eq(1).removeAttr("checked");
+			            $("input[name='sex']").eq(0).click();
+			    	}else{			    		
+			            $("input[name='sex']").eq(0).removeAttr("checked");
+			            $("input[name='sex']").eq(1).attr("checked","checked");
+			            $("input[name='sex']").eq(1).click();
+			    	}
+			    	if (dta.type=="0") {
+			    		document.updateform.action=urlhost+"/fupin/updateassessmentobject"; 
+			    		$("input[name='type']").eq(0).attr("checked","checked");
+			            $("input[name='type']").eq(1).removeAttr("checked");
+			            $("input[name='type']").eq(0).click();
+			    	}else{	
+			    		document.updateform.action=urlhost+"/fupin/updateassessmenter";		    		
+			            $("input[name='type']").eq(0).removeAttr("checked");
+			            $("input[name='type']").eq(1).attr("checked","checked");
+			            $("input[name='type']").eq(1).click();
+			    	}
+			    	$("#formupdate").ajaxForm(function(data) {
+		       			location.reload();
+		    		});
+
+			    }
+			});
+			$('select').select();
+		})
+
+		$('body').on('click', '.delete', function(){
+			var type = $(this).attr("type");
+			var cadreId = $(this).attr("cadreId");
+			
+	    	$.ajax({
+		        url : urlhost+"/fupin/deletecadrebyid?type="+type+"&id="+cadreId,  
+		        method : 'get',
+		        dataType : 'json',
+		        async: false,
+		        success:function(data){
+		            // alert("删除成功！");
+		            location.reload();
+		        	}
+		    		});
+			//end
+		})
+	</script>
+
+</body> 
+</html>

@@ -1,0 +1,282 @@
+html,body,div,ul,h4,span,i{
+	margin:0;
+	padding:0;
+	border:0;
+	font:inherit;
+	font-size:100%;
+	vertical-align:baseline;
+}
+body/*,button,input,select,textarea */{
+	font-family:PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans;
+	font-size:16px;
+	min-width:1000px;_width:expression((document.documentElement.clientWidth||document.body.clientWidth)>1440?"900px":"");
+}
+html {
+	height:100%;
+	background:#0c9d72;
+}
+ul {
+	list-style:none;
+}
+#pf-hd {
+	height:70px;
+	background:url('../imgs/main/navleft.png') left center no-repeat,url('../imgs/main/navright.png') right center no-repeat,url('../imgs/main/topbg.png');
+}
+#pf-hd .pf-logo {
+	float:left;
+	padding:0 15px;
+	height:100%;
+	width:280px;
+	border-right:1px solid #0a8661;
+}
+#pf-hd .pf-logo img {
+	float:left;
+	margin-left:-10px;
+}
+/*#pf-hd .pf-logo .system-name {
+	display:none;
+	float:left;
+	line-height:70px;
+	font-size:26px;
+	color:#fff;
+	text-shadow:1px 1px 2px rgba(0,0,0,0.5)
+}*/
+#pf-hd .pf-nav {
+	float:left;
+	height:70px;
+	width:658px;
+}
+#pf-hd .pf-nav .pf-nav-item {
+	float:left;
+	height:70px;
+	line-height:70px;
+	color:#fff;
+	padding:0 13px;
+	border-right:1px solid #0a8661;
+}
+#pf-hd .pf-nav .pf-nav-item a {
+	display:block;
+	color:#fff;
+	text-decoration:none;
+}
+#pf-hd .pf-nav .pf-nav-item.current {
+	background:url('../imgs/main/navbg.png')
+}
+#pf-hd .pf-user {
+	position:relative;
+	float:right;
+	margin-right:5px;
+	padding:0 10px;
+	height:70px;
+	width: 7%;
+	line-height:70px;
+	cursor:pointer;
+}
+#pf-hd .pf-user .pf-user-photo {
+	float:left;
+	margin:4px 2px 0 0;
+}
+#pf-hd .pf-user .pf-user-name {
+	float:left;
+	/*width:50px;*//*随着文字长度自动设置宽度*/
+	color:#fff;
+	margin-right: 5px;
+	font-size:14px;
+}
+#pf-hd .pf-user .xiala {
+	color:#fff;
+	position:relative;
+	top:-2px
+}
+/*第一步：使用font-face声明字体*/
+@font-face {font-family: 'iconfont';
+    src: url('../fonts/iconfont.eot'); /* IE9*/
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('../fonts/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('../fonts/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+/*第二步：定义使用iconfont的样式*/
+.iconfont {
+	font-family:"iconfont" !important;
+	font-size:16px;
+	font-style:normal;
+	-webkit-font-smoothing:antialiased;
+	-webkit-text-stroke-width:0.2px;
+	-moz-osx-font-smoothing:grayscale;
+}
+/*第三步：挑选相应图标并获取字体编码，应用于页面*/
+/*<i class="iconfont">&#x33;</i>*/
+#pf-hd .pf-user .pf-user-panel {
+	display:none;
+	position:absolute;
+	left:0;
+	right:0;
+	top:70px;
+	background:#fff;
+	z-index:111;
+	border:1px solid #e1e1e1;
+	box-shadow:1px 1px 2px #ddd
+}
+#pf-hd .pf-user .pf-user-panel li {
+	height:30px;
+	line-height:30px;
+	font-size:13px;
+	padding:0 10px;
+	/*text-align: left;*/
+}
+#pf-hd .pf-user .pf-user-panel li a {
+	color:#000;
+	text-decoration:none
+}
+#pf-hd .pf-user .pf-user-panel li .iconfont {
+	margin-right:10px;
+	color:#000
+}
+#pf-hd .pf-user .pf-user-panel li:hover {
+	background:#f1f1f1;
+}
+#pf-hd .pf-user .pf-user-panel li:hover .iconfont {
+	color:#4cc7a4
+}
+#pf-hd .pf-user:hover {
+	background:url('../imgs/main/user_bg.png')
+}
+#pf-hd .pf-user:hover .pf-user-panel {
+	display:block
+}
+#pf-bd {
+	position:absolute;
+	top:70px;
+	bottom:0px;
+	left:0;
+	right:0;
+	padding:0 0 0 225px
+}
+.tree{
+	float:left;
+	height:100%;
+	margin-left:-225px;
+	width:225px;
+	background:#f1f1f1 url('../imgs/main/left_bg.png') right repeat-y;
+	overflow:auto;
+}
+.tree >ul>li>ul li {
+    list-style-type:none;
+    margin:0;
+    padding:10px 0px 0px 25px;
+    position:relative
+}
+.tree .lastbottom {
+    padding-bottom:10px;
+}
+.tree li::before, .tree li::after {
+    content:'';
+    left:16px;
+    position:absolute;
+    right:auto;
+}
+.tree >ul>li span {    
+    border-bottom:1px solid #C9C7C3;
+    display:inline-block;
+    padding:3px 3px;
+    text-decoration:none;
+    text-align: center;
+    background-color: #F1F1F1;
+    width: 97%;
+    line-height: 28px;
+    font-size:14px;
+    font-weight: bold;
+}
+.tree >ul>li>ul>li span {
+    /*-moz-border-radius:5px;*/
+    /*-webkit-border-radius:5px;*/
+    border:1px solid #0A9C72;
+    /*border-radius:5px;*/
+    width: auto;
+    line-height: 15px;
+    background-color: #fff;
+    font-weight: normal;
+}
+.tree li.parent_li>span {
+    cursor:pointer
+}
+.tree li::before {
+    border-left:1px solid #0A9C72;
+    bottom:50px;
+    height:100%;
+    top:0;
+    width:1px;
+}
+.tree li::after {
+    border-top:1px solid #0A9C72;
+    height:20px;
+    top:25px;
+    width:10px
+}
+.tree>ul>li::before, .tree>ul>li::after {
+    border:0;
+}
+.tree li:last-child::before {
+    height:30px;
+}
+.tree li>span:hover, .tree li>span:hover+ul li span{
+    background:#eee;
+    color:#0A9C72;
+    cursor:pointer;
+}
+.tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span {
+    background:#eee;
+    color:#0A9C72;
+}
+
+.tree>ul>li>ul>li{
+    display: none;
+}
+.tree>ul>li>ul>li>ul>li{
+    display: none;
+}
+.tree>ul>li>ul>li>ul>li>ul>li{
+    display: none;
+}
+.tree li span a {
+    color: #08c;
+    text-decoration: none
+}
+.tree li span a:hover {
+    color: #005580;
+    text-decoration: none;
+}
+[class^="icon-"],[class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    *margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("../imgs/main/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat
+}
+.icon-plus-sign {
+    background-position: 0 -96px
+}
+.icon-minus-sign {
+    background-position: -24px -96px
+}
+.icon-leaf {
+    background-position: -48px -120px
+}
+#pf-bd #pf-page {
+	float:left;
+	width:100%;
+	height:100%;
+	background:#FFFFFF;
+}
+#pf-bd #pf-page #footer{
+	text-align: center;
+	font-size:12px;
+	margin-top: -3px;
+}
+

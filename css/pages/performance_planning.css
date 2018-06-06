@@ -1,0 +1,41 @@
+table.kv-table
+{
+    border: 1px solid #dadada; 
+}
+
+.kv-label
+{
+    text-align: center;
+}
+
+.kv-content
+{
+    border: 1px solid #dadada;
+    text-align: center;
+}
+
+.kv-content a{
+    text-decoration: none;
+}
+.add-member table.kv-table td.kv-content {
+    width: auto;
+}
+.date{
+	float: left;
+}
+.date span{
+	color: #D4D4D4;
+}
+.date input[type=text] {
+	text-align: center;
+}
+.date i {
+	color: #D4D4D4;
+	font-size:20px;
+	line-height: 35px;
+	margin-left: -28px;
+	cursor:pointer;
+}
+.date i:hover {
+    color: #0c9d72;
+}

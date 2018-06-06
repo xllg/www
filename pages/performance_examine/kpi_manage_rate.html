@@ -1,0 +1,146 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>帮扶成效</title> 
+	<link href="../../css/pages/base.css" rel="stylesheet">
+	<link href="../../css/pages/performance_planning.css" rel="stylesheet">
+	<link href="../../js/datepicker/css/bootstrap.css" rel="stylesheet">   
+	<link href="../../js/datepicker/css/bootstrap-datepicker.css" rel="stylesheet"> 
+	<link rel="stylesheet" href="../../css/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" href="../../css/jquery.pagination.css" />
+</head> 
+<body>
+	<div class="container">
+		<div id="inner-hd">
+			<div class="crumbs">
+				<i class="crumbs-arrow"></i>
+				<a href="javascript:;" class="crumbs-label">考核计划</a>
+			</div>
+		</div>
+
+		<div id="inner-bd">
+			<div class="kv-group-outer">
+				<div class="kv-group clearfix">
+					<div class="kv-item-wrap" ">
+						<div class="kv-item" style="margin-top: 7px;height: 40px;">
+							<!-- <div style="float: right;">
+								<div class="button add" style="margin-right: 6px;">
+									<i class="iconfont">&#xe620;</i>
+									<span class="button-label">新增</span>
+								</div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+			</div>			
+
+			<table class="kv-table" id="plan">
+			</table>
+			<div class="box" style="margin-left: 33%; margin-top: 5px;">
+				<div id="pagination" class="page fl"></div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/template" id="plan-list-head">
+		<tbody>
+			<tr>
+				<td class="kv-label">序号</td>
+				<td class="kv-label">考核计划</td>
+				<td class="kv-label">考核总分值</td>   
+				<td class="kv-label">考核对象</td>                
+				<td class="kv-label">考核人</td>                    
+				<td class="kv-label">考核开始时间</td>
+				<td class="kv-label">考核结束时间</td>
+				<td class="kv-label">操作</td>
+			</tr> 
+	</script>
+
+	<script type="text/template" id="plan-list">
+	    <tr>
+			<td class="kv-content"></td>
+			<td class="kv-content">{title}</td>
+			<td class="kv-content">{totalPoint}</td> 
+			<td class="kv-content">{assessmentObject}</td>
+			<td class="kv-content">{assessmenters}</td>  
+			<td class="kv-content">{start}</td>                                    
+			<td class="kv-content">{end}</td>			
+			<td class="kv-content">
+				<a href="kpi_manage_rating.html?assessmentPlanId={assessmentPlanId}&assessmentObjectId={assessmentObjectId}">							
+					<div class="button" >
+						<i class="iconfont">&#xe615;</i>
+						<span class="button-label">开始考核</span>
+					</div>
+				</a>
+			</td>
+		</tr>
+	</script>
+
+	<script type="text/javascript" src="../../js/jquery.js"></script>
+	<script type="text/javascript" src="../../js/jquery.select.js"></script>
+	<script type="text/javascript" src="../../js/layer/layer.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../js/datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="../../js/datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	<script type="text/javascript" src="../../js/ztree/jquery-ztree-2.5.js"></script>
+	<script src="../../js/getUrlParam.js"></script>
+	<script src="../../js/jquery.form.js"></script>
+	<script src="../../js/jquery.pagination.min.js"></script>
+
+	<script>
+	    var townId=UrlParm.parm("townId");
+	    $.ajax({   
+				    url : urlhost+"/fupin/geteffectiveplanbyaddress?townId="+townId,  
+				    method : 'get',
+				    dataType : 'json',
+				    async: false, 
+				    success: function(dta) {				    	
+				        if (!dta || dta.length <= 0) {  
+				            return;  
+				        } 
+				        var head = $('#plan-list-head').html();
+				        var html = $('#plan-list').html();  
+				        var pageData = [];  
+				        $.each(dta, function(i, o) {  
+				            //格式化模板数据 这里取到o就是上面rows数组中的值, formatTemplate是最开始定义的方法. 
+				            pageData.push(formatTemplate(o, html));  
+				        }); 
+				        var end='</tbody>';
+				        var Count = pageData.length;//记录条数
+				        var PageSize = 14; //每页显示的条数 
+				        var PageCount = Math.ceil(Count/PageSize); //计算总页数  向上取整,有小数就整数部分加1
+				        var currentPage = 1; //当前页，默认为1
+				      	
+				      	$('#plan').empty().append(head);
+				        for(i=(currentPage-1)*PageSize;i<PageSize*currentPage;i++){    
+					        $('#plan').append(pageData[i]);  
+					    } 
+					    $('#plan').append(end); 
+
+					    addId(PageSize*(currentPage-1)+1);
+
+				        $("#pagination").pagination({
+							currentPage: currentPage,
+							totalPage: PageCount,
+							isShow: true,
+							count: 4,
+							homePageText: "首页",
+							endPageText: "尾页",
+							prevPageText: "上一页",
+							nextPageText: "下一页",
+							callback: function(current) {
+								// alert(current);
+								$('#plan').empty().append(head);
+								for(i=(current-1)*PageSize;i<PageSize*current;i++){  
+						            $('#plan').append(pageData[i]);  
+						        }
+						        $('#plan').append(end);
+						        addId(PageSize*(current-1)+1);
+							}
+						});				        
+				    }  
+				});
+	</script>
+</body> 
+</html>

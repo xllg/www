@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>数据分析</title>
+    <link href="../../css/pages/base.css" rel="stylesheet">
+    <link href="../../css/pages/supeffects.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div id="inner-hd">
+            <div class="crumbs">
+                <i class="crumbs-arrow"></i>
+                <a href="javascript:;" class="crumbs-label">重庆市</a>
+            </div>
+        </div>
+        <div id="inner-bd">
+            <div class="kv-group-outer">
+                <iframe src="population_analysis.html" width="100%" height="425px"></iframe>
+                <li style="list-style-type:none;">
+                    <iframe src="reasons_poverty.html" width="49.6%" height="425px"></iframe>
+                    <iframe src="rate_poverty.html" width="50%" height="425px"></iframe>
+                </li>
+                <iframe src="average_income.html" width="100%" height="425px"></iframe>
+                <iframe src="supmeasures.html" width="100%" height="425px"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/layer/layer.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript">
+    var citydata;
+    $.ajax({
+        url : urlhost+"/fupin/citydataanalyse",  
+        method : 'get',
+        dataType : 'json',
+        async: false,
+        success: function(dta) {
+            citydata=dta;
+        }
+    });    
+</script>
+</html>
