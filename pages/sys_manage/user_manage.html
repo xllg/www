@@ -630,7 +630,8 @@
 									}
 								}else{
 									$("#districtId").val(1);
-									$("#townId").find("option").eq(0).val("1").prop("selected",true);									
+									$("#townId").find("option").eq(0).val("1").prop("selected",true);	
+									$("#userType").attr("disabled",false);								
 									document.addform.action=urlhost+"/fupin/updateuser";
 						    		$(layero).find('#addform').submit();
 									 						
@@ -647,7 +648,8 @@
 			    	})
 
 			    	if (dta[0].userType=="超级管理员") {
-			    		 $("#userType").attr("disabled","disabled")
+			    		 $("#userType").attr("disabled","disabled");
+			    		 alert("超级管理员用户类型不可更改！")
 		    		}
 
 			    	if (dta[0].userType=="市级管理员"||dta[0].userType=="超级管理员") {

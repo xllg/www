@@ -102,7 +102,8 @@
 							姓名：
 						</td>
 						<td class="kv-content" style="padding: 10px;">
-							<input name="name" type="text">
+							<input name="name" id="name" type="text"> 
+							<font color="red">&nbsp;*</font>
 							<input name="townId" type="hidden" id="townId">
 						</td>
 						<td class="kv-label">
@@ -147,13 +148,15 @@
 							管理账户：
 						</td>
 						<td class="kv-content" style="padding: 10px;">
-							<input name="account" type="text">
+							<input name="account" id="account" type="text">
+							<font color="red">&nbsp;*</font>
 						</td>											
 						<td class="kv-label">
 							管理密码：
 						</td>
 						<td class="kv-content" style="padding: 10px;">
-							<input name="password" type="password">
+							<input name="password" id="password" type="password">
+							<font color="red">&nbsp;*</font>
 						</td>						
 					</tr>
 					<tr>
@@ -194,6 +197,7 @@
 						<td class="kv-content" style="padding: 10px;">
 							<input type="radio" name="type" value="0">科技特派员
 							<input type="radio" name="type" value="1">帮扶队长
+							<font color="red">&nbsp;*</font>
 						</td>						
 					</tr>
 				</tbody>				
@@ -301,7 +305,8 @@
 							管理账户：
 						</td>
 						<td class="kv-content" style="padding: 10px;">
-							<input name="account" type="text" value="{account}">
+							<input name="account" type="text" value="{account}" readonly="readonly">
+							<font color="blue">&nbsp;*</font>
 						</td>											
 						<td class="kv-label">
 							管理密码：
@@ -348,7 +353,7 @@
 						<td colspan="3" class="kv-content" style="padding: 10px;">
 							<input type="radio" name="type" value="0" disabled="disabled">科技特派员
 							<input type="radio" name="type" value="1" disabled="disabled">帮扶队长
-							<span style="color: blue">（此项不可更改）</span>
+							<span style="color: blue">（*: 不可更改）</span>
 						</td>						
 					</tr>
 				</tbody>				
@@ -370,6 +375,7 @@
 	<script type="text/javascript">
 		var townId=UrlParm.parm("townId");
 		var townName=UrlParm.parm("townName");
+		var alreadname=[];
 		document.getElementById("towName").innerHTML = townName;
 
 		$.ajax({   
@@ -443,6 +449,29 @@
 			} 
 		}
 
+		$.ajax({
+			url : urlhost+"/fupin/searchuser",  
+		    method : 'get',
+		    dataType : 'json',
+		    async: false,
+		    success: function(dta) {
+		    	$.each(dta, function(i, o) {
+				alreadname.push(o.userName);
+   			})
+		    }
+		});
+
+		function alreaduser(userName){
+			var temp=1;
+			for (var i = alreadname.length - 1; i >= 0; i--) {
+				if (alreadname[i]==userName) {
+					alert("该用户名已存在!");
+					return 0;					
+				}
+			}
+			return temp;
+		}
+
 		$('body').on('click', '.add', function(){
 			var type;
 			layer.open({
@@ -451,9 +480,23 @@
 				closeBtn: 0,
 				content: $('#add').html(),
 				btn:['保存', '取消'],
-				btn1:function(index,layero){				   
-				    document.addform.action=urlhost+"/fupin/addcadre"; 
-				    $(layero).find('#formadd').submit();				    
+				btn1:function(index,layero){	
+					name = $("#name").val();
+					password = $("#password").val();	
+					account = $("#account").val(); 
+					type = $("input[name='type']:checked").val();  
+					if (type==0) {
+						type=2;
+					}
+					// alert(name +"-"+password+"-"+account+"-"+type)
+					if (account && password && name && type) {
+						if (alreaduser(account)==1) {
+							document.addform.action=urlhost+"/fupin/addcadre"; 
+				    		$(layero).find('#formadd').submit();
+				    	}							
+					}else{
+						alert("*项为必填项！")
+					}				    			    
 				}
 			});
 			$('select').select();
@@ -557,7 +600,7 @@
 			    		$("input[name='sex']").eq(0).attr("checked","checked");
 			            $("input[name='sex']").eq(1).removeAttr("checked");
 			            $("input[name='sex']").eq(0).click();
-			    	}else{			    		
+			    	}else if (dta.sex=="女"){			    		
 			            $("input[name='sex']").eq(0).removeAttr("checked");
 			            $("input[name='sex']").eq(1).attr("checked","checked");
 			            $("input[name='sex']").eq(1).click();
