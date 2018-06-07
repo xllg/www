@@ -500,9 +500,16 @@
 							}else{
 								alert("请选择乡镇管理员所在区县和乡镇！")
 							}
+						}else if (userType=="市级管理员") {
+							$("#districtId").val(1);
+							$("#townId").find("option").eq(0).val("1").prop("selected",true);
+							if (alreaduser(userName)) {
+							 	document.addform.action=urlhost+"/fupin/adduser";
+				    		 	$(layero).find('#addform').submit();
+							}	
 						}else if(alreadsuperadmin){
 							alert("只能添加一位超级管理员！");
-						}else{
+						}else{ga
 							 $("#districtId").val(1);
 							 $("#townId").find("option").eq(0).val("1").prop("selected",true);
 							 if (alreaduser(userName)) {
