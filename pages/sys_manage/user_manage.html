@@ -646,6 +646,10 @@
 					    $("#"+key).val(item||"");
 			    	})
 
+			    	if (dta[0].userType=="超级管理员") {
+			    		 $("#userType").attr("disabled","disabled")
+		    		}
+
 			    	if (dta[0].userType=="市级管理员"||dta[0].userType=="超级管理员") {
 			    		 $("#districtId").val(0);
 			    		 $("#townId").val(0);
