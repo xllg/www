@@ -4742,7 +4742,7 @@
 								</td>
 								<td class="kv-content">
 									<div class="date">
-										<input type="text" name="fillInTime" value="{fillInTime}">
+										<input type="text" name="fillInTime" value="{fillInTime}" id="fillInTime">
 										<i class="iconfont">&#xe784;</i> 
 									</div>
 								</td>
@@ -6553,6 +6553,8 @@
 			var drinkingdate=[];
 			var helpscoredate=[];
 			var visitdate=[];
+			var familymember=0;
+			var tempfamilymember=0;
 			function familytopdata(){
 				$.ajax({
 					url : urlhost+"/fupin/searchfamily?familyId="+familyId,  
@@ -6565,6 +6567,9 @@
 				    	$.each(dta,function(key,item){
 				    		if (item==null) {
 				    			dta[key]="";
+				    		}
+				    		if (key=="familyPopulation") {
+				    			familymember=item;
 				    		}
 				    	});
 				    	var pageData=formatTemplate(dta, html); 
@@ -6587,8 +6592,6 @@
 								$("input:checkbox[name='"+key+"']").attr("checked","checked"); break;
 								case false:
 								$("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
-								// case null:
-								// $("input:radio[name='"+key+"']:eq(1)").attr("checked","checked"); break;
 							}
 						});
 				    }
@@ -6604,6 +6607,7 @@
 				    	if (!dta || dta.length <= 0) {  
 			            	return;  
 			        	} 	
+			        	tempfamilymember = dta.length;
 			        	var head = $('#family-head').html();
 			        	var html = $('#family-list').html(); 
 			        	var host = $('#family-list-delete').html(); 			        	
@@ -6616,7 +6620,7 @@
 					            }
 					            for (var x in o) {
 					            	switch (o[x]) {
-					            		case null: o[x] = "-";break;
+					            		case null: o[x] = "";break;
 					            		case true: o[x] = "是";break;
 					            		case false: o[x] = "否";break;
 					            	}
@@ -6674,7 +6678,7 @@
 					        	var html = $('#livecondition-info').html(); 
 					        	for (var x in dta) {
 					            	switch (dta[x]) {
-					            		case null: dta[x] = "-";break;
+					            		case null: dta[x] = "";break;
 					            		case true: dta[x] = "是";break;
 					            		case false: dta[x] = "否";break;
 					            	}
@@ -6772,6 +6776,11 @@
 					        		for (var x in o["assessmentObject"]) {
 						            	o[x]=o["assessmentObject"][x];
 						            }
+					            	for (var x in o) {
+						            	if (o[x]==null) {
+						            		o[x] = "";
+						            	}
+						            }
 					        		pageData.push(formatTemplate(o, html));  
 					        	})
 					        	counthelper = pageData.length;
@@ -6796,7 +6805,7 @@
 						    success: function(dta) {
 						    	if (!dta || dta.length <= 0) {  
 					            	return;  
-					        	} 
+					        	}  
 					        	var head = $('#richinfohead').html();	
 					        	var html = $('#richinfo').html(); 
 					        	var end='</tbody>';
@@ -6815,6 +6824,11 @@
 								for (var quarter in map) {
 									$.each(dta, function(i, o) {
 										if (quarter==o["quarter"]) {
+											for (var x in o) {
+								            	if (o[x]==null) {
+								            		o[x] = "";
+								            	}
+								            }
 							        		pageData.push(formatTemplate(o, html));  
 							        		richdate.push(o["quarter"]);
 							        	}
@@ -7006,6 +7020,11 @@
 					    for (var quarter in map) {					    	
 					    	$.each(dta, function(i, o) {
 			        			if (quarter==o["quarter"]) {
+			        				for (var x in o) {
+						            	if (o[x]==null) {
+						            		o[x] = "";
+						            	}
+						            }
      								socialdate.push(quarter);    							
 					        		pageData.push(formatTemplate(o, html)); 
 			        			}				        		
@@ -7055,6 +7074,11 @@
 										    	o["name"]=dta["name"];
 										    }
 										});
+			        				for (var x in o) {
+						            	if (o[x]==null) {
+						            		o[x] = "";
+						            	}
+						            }  
      								financialdate.push(quarter);    							
 					        		pageData.push(formatTemplate(o, html)); 
 			        			}				        		
@@ -7093,7 +7117,12 @@
 
 					    for (var quarter in map) {					    	
 					    	$.each(dta, function(i, o) {
-			        			if (quarter==o["quarter"]) {			        			
+			        			if (quarter==o["quarter"]) {	
+			        				for (var x in o) {
+						            	if (o[x]==null) {
+						            		o[x] = "";
+						            	}
+						            }		        			
      								housedate.push(quarter);    							
 					        		pageData.push(formatTemplate(o, html)); 
 			        			}				        		
@@ -7140,7 +7169,12 @@
 											case false:
 												o[key]="否";break;
 										}
-									});		        			
+									});	
+									for (var x in o) {
+						            	if (o[x]==null) {
+						            		o[x] = "";
+						            	}
+						            }	        			
      								drinkingdate.push(quarter);    							
 					        		pageData.push(formatTemplate(o, html)); 
 			        			}				        		
@@ -7272,15 +7306,13 @@
 			    return newObj;//返回排好序的新对象
 			} 
 
-			function classlist() 
-			{
+			function classlist() {
 				var e = document.addform.class; 
 				for (var i=0; i<className.length; i++) 
 				e.options.add(new Option(className[i], className[i])); 
 			} 
 
-			function subClasslist(n)
-			{ 
+			function subClasslist(n){ 
 				var e = document.addform.subClass; 
 				for (var i=e.options.length; i>0; i--) e.remove(i); 
 				setSelectVal("subClass","请选择");
@@ -7386,9 +7418,13 @@
 					content: $('#add-family').html(),
 					closeBtn: 0,
 					btn:['保存', '取消'],
-					btn1:function(index,layero){				   
-					    document.addform.action=urlhost+"/fupin/addfamilymember"; 
-					    $(layero).find('#formadd').submit();				    
+					btn1:function(index,layero){	
+						if (tempfamilymember>=familymember) {
+							alert("超过家庭成员数！")
+						}else{
+							document.addform.action=urlhost+"/fupin/addfamilymember"; 
+					    	$(layero).find('#formadd').submit();
+						}					    				    
 					}
 				});
 				$("#familyId").val(familyId);
@@ -7723,7 +7759,7 @@
 						    	for (var i = dtar.length - 1; i >= 0; i--) {
 									if (dtar[i]["prosperousIndustryId"]==prosperousIndustryId) {
 										for (var x in dtar[i]) {
-											dta[x] = dtar[i][x];
+											dta[x] = dtar[i][x];											
 										}
 										dta["assessmentObjectId"] = dtar[i]["assessmentObject"]["assessmentObjectId"];
 										dta["assessmentObjectname"] = dtar[i]["assessmentObject"]["name"];
@@ -7732,6 +7768,11 @@
 								}						    	
 						    }
 						});
+						for (var x in dta) {
+							if (dta[x]==null) {
+								dta[x]="";
+							}
+						}
 						var html = $('#modify-rich').html(); 
 						var pageData=formatTemplate(dta, html);
 						layer.open({
@@ -7918,7 +7959,7 @@
 									if (dtar[i]["quarter"]==quarter) {
 										for (var x in dtar[i]) {
 							            	switch (dtar[i][x]) {
-							            		case null: dtar[i][x] = "-";break;
+							            		case null: dtar[i][x] = "";break;
 							            	}
 							            }
 										pageDatainfoarr.push(formatTemplate(dtar[i], htmlinfo));
@@ -8441,6 +8482,11 @@
 							    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
 							    		}
 							    	}
+							    	for (var x in basedta) {
+						            	if (basedta[x]==null) {
+						            		basedta[x] = "";
+						            	}
+						            }
 							    	var html = $('#modify-social').html(); 
 							    	var pageData=formatTemplate(basedta, html);
 							    	layer.open({
@@ -8466,7 +8512,15 @@
 				});				
 				$("#formadd").ajaxForm(function(data) {					
 	       			location.reload();
-	    		});			
+	    		});	
+	    		$("#fillInTime").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd',
+					"autoclose":"true"
+				})
+	    		$(".date .iconfont").click(function(){
+					$(this).prev().trigger("focus");
+				});		
 				$('select').select();
 			})
 
@@ -8595,6 +8649,11 @@
 								    			basedta["assessmentObjectId"]=dtal[i]["assessmentObject"]["assessmentObjectId"];
 								    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
 							    			}
+							    		for (var x in basedta) {
+							            	if (basedta[x]==null) {
+							            		basedta[x] = "";
+							            	}
+							            }
 							    		var html = $('#modify-fanance').html(); 
 							    		var pageData=formatTemplate(basedta, html);	
 							    		layer.open({
@@ -8625,7 +8684,31 @@
 					});
 				$("#formadd").ajaxForm(function(data) {					
        				location.reload();
-	    		});			
+	    		});	
+	    		$("#fillInTime").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd',
+					"autoclose":"true",
+				})
+
+				$("#lendingTime").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd',
+					"autoclose":"true",
+				}).on('changeDate', function(ev){
+					$('#repaymentDate').datepicker('setStartDate', ev.date);
+				});
+
+				$("#repaymentDate").datepicker({
+					"language":"zh-CN",
+					"format": 'yyyy-mm-dd',
+					"autoclose":"true",
+				}).on('changeDate', function(ev){
+					$('#lendingTime').datepicker('setEndDate', ev.date);
+				});
+	    		$(".date .iconfont").click(function(){
+					$(this).prev().trigger("focus");
+				});		
 				$('select').select();
 			})
 
@@ -8758,6 +8841,11 @@
 								    			basedta["assessmentObjectId"]=dtal[i]["assessmentObject"]["assessmentObjectId"];
 								    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
 							    			}
+							    			for (var x in basedta) {
+								            	if (basedta[x]==null) {
+								            		basedta[x] = "";
+								            	}
+								            }
 								    		var html = $('#modify-reformhouse').html(); 
 								    		var pageData=formatTemplate(basedta, html);
 											layer.open({
@@ -8948,6 +9036,11 @@
 							    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
 							    		}
 							    	}
+							    	for (var x in basedta) {
+						            	if (basedta[x]==null) {
+						            		basedta[x] = "";
+						            	}
+						            }
 							    	var html = $('#modify-watersafe').html(); 
 							    	var pageData=formatTemplate(basedta, html);
 									layer.open({

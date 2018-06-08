@@ -491,7 +491,11 @@ function dataprocess(dta) {
                 if (o.temporaryAssistanceIncome==null) {
                     o.temporaryAssistanceIncome="";
                 }
-                    
+                for (var x in o) {
+                    if (o[x]==null) {
+                        o[x]="";
+                    }
+                } 
                 pageData.push(formatTemplate(o, html));               
             }
         })

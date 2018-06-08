@@ -626,7 +626,12 @@ $('body').on('click', '.labortrain-info', function() {
                 success: function(dtal) {
                     o.countlabortraining=dtal.length;
                 }
-            });            
+            }); 
+            for (var x in o) {
+                if (o[x]==null) {
+                    o[x]="";
+                }
+            }           
             pageData=formatTemplate(o, html);
         }
     })

@@ -396,7 +396,12 @@ function dataprocess(dta) {
                 }
                 if (o.plannedInvestment==null) {
                     o.plannedInvestment=""
-                }   
+                } 
+                for (var x in o) {
+                    if (o[x]==null) {
+                        o[x]="";
+                    }
+                }  
                 pageData.push(formatTemplate(o, html));               
             }
         })
@@ -456,7 +461,7 @@ $('body').on('click', '.reformhouse-info', function() {
                 o.hasHouse="无";
             }else{
                 o.hasHouse="";
-            }
+            }             
             pageData=formatTemplate(o, html);
         }
     });

@@ -2939,7 +2939,7 @@ s								</td>
 									走访照片
 								</td>
 								<td rowspan="2" class="kv-content">
-									<img src="..\..\..\fupin\{photoPath}" id="photoPath">
+									<img src="..\..\..\..\{photoPath}" id="photoPath">
 								</td>
 							</tr> 
 							<tr>					
@@ -3045,7 +3045,7 @@ s								</td>
 					            }
 					            for (var x in o) {
 					            	switch (o[x]) {
-					            		case null: o[x] = "-";break;
+					            		case null: o[x] = "";break;
 					            		case true: o[x] = "是";break;
 					            		case false: o[x] = "否";break;
 					            	}
@@ -3098,7 +3098,7 @@ s								</td>
 					        	var html = $('#livecondition-info').html(); 
 					        	for (var x in dta) {
 					            	switch (dta[x]) {
-					            		case null: dta[x] = "-";break;
+					            		case null: dta[x] = "";break;
 					            		case true: dta[x] = "是";break;
 					            		case false: dta[x] = "否";break;
 					            	}
@@ -3196,6 +3196,11 @@ s								</td>
 					        		for (var x in o["assessmentObject"]) {
 						            	o[x]=o["assessmentObject"][x];
 						            }
+						            for (var x in o) {
+						            	if (o[x]==null) {
+						            		o[x] = "";
+						            	}
+						            }
 					        		pageData.push(formatTemplate(o, html));  
 					        	})
 					        	counthelper = pageData.length;
@@ -3239,6 +3244,11 @@ s								</td>
 								for (var quarter in map) {
 									$.each(dta, function(i, o) {
 										if (quarter==o["quarter"]) {
+											for (var x in o) {
+								            	if (o[x]==null) {
+								            		o[x] = "";
+								            	}
+								            }
 							        		pageData.push(formatTemplate(o, html));  
 							        		richdate.push(o["quarter"]);
 							        	}
@@ -3430,6 +3440,11 @@ s								</td>
 					    for (var quarter in map) {					    	
 					    	$.each(dta, function(i, o) {
 			        			if (quarter==o["quarter"]) {
+			        				for (var x in o) {
+						            	if (o[x]==null) {
+						            		o[x] = "";
+						            	}
+						            }
      								socialdate.push(quarter);    							
 					        		pageData.push(formatTemplate(o, html)); 
 			        			}				        		
@@ -3479,6 +3494,11 @@ s								</td>
 										    	o["name"]=dta["name"];
 										    }
 										});
+		        				    for (var x in o) {
+						            	  if (o[x]==null) {
+						            			o[x] = "";
+						            	}
+						            } 
      								financialdate.push(quarter);    							
 					        		pageData.push(formatTemplate(o, html)); 
 			        			}				        		
@@ -3517,7 +3537,12 @@ s								</td>
 
 					    for (var quarter in map) {					    	
 					    	$.each(dta, function(i, o) {
-			        			if (quarter==o["quarter"]) {			        			
+			        			if (quarter==o["quarter"]) {
+				        			for (var x in o) {
+						            	if (o[x]==null) {
+						            		o[x] = "";
+						            	}
+						            }			        			
      								housedate.push(quarter);    							
 					        		pageData.push(formatTemplate(o, html)); 
 			        			}				        		
@@ -3564,7 +3589,12 @@ s								</td>
 											case false:
 												o[key]="否";break;
 										}
-									});		        			
+									});	
+									for (var x in o) {
+						            	if (o[x]==null) {
+						            		o[x] = "";
+						            	}
+						            }	        			
      								drinkingdate.push(quarter);    							
 					        		pageData.push(formatTemplate(o, html)); 
 			        			}				        		
@@ -3888,6 +3918,11 @@ s								</td>
 								}						    	
 						    }
 						});
+						for (var x in dta) {
+							if (dta[x]==null) {
+								dta[x]="";
+							}
+						}
 						var html = $('#modify-rich').html(); 
 						var pageData=formatTemplate(dta, html);
 						layer.open({
@@ -3940,7 +3975,7 @@ s								</td>
 									if (dtar[i]["quarter"]==quarter) {
 										for (var x in dtar[i]) {
 							            	switch (dtar[i][x]) {
-							            		case null: dtar[i][x] = "-";break;
+							            		case null: dtar[i][x] = "";break;
 							            	}
 							            }
 										pageDatainfoarr.push(formatTemplate(dtar[i], htmlinfo));
@@ -4145,6 +4180,11 @@ s								</td>
 							    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
 							    		}
 							    	}
+							    	for (var x in basedta) {
+						            	if (basedta[x]==null) {
+						            		basedta[x] = "";
+						            	}
+						            }
 							    	var html = $('#modify-social').html(); 
 							    	var pageData=formatTemplate(basedta, html);
 							    	layer.open({
@@ -4193,16 +4233,21 @@ s								</td>
 								    			basedta["assessmentObjectId"]=dtal[i]["assessmentObject"]["assessmentObjectId"];
 								    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
 							    			}
-							    		var html = $('#modify-fanance').html(); 
-							    		var pageData=formatTemplate(basedta, html);	
-							    		layer.open({
-											title: '查看金融扶贫',
-											area:['95%','75%'],
-											content: pageData,
-											closeBtn:0,
-											btn:['退出'],
-											
-										});	
+							    			for (var x in basedta) {
+								            	if (basedta[x]==null) {
+								            		basedta[x] = "";
+							            		}
+							            	}
+								    		var html = $('#modify-fanance').html(); 
+								    		var pageData=formatTemplate(basedta, html);	
+								    		layer.open({
+												title: '查看金融扶贫',
+												area:['95%','75%'],
+												content: pageData,
+												closeBtn:0,
+												btn:['退出'],
+												
+											});	
 							   //  		$.each(basedta,function(key,item){					
 										// 	if (key=="useMode") {
 										// 		$("#"+key).val(item||"");
@@ -4248,6 +4293,11 @@ s								</td>
 								    			basedta["assessmentObjectId"]=dtal[i]["assessmentObject"]["assessmentObjectId"];
 								    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
 							    			}
+							    			for (var x in basedta) {
+								            	if (basedta[x]==null) {
+								            		basedta[x] = "";
+								            	}
+								            }
 								    		var html = $('#modify-reformhouse').html(); 
 								    		var pageData=formatTemplate(basedta, html);
 											layer.open({
@@ -4348,6 +4398,11 @@ s								</td>
 							    			basedta["phoneNumber"]=dtal[i]["assessmentObject"]["phoneNumber"];
 							    		}
 							    	}
+							    	for (var x in basedta) {
+						            	if (basedta[x]==null) {
+						            		basedta[x] = "";
+						            	}
+						            }
 							    	var html = $('#modify-watersafe').html(); 
 							    	var pageData=formatTemplate(basedta, html);
 									layer.open({
@@ -4429,7 +4484,7 @@ s								</td>
 					    		document.getElementById("visitor").innerHTML=dta[i].visitor;
 					    		document.getElementById("visitTheme").innerHTML=dta[i].visitTheme;
 					    		document.getElementById("visitContent").innerHTML=dta[i].visitContent;
-					    		$("#photoPath").attr("src","..\\..\\..\\fupin\\"+dta[i]["photoPath"]);	
+					    		$("#photoPath").attr("src","..\\..\\..\\..\\"+dta[i]["photoPath"]);	
 				    		}
 				    	} 			
 					}

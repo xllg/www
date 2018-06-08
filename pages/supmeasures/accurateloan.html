@@ -356,7 +356,12 @@ function dataprocess(dta) {
                 }
                 if (o.loadAmount==null) {
                     o.loadAmount=""
-                }   
+                }  
+                for (var x in o) {
+                    if (o[x]==null) {
+                        o[x]="";
+                    }
+                }  
                 pageData.push(formatTemplate(o, html));               
             }
         })

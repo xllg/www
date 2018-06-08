@@ -674,6 +674,11 @@ function dataprocess(dta) {
     for (var quarter in map) {
         $.each(dta.content, function(i, o) {
             if (quarter == o["quarter"]) {
+                for (var x in o) {
+                    if (o[x]==null) {
+                        o[x]="";
+                    }
+                }
                 pageData.push(formatTemplate(o, html));
             }
         })
