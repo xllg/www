@@ -117,6 +117,11 @@ $('#user-info').click(function() {
     }else{
         userdata["managePart"]=userdata.districtName+"-"+userdata.townName
     }
+    for (var x in userdata) {
+        if (userdata[x]==null) {
+            userdata[x]=""
+        }        
+    }
     pagedata = formatTemplate(userdata, html)
     layer.open({
         title: '用户信息',
